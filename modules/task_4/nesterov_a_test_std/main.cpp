@@ -2,7 +2,7 @@
 #include <gtest/gtest.h>
 #include <vector>
 #include "../../../3rdparty/unapproved/unapproved.h"
-#include "./ops_std.h"
+#include "./ts_std.h"
 
 TEST(Parallel_Operations_Std_Threads, Test_Sum) {
     const int nthreads = std::thread::hardware_concurrency() * 10;
