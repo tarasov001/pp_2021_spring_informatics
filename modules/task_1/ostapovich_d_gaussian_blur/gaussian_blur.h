@@ -9,4 +9,4 @@ void applyFilter(std::vector<uint8_t> matrix, int width);
 void calculateCore(double core[3][3], double deviation = 1.0);
 std::vector<uint8_t> getRandomMatrix(int width, int height);
 
-#endif
+#endif  // MODULES_TASK_1_OSTAPOVICH_D_GAUSSIAN_BLUR_GAUSSIAN_BLUR_H_

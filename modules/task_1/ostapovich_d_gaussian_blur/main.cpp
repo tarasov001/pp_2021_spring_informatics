@@ -17,16 +17,15 @@ TEST(Sequential_Gaussian_blur, GetRandomMatrix_No_Throw_On_Valid_Args) {
 
 TEST(Sequential_Gaussian_blur, GetRandomMatrix_Returns_Vector_Of_Valid_Size) {
     std::vector<uint8_t> vec = getRandomMatrix(2, 7);
-    ASSERT_EQ(vec.size(), 14);
+    ASSERT_EQ(vec.size(), (size_t)14);
 }
 
 TEST(Sequential_Gaussian_blur, CalculateCore_Returns_Valid_Core) {
-    bool result = false;
     double core[3][3];
     calculateCore(core);
     for (int i = 0; i < 3; i++) {
         for (int j = 0; j < 3; j++) {
-            ASSERT_TRUE(core[i][j] != 0);
+            ASSERT_NE(core[i][j], 0);
         }
     }
 }
