@@ -3,13 +3,14 @@
 #include <vector>
 #include <cmath>
 #include <cstdint>
+#include <stdexcept>
 #include <random>
 #include "../../../modules/task_1/ostapovich_d_gaussian_blur/gaussian_blur.h"
 
 void applyFilter(std::vector<uint8_t> matrix, int width) {
     std::size_t length = matrix.size();
     if (length == 0 || width <= 0 || length % width != 0) {
-        throw new std::exception("Invalid args");
+        throw std::invalid_argument("Zero or negative argument passed");
     }
 
     double core[3][3];
@@ -49,7 +50,7 @@ void calculateCore(double core[3][3], double deviation) {
 
 std::vector<uint8_t> getRandomMatrix(int width, int height) {
     if (width <= 0 || height <= 0) {
-        throw new std::exception("Invalid argument");
+        throw std::invalid_argument("Zero or negative argument passed");
     }
 
     const int size = width * height;
