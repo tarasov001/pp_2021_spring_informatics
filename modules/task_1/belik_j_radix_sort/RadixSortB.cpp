@@ -20,7 +20,7 @@ std::vector<double> RadixSort(std::vector<double> vec) {
         for (size_t j = 0; j < res.size(); j++)
             res[j] = res1[j];
     }
-    unsigned char* bvec = reinterpret_cast<unsigned char*>(res.data()); 
+    unsigned char* bvec = reinterpret_cast<unsigned char*>(res.data());
     int countb[256] = { 0 };
     int offset[256] = { 0 };
     std::vector<double> res1(res.size());
@@ -35,8 +35,7 @@ std::vector<double> RadixSort(std::vector<double> vec) {
     for (size_t i = 0; i < vec.size(); i++) {
         if (bvec[8 * i + 7] >= 128) {
             res1[offset[bvec[8 * i + 7]]--] = res[i];
-        }
-        else {
+        } else {
             res1[offset[bvec[8 * i + 7]]++] = res[i];
         }
     }
