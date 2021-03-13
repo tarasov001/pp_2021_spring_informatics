@@ -15,15 +15,15 @@ static void sumUp(std::vector<double>* accum, const std::vector<double>& add) {
 }
 
 double SimpsonMethod::integrate(
-    int steps, const std::vector<double>& seg_begin,
-    const std::vector<double>& seg_end,
-    const std::function<double(const std::vector<double>&)>& func) {
+    const std::function<double(const std::vector<double>&)>& func,
+    const std::vector<double>& seg_begin, const std::vector<double>& seg_end,
+    size_t steps) {
     if (seg_begin.size() != seg_end.size())
         throw std::runtime_error("Unequal sizes");
     size_t dim = seg_begin.size();
     std::vector<double> step(dim);
     for (size_t i = 0; i < dim; i++)
-        step[i] = (seg_end[i] - seg_begin[i]) / steps;
+        step[i] = (seg_end[i] - seg_begin[i]) / static_cast<int>(steps);
     double odds = 0;
     double evens = 0;
     std::vector<double> args = seg_begin;
