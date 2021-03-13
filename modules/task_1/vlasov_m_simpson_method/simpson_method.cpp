@@ -18,12 +18,16 @@ double SimpsonMethod::integrate(
     const std::function<double(const std::vector<double>&)>& func,
     const std::vector<double>& seg_begin, const std::vector<double>& seg_end,
     size_t steps) {
+    if (seg_begin.empty() || seg_end.empty())
+        throw std::runtime_error("No segments");
     if (seg_begin.size() != seg_end.size())
-        throw std::runtime_error("Unequal sizes");
+        throw std::runtime_error("Invalid segments");
     size_t dim = seg_begin.size();
-    std::vector<double> step(dim);
-    for (size_t i = 0; i < dim; i++)
+    std::vector<double> step(dim), h(dim);
+    for (size_t i = 0; i < dim; i++) {
         step[i] = (seg_end[i] - seg_begin[i]) / static_cast<int>(steps);
+        h[i] = seg_end[i] - seg_begin[i];
+    }
     double odds = 0;
     double evens = 0;
     std::vector<double> args = seg_begin;
@@ -33,7 +37,8 @@ double SimpsonMethod::integrate(
         sumUp(&args, step);
         evens += func(args);
     }
-    double h_total = std::accumulate(step.begin(), step.end(), 1,
+    double h_total = std::accumulate(h.begin(), h.end(), 1.0,
                                      [](double a, double b) { return a * b; });
-    return h_total * (func(seg_begin) + 4 * odds + 2 * evens - func(seg_end));
+    return (h_total / steps) *
+           (func(seg_begin) + 4 * odds + 2 * evens - func(seg_end)) / 3.0;
 }
