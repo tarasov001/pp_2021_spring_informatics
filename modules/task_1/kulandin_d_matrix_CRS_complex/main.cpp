@@ -5,10 +5,10 @@
 
 TEST(Sequential_matrix_CSR_complex, int_constructor) {
     SparseMatrix a(1);
-    ASSERT_EQ(a.getSize(), 1);
-    ASSERT_EQ(a.getValues().size(), 0);
-    ASSERT_EQ(a.getCols().size(), 0);
-    ASSERT_EQ(a.getPointers().size(), 0);
+    ASSERT_EQ(static_cast<int>(a.getSize()), 1);
+    ASSERT_EQ(static_cast<int>(a.getValues().size()), 0);
+    ASSERT_EQ(static_cast<int>(a.getCols().size()), 0);
+    ASSERT_EQ(static_cast<int>(a.getPointers().size()), 0);
 }
 
 TEST(Sequential_matrix_CSR_complex, copy_constructor) {
