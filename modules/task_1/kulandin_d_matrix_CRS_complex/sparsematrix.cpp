@@ -10,11 +10,10 @@ SparseMatrix::SparseMatrix(int _size) {
     size = _size;
 }
 
-SparseMatrix::SparseMatrix(const SparseMatrix & a) : size(a.size) {
-    values = a.values;
-    cols = a.cols;
-    pointers = a.pointers;
-}
+SparseMatrix::SparseMatrix(const SparseMatrix & a) : size(a.size),
+                                                     values(a.values),
+                                                     cols(a.cols),
+                                                     pointers(a.pointers) {}
 
 SparseMatrix& SparseMatrix::operator=(const SparseMatrix & a) {
     if (this == &a) return *this;
