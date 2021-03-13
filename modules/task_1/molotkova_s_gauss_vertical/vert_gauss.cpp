@@ -12,14 +12,14 @@ int clamp(int n, int upper, int lower) {
 }
 
 std::vector<double> matrixCreation(int rows, int cols) {
-  if((rows <= 0) || (cols <= 0))
+  if ((rows <= 0) || (cols <= 0))
      throw std::invalid_argument("Matrix can't be created");
   std::mt19937 gen;
   gen.seed(static_cast<unsigned int>(time(0)));
   std::vector<double> result(rows * cols);
   for (int i = 0; i < rows * cols; i++)
     result[i] = gen() % 256;
-  return result; 
+  return result;
 }
 
 std::vector<double> transpose(const std::vector<double>& matrix, int rows, int cols) {

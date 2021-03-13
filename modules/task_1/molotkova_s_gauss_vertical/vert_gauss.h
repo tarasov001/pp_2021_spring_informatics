@@ -12,4 +12,4 @@ std::vector<double> transpose(const std::vector<double>& matrix, int rows, int c
 std::vector<double> gaussKernel(int radius, int sigma);
 std::vector<double> gaussFilter(const std::vector<double>& matrix, int rows, int cols, int radius, int sigma);
 
-#endif  // MODULES_TASK_1_MOLOTKOVA_S_GAUSS_VERT_GAUSS_H_
+#endif  // MODULES_TASK_1_MOLOTKOVA_S_GAUSS_VERTICAL_VERT_GAUSS_H_
