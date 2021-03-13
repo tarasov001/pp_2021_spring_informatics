@@ -14,6 +14,14 @@ TEST(Sequential_SimpsonMethodTest, can_integrate_two_dims_function) {
     ASSERT_TRUE(1);
 }
 
+TEST(Sequential_SimpsonMethodTest, can_integrate_three_dims_function) {
+    ASSERT_TRUE(1);
+}
+
+TEST(Sequential_SimpsonMethodTest, cannot_accept_empty_segment_vectors) {
+    ASSERT_TRUE(1);
+}
+
 TEST(Sequential_SimpsonMethodTest, cannot_accept_invalid_segment_vectors) {
     ASSERT_TRUE(1);
 }
