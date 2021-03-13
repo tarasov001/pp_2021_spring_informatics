@@ -4,9 +4,10 @@
 
 #define _USE_MATH_DEFINES
 
+#include <gtest/gtest.h>
+
 #include <cassert>
 #include <cmath>
-#include <gtest/gtest.h>
 #include <iostream>
 #include <vector>
 
