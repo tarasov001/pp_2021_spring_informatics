@@ -1,4 +1,5 @@
 // Copyright 2021 Kulandin Denis
+#include <limits>
 #include "../../../modules/task_1/kulandin_d_matrix_CRS_complex/sparsematrix.h"
 
 bool equalZero(const std::complex<double> & a) {
@@ -77,7 +78,7 @@ SparseMatrix SparseMatrix::transposition() const {
     }
     a.pointers.push_back(0);
     for (int i = 0; i < size; ++i) {
-        for (int j = 0; j < helpCols[i].size(); ++j) {
+        for (int j = 0; j < static_cast<int>(helpCols[i].size()); ++j) {
             a.values.push_back(helpValues[i][j]);
             a.cols.push_back(helpCols[i][j]);
         }
