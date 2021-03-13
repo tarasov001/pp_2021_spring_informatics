@@ -9,7 +9,7 @@ TEST(Integral, Test1_10) {
     double value = 9103.5;
     ASSERT_LE(std::abs(integral - value), 1e-3);
     std::cout << "value: " << value << std::endl;
-	std::cout << "integral: " << integral << std::endl;
+    std::cout << "integral: " << integral << std::endl;
 }
 
 TEST(Integral, Test1_100) {
@@ -17,7 +17,7 @@ TEST(Integral, Test1_100) {
     double value = 9103.5;
     ASSERT_LE(std::abs(integral - value), 1e-3);
     std::cout << "value: " << value << std::endl;
-	std::cout << "integral: " << integral << std::endl;
+    std::cout << "integral: " << integral << std::endl;
 }
 
 TEST(Integral, Test2_100) {
@@ -25,7 +25,7 @@ TEST(Integral, Test2_100) {
     double value = 28.826634375;
     ASSERT_LE(std::abs(integral - value), 1e-3);
     std::cout << "value: " << value << std::endl;
-	std::cout << "integral: " << integral << std::endl;
+    std::cout << "integral: " << integral << std::endl;
 }
 
 TEST(Integral, Test3_1000) {
@@ -33,7 +33,7 @@ TEST(Integral, Test3_1000) {
     double value = 67.49028;
     ASSERT_LE(std::abs(integral - value), 1e-3);
     std::cout << "value: " << value << std::endl;
-	std::cout << "integral: " << integral << std::endl;
+    std::cout << "integral: " << integral << std::endl;
 }
 
 TEST(Integral, Test4_1000) {
@@ -41,7 +41,7 @@ TEST(Integral, Test4_1000) {
     double value = -144.963;
     ASSERT_LE(std::abs(integral - value), 1e-3);
     std::cout << "value: " << value << std::endl;
-	std::cout << "integral: " << integral << std::endl;
+    std::cout << "integral: " << integral << std::endl;
 }
 
 TEST(Integral, Test5_100000) {
@@ -49,7 +49,7 @@ TEST(Integral, Test5_100000) {
     double value = 6.81615;
     ASSERT_LE(std::abs(integral - value), 1e-3);
     std::cout << "value: " << value << std::endl;
-	std::cout << "integral: " << integral << std::endl;
+    std::cout << "integral: " << integral << std::endl;
 }
 
 TEST(Integral, Test6_90) {
@@ -57,7 +57,7 @@ TEST(Integral, Test6_90) {
     double value = 8.2863;
     ASSERT_LE(std::abs(integral - value), 1e-3);
     std::cout << "value: " << value << std::endl;
-	std::cout << "integral: " << integral << std::endl;
+    std::cout << "integral: " << integral << std::endl;
 }
 
 
