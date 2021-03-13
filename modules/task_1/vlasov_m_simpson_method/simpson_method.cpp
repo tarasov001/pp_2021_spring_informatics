@@ -8,18 +8,16 @@
 #include <numeric>
 #include <stdexcept>
 
-using namespace SimpsonMethod;
-
 static void sumUp(std::vector<double>* accum, const std::vector<double>& add) {
     assert(accum->size() == add.size());
     for (size_t i = 0; i < accum->size(); i++)
         accum->at(i) += add[i];
 }
 
-double
-integrate(int steps, const std::vector<double>& seg_begin,
-          const std::vector<double>& seg_end,
-          const std::function<double(const std::vector<double>&)>& func) {
+double SimpsonMethod::integrate(
+    int steps, const std::vector<double>& seg_begin,
+    const std::vector<double>& seg_end,
+    const std::function<double(const std::vector<double>&)>& func) {
     if (seg_begin.size() != seg_end.size())
         throw std::runtime_error("Unequal sizes");
     size_t dim = seg_begin.size();

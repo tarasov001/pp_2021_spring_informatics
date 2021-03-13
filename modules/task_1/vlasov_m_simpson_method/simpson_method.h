@@ -4,6 +4,7 @@
 #define MODULES_TASK_1_VLASOV_M_SIMPSON_METHOD_SIMPSON_METHOD_H_
 
 #include <functional>
+#include <utility>
 #include <vector>
 
 namespace SimpsonMethod {

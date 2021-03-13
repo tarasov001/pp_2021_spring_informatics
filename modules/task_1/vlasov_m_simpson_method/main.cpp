@@ -2,10 +2,9 @@
 // Задача 1.11. Вычисление многомерных интегралов с использованием многошаговой
 // схемы (метод Симпсона).
 
-#include "./simpson_method.h"
 #include <gtest/gtest.h>
 #include <vector>
-
+#include "./simpson_method.h"
 
 TEST(Sequential_SimpsonMethodTest, can_integrate_single_dim_function) {
     ASSERT_TRUE(1);
