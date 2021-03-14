@@ -14,7 +14,7 @@ bool isEqualMatrix(Matrix A, Matrix B) {
     }
     size_t size = A.size();
     for (size_t i = 0; i < size; i++) {
-        if(!is_equal(A[i], B[i]))
+        if (!is_equal(A[i], B[i]))
             return false;
     }
     return true;
