@@ -5,22 +5,26 @@
 #include <algorithm>
 #include "./RadixSortB.h"
 
-TEST(Radix_Sort_Merge_Batcher, Test_Vector_Create) {
-    std::vector<double> vec;
-    const int n = 10;
-    vec = Vector(n, -10.0, 10.0);
-    ASSERT_EQ(n, vec.size());
-}
-TEST(Radix_Sort_Merge_Batcher, Test_Vector_Zero) {
-    std::vector<double> vec;
-    const int n = 0;
-    vec = Vector(n, -10.0, 10.0);
-    ASSERT_EQ(n, vec.size());
-}
 TEST(Radix_Sort_Merge_Batcher, Test_Vector_OneEl) {
     std::vector<double> vec;
     const int n = 1;
     vec = Vector(n, -10.0, 10.0);
+    std::vector<double> v1 = RadixSort(vec);
+    std::sort(vec.begin(), vec.end());
+    ASSERT_EQ(v1, vec);
+}
+TEST(Radix_Sort_Merge_Batcher, Test_Vector_Positive) {
+    std::vector<double> vec;
+    const int n = 10;
+    vec = Vector(n, 0.0, 10000.0);
+    std::vector<double> v1 = RadixSort(vec);
+    std::sort(vec.begin(), vec.end());
+    ASSERT_EQ(v1, vec);
+}
+TEST(Radix_Sort_Merge_Batcher, Test_Vector_Negative) {
+    std::vector<double> vec;
+    const int n = 10;
+    vec = Vector(n, -10000.0, 0.0);
     std::vector<double> v1 = RadixSort(vec);
     std::sort(vec.begin(), vec.end());
     ASSERT_EQ(v1, vec);
