@@ -10,7 +10,7 @@ namespace SimpsonMethod {
 
 double integrate(const std::function<double(const std::vector<double>&)>& func,
                  const std::vector<double>& seg_begin,
-                 const std::vector<double>& seg_end, size_t steps);
+                 const std::vector<double>& seg_end, size_t steps_count);
 
 }  // namespace SimpsonMethod
 

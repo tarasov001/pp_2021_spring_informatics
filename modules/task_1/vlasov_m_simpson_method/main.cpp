@@ -38,11 +38,13 @@ TEST(Sequential_SimpsonMethodTest, can_integrate_3d_function) {
     ASSERT_NEAR(2.0 / 3.0, volume, 1e-6);
 }
 
+// Calculated by WolframAlpha with the following query:
+// integrate (sin(x + 3) - ln(y) + z^2), x=[-2, 1], y=[1, 3], z=[0, 2]
 TEST(Sequential_SimpsonMethodTest, can_integrate_super_function) {
     std::vector<double> seg_begin = {-2, 1, 0};
     std::vector<double> seg_end = {1, 3, 2};
     double integral = SimpsonMethod::integrate(super, seg_begin, seg_end, 100);
-    ASSERT_NEAR(13.000762510901, integral, 1e-6);
+    ASSERT_NEAR(13.0007625, integral, 1e-6);
 }
 
 TEST(Sequential_SimpsonMethodTest, cannot_accept_empty_segment_vectors) {

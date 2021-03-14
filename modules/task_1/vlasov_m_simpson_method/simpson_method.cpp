@@ -7,6 +7,7 @@
 #include <cmath>
 #include <numeric>
 #include <stdexcept>
+#include <utility>
 
 static void sumUp(std::vector<double>* accum, const std::vector<double>& add) {
     assert(accum->size() == add.size());
@@ -17,28 +18,27 @@ static void sumUp(std::vector<double>* accum, const std::vector<double>& add) {
 double SimpsonMethod::integrate(
     const std::function<double(const std::vector<double>&)>& func,
     const std::vector<double>& seg_begin, const std::vector<double>& seg_end,
-    size_t steps) {
+    size_t steps_count) {
     if (seg_begin.empty() || seg_end.empty())
         throw std::runtime_error("No segments");
     if (seg_begin.size() != seg_end.size())
         throw std::runtime_error("Invalid segments");
     size_t dim = seg_begin.size();
-    std::vector<double> step(dim), h(dim);
+    std::vector<double> steps(dim), segments(dim);
     for (size_t i = 0; i < dim; i++) {
-        step[i] = (seg_end[i] - seg_begin[i]) / static_cast<int>(steps);
-        h[i] = seg_end[i] - seg_begin[i];
+        steps[i] = (seg_end[i] - seg_begin[i]) / static_cast<int>(steps_count);
+        segments[i] = seg_end[i] - seg_begin[i];
     }
-    double odds = 0;
-    double evens = 0;
+    auto sum = std::make_pair<double, double>(0.0, 0.0);
     std::vector<double> args = seg_begin;
-    for (size_t i = 0; i < steps; i += 2) {
-        sumUp(&args, step);
-        odds += func(args);
-        sumUp(&args, step);
-        evens += func(args);
+    for (size_t i = 0; i < steps_count; i += 2) {
+        sumUp(&args, steps);
+        sum.first += func(args);
+        sumUp(&args, steps);
+        sum.second += func(args);
     }
-    double h_total = std::accumulate(h.begin(), h.end(), 1.0,
-                                     [](double a, double b) { return a * b; });
-    return (h_total / steps) *
-           (func(seg_begin) + 4 * odds + 2 * evens - func(seg_end)) / 3.0;
+    double seg_prod = std::accumulate(segments.begin(), segments.end(), 1.0,
+                                      [](double p, double s) { return p * s; });
+    return (func(seg_begin) + 4 * sum.first + 2 * sum.second - func(seg_end)) *
+           seg_prod / (3.0 * static_cast<double>(steps_count));
 }
