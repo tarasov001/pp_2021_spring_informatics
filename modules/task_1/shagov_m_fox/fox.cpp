@@ -1,3 +1,4 @@
+// Copyright 2021 Shagov Maksim
 #include "../../../modules/task_1/shagov_m_fox/fox.h"
 
 bool is_equal(double x, double y) {
@@ -12,7 +13,7 @@ bool isEqualMatrix(Matrix A, Matrix B) {
         throw "Different size of matrix";
     }
     size_t size = A.size();
-    for (int i = 0; i < size; i++) {
+    for (size_t i = 0; i < size; i++) {
         if(!is_equal(A[i], B[i]))
             return false;
     }
@@ -33,8 +34,8 @@ Matrix createRandomMatrix(size_t size) {
     return result;
 };
 
-Matrix sequentialMatrixmultiplication(std::vector<double> A, std::vector<double> B, size_t BlockSize) {
-    if (BlockSize <= 0) {
+Matrix sequentialMatrixmultiplication(std::vector<double> A, std::vector<double> B, size_t Size) {
+    if (Size <= 0) {
         throw "Block size of matrix must be > 0";
     }
     if ((A.size() <= 0) || (B.size() <= 0)) {
@@ -43,10 +44,11 @@ Matrix sequentialMatrixmultiplication(std::vector<double> A, std::vector<double>
     if (A.size() != B.size()) {
         throw "Different size of matrix";
     }
+    size_t BlockSize = static_cast<size_t>(sqrt(Size));
     Matrix result(BlockSize * BlockSize, 0);
-    for(int i = 0; i < BlockSize; i++) {
-        for (int j = 0; j < BlockSize; j++) {
-            for (int k = 0; k < BlockSize; k++)
+    for(size_t i = 0; i < BlockSize; i++) {
+        for (size_t j = 0; j < BlockSize; j++) {
+            for (size_t k = 0; k < BlockSize; k++)
                 result[i * BlockSize  + j] += A[i * BlockSize + k] * B[k * BlockSize + j];
         }
     }
