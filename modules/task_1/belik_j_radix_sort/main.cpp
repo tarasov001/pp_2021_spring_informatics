@@ -5,13 +5,17 @@
 #include <algorithm>
 #include "./RadixSortB.h"
 
-TEST(Radix_Sort_Merge_Batcher, Test_Vector_MinMin) {
+TEST(Radix_Sort_Merge_Batcher, Test_Vector_Create) {
     std::vector<double> vec;
     const int n = 10;
     vec = Vector(n, -10.0, 10.0);
-    std::vector<double> v1 = RadixSort(vec);
-    std::sort(vec.begin(), vec.end());
-    ASSERT_EQ(v1, vec);
+    ASSERT_EQ(n, vec.size());
+}
+TEST(Radix_Sort_Merge_Batcher, Test_Vector_Zero) {
+    std::vector<double> vec;
+    const int n = 0;
+    vec = Vector(n, -10.0, 10.0);
+    ASSERT_EQ(n, vec.size());
 }
 TEST(Radix_Sort_Merge_Batcher, Test_Vector_OneEl) {
     std::vector<double> vec;
@@ -21,15 +25,7 @@ TEST(Radix_Sort_Merge_Batcher, Test_Vector_OneEl) {
     std::sort(vec.begin(), vec.end());
     ASSERT_EQ(v1, vec);
 }
-TEST(Radix_Sort_Merge_Batcher, Test_Vector_MinMax) {
-    std::vector<double> vec;
-    const int n = 10000;
-    vec = Vector(n, -10.0, 10.0);
-    std::vector<double> v1 = RadixSort(vec);
-    std::sort(vec.begin(), vec.end());
-    ASSERT_EQ(v1, vec);
-}
-TEST(Radix_Sort_Merge_Batcher, Test_Vector_MaxMin) {
+TEST(Radix_Sort_Merge_Batcher, Test_Vector_10El) {
     std::vector<double> vec;
     const int n = 10;
     vec = Vector(n, -10000.0, 10000.0);
@@ -37,9 +33,9 @@ TEST(Radix_Sort_Merge_Batcher, Test_Vector_MaxMin) {
     std::sort(vec.begin(), vec.end());
     ASSERT_EQ(v1, vec);
 }
-TEST(Radix_Sort_Merge_Batcher, Test_Vector_MaxMax) {
+TEST(Radix_Sort_Merge_Batcher, Test_Vector_100El) {
     std::vector<double> vec;
-    const int n = 10000;
+    const int n = 100;
     vec = Vector(n, -10000.0, 10000.0);
     std::vector<double> v1 = RadixSort(vec);
     std::sort(vec.begin(), vec.end());
