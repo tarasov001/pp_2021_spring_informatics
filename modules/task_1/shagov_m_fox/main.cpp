@@ -51,7 +51,7 @@ TEST(Shagov_Maksim_Sequential, Test_Top_Matrix_Mult) {
     Matrix C_my_result = {1, 6, 18, 40,
                           0, 4, 15, 36,
                           0, 0, 9,  28,
-                          0, 0, 0,  16,};
+                          0, 0, 0,  16};
     ASSERT_EQ(C_my_result, C);
 }
 
@@ -83,14 +83,14 @@ TEST(Shagov_Maksim_Sequential, Test_4_on_4_Reverse_Matrix_Mult) {
 }
 
 TEST(Shagov_Maksim_Sequential, Test_4_on_4_Matrix_Mult) {
-    Matrix A = {4,	  18,	 7,	  -2,
-                0,	  12,	 1.3,  -5.7,
-                0.01, 1.2,	-1.2, -4,
-                0.3,  0,	 7,	  -2.5};
+    Matrix A = {4,    18,    7,   -2,
+                0,    12,    1.3,  -5.7,
+                0.01, 1.2,  -1.2, -4,
+                0.3,  0,     7,   -2.5};
     Matrix B = {4.3,  -150,   14.14, 5.1,
-                1,	  -1,     0,	-2,
-                2,	   15.6,  6.15,	 14.88,
-                88.14, 2.5,	 -7.3,	 5};
+                1,   -1,      0,    -2,
+                2,    15.6,   6.15,  14.88,
+                88.14, 2.5,  -7.3,   5};
     Matrix C = sequentialMatrixmultiplication(A, B, 4 * 4);
     Matrix C_my_result = {-127.08,	-513.8,	114.21,   78.56,
                           -487.798,	-5.97,	49.605,	 -33.156,
@@ -134,4 +134,28 @@ TEST(Shagov_Maksim_Sequential, Test_8_on_8_Some_Matrix_Mult) {
                           36, 72, 108, 144, 180, 216, 252, 288,
                           36, 72, 108, 144, 180, 216, 252, 288};
     ASSERT_EQ(C_my_result, C);
+}
+
+TEST(Shagov_Maksim_Sequential, Test_8_on_8_Identity_on_Random_Matrix_Mult) {
+    Matrix A = {1, 0, 0, 0, 0, 0, 0, 0,
+                0, 1, 0, 0, 0, 0, 0, 0,
+                0, 0, 1, 0, 0, 0, 0, 0,
+                0, 0, 0, 1, 0, 0, 0, 0,
+                0, 0, 0, 0, 1, 0, 0, 0,
+                0, 0, 0, 0, 0, 1, 0, 0,
+                0, 0, 0, 0, 0, 0, 1, 0,
+                0, 0, 0, 0, 0, 0, 0, 1};
+    Matrix B = createRandomMatrix(8 * 8);
+    Matrix C = sequentialMatrixmultiplication(A, B, 8 * 8);
+    ASSERT_EQ(B, C);
+}
+
+TEST(Shagov_Maksim_Sequential, Test_100_on_100_Identity_on_Random_Matrix_Mult) {
+    size_t size = 100;
+    Matrix A(size * size, 0);
+    for (size_t i = 0; i < size; i++)
+        A[i * size + i] = 1.0;
+    Matrix B = createRandomMatrix(size * size);
+    Matrix C = sequentialMatrixmultiplication(A, B, size * size);
+    ASSERT_EQ(B, C);
 }

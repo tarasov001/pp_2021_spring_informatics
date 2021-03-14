@@ -18,7 +18,7 @@ bool isEqualMatrix(Matrix A, Matrix B) {
             return false;
     }
     return true;
-};
+}
 
 Matrix createRandomMatrix(size_t size) {
     if (size <= 0) {
@@ -32,7 +32,7 @@ Matrix createRandomMatrix(size_t size) {
         result[i] = static_cast<double>(urd(mersenne));
     }
     return result;
-};
+}
 
 Matrix sequentialMatrixmultiplication(std::vector<double> A, std::vector<double> B, size_t Size) {
     if (Size <= 0) {
@@ -46,11 +46,11 @@ Matrix sequentialMatrixmultiplication(std::vector<double> A, std::vector<double>
     }
     size_t BlockSize = static_cast<size_t>(sqrt(Size));
     Matrix result(BlockSize * BlockSize, 0);
-    for(size_t i = 0; i < BlockSize; i++) {
+    for (size_t i = 0; i < BlockSize; i++) {
         for (size_t j = 0; j < BlockSize; j++) {
             for (size_t k = 0; k < BlockSize; k++)
                 result[i * BlockSize  + j] += A[i * BlockSize + k] * B[k * BlockSize + j];
         }
     }
     return result;
-};
+}
