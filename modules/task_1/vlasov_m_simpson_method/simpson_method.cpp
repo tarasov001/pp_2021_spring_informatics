@@ -29,7 +29,7 @@ double SimpsonMethod::integrate(
         steps[i] = (seg_end[i] - seg_begin[i]) / static_cast<int>(steps_count);
         segments[i] = seg_end[i] - seg_begin[i];
     }
-    auto sum = std::make_pair<double, double>(0.0, 0.0);
+    std::pair<double, double> sum = std::make_pair(0.0, 0.0);
     std::vector<double> args = seg_begin;
     for (size_t i = 0; i < steps_count; i += 2) {
         sumUp(&args, steps);
