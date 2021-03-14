@@ -7,6 +7,11 @@ Point::Point(int x_, int y_) {
 	y = y_;
 }
 
+Point::Point(const Point& temp) {
+	x = temp.x;
+	y = temp.y;
+}
+
 bool Point::operator<(const Point& temp) const {
 	if (x < temp.x)
 		return true;
