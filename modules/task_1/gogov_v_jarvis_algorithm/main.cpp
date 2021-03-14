@@ -30,7 +30,7 @@ TEST(Sequential_Jarvis_Algorithm, jarvisAlgorithm_Square_With_Points) {
     std::vector<Point> points = {Point(0, 0), Point(25, 25), Point(34, 10), Point(0, 40), Point(10, 2), Point(40, 40),
                                 Point(15, 15), Point(40, 0), Point(5, 5)};
     std::vector<Point> convex_hull = jarvisAlgorithm(points);
-    std::vector<Point> result_convex_hull = {Point(0, 0), Point(40,0), Point(40,40), Point(0, 40)};
+    std::vector<Point> result_convex_hull = {Point(0, 0), Point(40, 0), Point(40, 40), Point(0, 40)};
     ASSERT_EQ(result_convex_hull, convex_hull);
 }
 
