@@ -27,10 +27,10 @@ double integralFunction(double (*f)(double, double, double),
     double ans = 0;
     double X, Y, Z;
     for (double i = 0; i < n; ++i) {
+        X = static_cast<double>(ax) + i * hx + 0.5 * hx;
         for (double j = 0; j < m; ++j) {
+            Y = static_cast<double>(ay) + j * hy + 0.5 * hy;
             for (double q = 0; q < k;  ++q) {
-                X = static_cast<double>(ax) + i * hx + 0.5 * hx;
-                Y = static_cast<double>(ay) + j * hy + 0.5 * hy;
                 Z = static_cast<double>(az) + q * hz + 0.5 * hz;
                 ans += f(X, Y, Z);
             }
