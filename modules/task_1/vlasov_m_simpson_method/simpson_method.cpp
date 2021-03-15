@@ -33,7 +33,7 @@ double SimpsonMethod::integrate(
     }
     std::pair<double, double> sum = std::make_pair(0.0, 0.0);
     std::vector<double> args = seg_begin;
-    for (size_t i = 0; i < steps_count; i += 2) {
+    for (int i = 0; i < steps_count; i += 2) {
         sumUp(&args, steps);
         sum.first += func(args);
         sumUp(&args, steps);
