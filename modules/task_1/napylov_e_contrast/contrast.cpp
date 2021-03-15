@@ -26,8 +26,8 @@ VecImage add_contrast(VecImage image, unsigned char down, unsigned char up) {
         return image;
     } else {
         for (size_t i = 0; i < image.size(); i++) {
-        image[i] = round((static_cast<double>((image[i] - min))
-            / static_cast<double>((max - min))) * (up - down));
+            image[i] = round((static_cast<double>((image[i] - min))
+                / static_cast<double>((max - min))) * (up - down));
         }
         return image;
     }
