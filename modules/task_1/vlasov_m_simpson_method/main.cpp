@@ -1,7 +1,5 @@
 // Copyright 2021 Vlasov Maksim
 
-#define _USE_MATH_DEFINES
-
 #include <gtest/gtest.h>
 
 #include <cassert>
@@ -47,10 +45,18 @@ TEST(Sequential_SimpsonMethodTest, can_integrate_super_function) {
 
 TEST(Sequential_SimpsonMethodTest, cannot_accept_empty_segment_vectors) {
     ASSERT_ANY_THROW(SimpsonMethod::integrate(generic, {}, {}, 100));
+    ASSERT_ANY_THROW(SimpsonMethod::integrate(generic, {0}, {}, 100));
+    ASSERT_ANY_THROW(SimpsonMethod::integrate(generic, {}, {0}, 100));
 }
 
 TEST(Sequential_SimpsonMethodTest, cannot_accept_invalid_segment_vectors) {
     ASSERT_ANY_THROW(SimpsonMethod::integrate(generic, {1, 2}, {1, 2, 3}, 100));
+    ASSERT_ANY_THROW(SimpsonMethod::integrate(generic, {1, 2, 3}, {1, 2}, 100));
+}
+
+TEST(Sequential_SimpsonMethodTest, cannot_accept_invalid_steps_count) {
+    ASSERT_ANY_THROW(SimpsonMethod::integrate(generic, {0}, {0}, 0));
+    ASSERT_ANY_THROW(SimpsonMethod::integrate(generic, {0}, {0}, -1));
 }
 
 int main(int argc, char** argv) {

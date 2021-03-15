@@ -18,7 +18,9 @@ static void sumUp(std::vector<double>* accum, const std::vector<double>& add) {
 double SimpsonMethod::integrate(
     const std::function<double(const std::vector<double>&)>& func,
     const std::vector<double>& seg_begin, const std::vector<double>& seg_end,
-    size_t steps_count) {
+    int steps_count) {
+    if (steps_count <= 0)
+        throw std::runtime_error("Steps count must be positive");
     if (seg_begin.empty() || seg_end.empty())
         throw std::runtime_error("No segments");
     if (seg_begin.size() != seg_end.size())
@@ -26,7 +28,7 @@ double SimpsonMethod::integrate(
     size_t dim = seg_begin.size();
     std::vector<double> steps(dim), segments(dim);
     for (size_t i = 0; i < dim; i++) {
-        steps[i] = (seg_end[i] - seg_begin[i]) / static_cast<int>(steps_count);
+        steps[i] = (seg_end[i] - seg_begin[i]) / steps_count;
         segments[i] = seg_end[i] - seg_begin[i];
     }
     std::pair<double, double> sum = std::make_pair(0.0, 0.0);
@@ -40,5 +42,5 @@ double SimpsonMethod::integrate(
     double seg_prod = std::accumulate(segments.begin(), segments.end(), 1.0,
                                       [](double p, double s) { return p * s; });
     return (func(seg_begin) + 4 * sum.first + 2 * sum.second - func(seg_end)) *
-           seg_prod / (3.0 * static_cast<double>(steps_count));
+           seg_prod / (3.0 * steps_count);
 }
