@@ -60,7 +60,7 @@ Matrix sequentialBlockMatrixMultiplication(std::vector<double> A, std::vector<do
     if (static_cast<size_t>(sqrt(Size)) * static_cast<size_t>(sqrt(Size)) != Size)
         throw "Size not square";
     size_t BlockSize = static_cast<size_t>(sqrt(Size));
-    size_t BlockCount = static_cast<size_t>(BlockSize/static_cast<size_t>(sqrt(pNum))) == 0 
+    size_t BlockCount = static_cast<size_t>(BlockSize/static_cast<size_t>(sqrt(pNum))) == 0
                        ? 1 : static_cast<size_t>(BlockSize/static_cast<size_t>(sqrt(pNum)));
     Matrix result(BlockSize * BlockSize, 0);
     for (size_t i = 0; i < BlockSize; i += BlockCount)

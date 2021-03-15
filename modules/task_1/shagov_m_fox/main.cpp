@@ -159,7 +159,7 @@ TEST(Shagov_Maksim_Sequential, Test_8_on_8_Identity_on_Random_Matrix_Mult) {
 
 TEST(Shagov_Maksim_Sequential, Test_1_on_1_Random_Matrix_Mult) {
     size_t size = 1;
-    Matrix A = createRandomMatrix(size * size);    
+    Matrix A = createRandomMatrix(size * size);
     Matrix B = createRandomMatrix(size * size);
     Matrix C = sequentialMatrixMultiplication(A, B, size * size);
     Matrix C_block = sequentialBlockMatrixMultiplication(A, B, size * size);
@@ -168,7 +168,7 @@ TEST(Shagov_Maksim_Sequential, Test_1_on_1_Random_Matrix_Mult) {
 
 TEST(Shagov_Maksim_Sequential, Test_4_on_4_Random_Matrix_Mult) {
     size_t size = 4;
-    Matrix A = createRandomMatrix(size * size);    
+    Matrix A = createRandomMatrix(size * size);
     Matrix B = createRandomMatrix(size * size);
     Matrix C = sequentialMatrixMultiplication(A, B, size * size);
     Matrix C_block = sequentialBlockMatrixMultiplication(A, B, size * size);
@@ -177,7 +177,7 @@ TEST(Shagov_Maksim_Sequential, Test_4_on_4_Random_Matrix_Mult) {
 
 TEST(Shagov_Maksim_Sequential, Test_8_on_8_Random_Matrix_Mult) {
     size_t size = 8;
-    Matrix A = createRandomMatrix(size * size);    
+    Matrix A = createRandomMatrix(size * size);
     Matrix B = createRandomMatrix(size * size);
     Matrix C = sequentialMatrixMultiplication(A, B, size * size);
     Matrix C_block = sequentialBlockMatrixMultiplication(A, B, size * size);
@@ -186,7 +186,7 @@ TEST(Shagov_Maksim_Sequential, Test_8_on_8_Random_Matrix_Mult) {
 
 TEST(Shagov_Maksim_Sequential, Test_100_on_100_Random_Matrix_Mult) {
     size_t size = 100;
-    Matrix A = createRandomMatrix(size * size);    
+    Matrix A = createRandomMatrix(size * size);
     Matrix B = createRandomMatrix(size * size);
     Matrix C = sequentialMatrixMultiplication(A, B, size * size);
     Matrix C_block = sequentialBlockMatrixMultiplication(A, B, size * size);
