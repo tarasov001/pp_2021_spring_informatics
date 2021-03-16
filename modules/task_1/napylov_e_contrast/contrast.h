@@ -10,8 +10,13 @@
 #include <algorithm>
 
 typedef std::vector<unsigned char> VecImage;
+typedef std::vector<std::vector<unsigned char>> Image;
 
 void print_vec(const VecImage& vec);
+
+VecImage image_to_vec(const Image& image, int w, int h);
+
+Image vec_to_image(const VecImage& vec, int w, int h);
 
 VecImage RandomVector(int size);
 

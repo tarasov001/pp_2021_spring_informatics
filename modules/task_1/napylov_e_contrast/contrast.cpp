@@ -8,6 +8,28 @@ void print_vec(const VecImage& vec) {
     std::cout << std::endl;
 }
 
+VecImage image_to_vec(const Image& image, int w, int h) {
+    VecImage res(w * h);
+    int k = 0;
+    for (size_t i = 0; i < w; i++) {
+        for (size_t j = 0; j < h; j++) {
+            res[k++] = image[i][j];
+        }
+    }
+    return res;
+}
+
+Image vec_to_image(const VecImage& vec, int w, int h) {
+    Image res(w);
+    for (size_t i = 0; i < w; i++) {
+        res[i].resize(h);
+        for (size_t j = 0; j < h; j++) {
+            res[i][j] = vec[h * i + j];
+        }
+    }
+    return res;
+}
+
 VecImage RandomVector(int size) {
     static std::mt19937 gen(time(0));
     VecImage result(size);
@@ -27,7 +49,7 @@ VecImage add_contrast(VecImage image, unsigned char down, unsigned char up) {
     } else {
         for (size_t i = 0; i < image.size(); i++) {
             image[i] = round((static_cast<double>((image[i] - min))
-                / static_cast<double>((max - min))) * (up - down));
+                / static_cast<double>((max - min)))* (up - down));
         }
         return image;
     }
