@@ -11,9 +11,7 @@ std::vector<int> getRandomVector(int size) {
     std::mt19937 gen;
     gen.seed(time(0));
     std::vector<int> a(size);
-    // std::uniform_int_distribution<int> dis(0, 255);
     for (int i = 0; i < size; i++) {
-        //a[i] = dis(gen());
         a[i] = gen();
     }
     return a;
