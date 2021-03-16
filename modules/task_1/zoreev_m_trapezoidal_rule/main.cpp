@@ -27,13 +27,13 @@ TEST(Sequential_TrapezoidalRule, Can_Integrate_2Dimensional) {
 }
 
 TEST(Sequential_TrapezoidalRule, Can_Integrate_3Dimensional) {
-    std::vector<double> from = {-2, 0, 1};
-    std::vector<double> to = {-1, 1, 2};
+    std::vector<double> from = {0, 0, 0};
+    std::vector<double> to = {1, 1, 1};
     double result = integrate([](std::vector<double> args) {
-        return args[0] * args[1] * args[2];
+        return args[0] + args[1] + args[2];
         },
-        from, to, 200);
-    ASSERT_NEAR(-1.125, result, 1e-2);
+        from, to, 75);
+    ASSERT_NEAR(1.5, result, 5e-2);
 }
 
 
