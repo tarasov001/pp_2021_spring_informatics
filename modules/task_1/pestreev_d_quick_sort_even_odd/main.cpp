@@ -5,7 +5,7 @@
 
 TEST(Quick_Sort_Operations, Test_manual_vector) {
     std::vector<int> vec = {-8098, 1009, -160, -1, 179796, 2,
-        -1603, 166, -7396, -199, -18348, -15, 659, 7, 82519};
+        -1603, 166, -7396, -19, -18348, -15, 659, 7, 82519};
     std::vector<int> vec_V = quickSortV(vec);
     std::vector<int> vec_std = vec;
     std::sort(vec_std.begin(), vec_std.end());
