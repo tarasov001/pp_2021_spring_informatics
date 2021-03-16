@@ -9,7 +9,7 @@
 
 std::vector<int> getRandomVector(int size) {
     std::mt19937 gen;
-    gen.seed(time(0));
+    gen.seed(static_cast<unsigned int>(time(0)));
     std::vector<int> a(size);
     for (int i = 0; i < size; i++) {
         a[i] = gen();
@@ -46,5 +46,6 @@ std::vector<int> quickSortV(const std::vector<int>& vec) {
     for (int i = 0; i < size; i++) {
         tmp.push_back(arr[i]);
     }
+    delete[] arr;
     return tmp;
 }
