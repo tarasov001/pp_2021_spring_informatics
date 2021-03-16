@@ -41,7 +41,7 @@ TEST(Sequential_TrapezoidalRule, Can_Integrate_3Dimensional) {
 TEST(Sequential_TrapezoidalRule, Cant_Integrate_Zero_Steps) {
     std::vector<double> from = {0};
     std::vector<double> to = {1};
-    ASSERT_ANY_THROW(double result = integrate([](std::vector<double> args) {
+    ASSERT_ANY_THROW(integrate([](std::vector<double> args) {
         return 1;
         },
         from, to, 0));
@@ -50,7 +50,7 @@ TEST(Sequential_TrapezoidalRule, Cant_Integrate_Zero_Steps) {
 TEST(Sequential_TrapezoidalRule, Cant_Integrate_With_Wrong_Range_Vectors) {
     std::vector<double> from = {0};
     std::vector<double> to = {1, 2};
-    ASSERT_ANY_THROW(double result = integrate([](std::vector<double> args) {
+    ASSERT_ANY_THROW(integrate([](std::vector<double> args) {
         return 1;
         },
         from, to, 200));
@@ -59,7 +59,7 @@ TEST(Sequential_TrapezoidalRule, Cant_Integrate_With_Wrong_Range_Vectors) {
 TEST(Sequential_TrapezoidalRule, Cant_Integrate_With_Empty_Range_Vectors) {
     std::vector<double> from = {};
     std::vector<double> to = {};
-    ASSERT_ANY_THROW(double result = integrate([](std::vector<double> args) {
+    ASSERT_ANY_THROW(integrate([](std::vector<double> args) {
         return 1;
         },
         from, to, 200));
