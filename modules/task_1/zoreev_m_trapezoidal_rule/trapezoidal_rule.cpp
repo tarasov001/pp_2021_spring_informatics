@@ -20,7 +20,7 @@ double integrate(const std::function<double(std::vector<double>)>& f,
     std::vector<double> deltas(from.size());
     std::vector<size_t>dimension_divider(from.size());
 
-    for(size_t i = 0; i < from.size(); i++) {
+    for (size_t i = 0; i < from.size(); i++) {
         deltas[i] = (to[i] - from[i]) / static_cast<double>(steps);
         block_size *= deltas[i];
         dimension_divider[i] = blocks_count;
@@ -28,14 +28,15 @@ double integrate(const std::function<double(std::vector<double>)>& f,
     }
 
     double result = 0.0;
-    for(size_t i = 1; i < blocks_count - 1; i++) {
-        std::vector<double> block_coordinates(from.size());
-        for(size_t j = 0; j < from.size(); j++) {
+    std::vector<double> block_coordinates(from.size());
+    for (size_t i = 1; i < blocks_count - 1; i++) {
+        for (size_t j = 0; j < from.size(); j++) {
             block_coordinates[j] = from[j] + (i / dimension_divider[j] % steps)
                 * deltas[j];
         }
-        result += f(block_coordinates) * block_size; // Inside because overflow
+        result += f(block_coordinates);
     }
-    result += (f(from) + f(to)) / 2 * block_size;
+    result += (f(from) + f(to)) / 2;
+    result *= block_size;
     return result;
 }

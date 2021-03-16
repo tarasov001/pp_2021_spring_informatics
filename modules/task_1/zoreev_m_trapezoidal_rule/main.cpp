@@ -3,9 +3,18 @@
 #include <gtest/gtest.h>
 
 #include <cmath>
-#include <iostream>
 
 #include "../../../modules/task_1/zoreev_m_trapezoidal_rule/trapezoidal_rule.h"
+
+TEST(Sequential_TrapezoidalRule, Can_Integrate_1Dimensional) {
+    std::vector<double> from = {1};
+    std::vector<double> to = {2};
+    double result = integrate([](std::vector<double> args) {
+        return std::log(args[0]);
+        },
+        from, to, 200);
+    ASSERT_NEAR(0.386294361119891, result, 1e-2);
+}
 
 TEST(Sequential_TrapezoidalRule, Can_Integrate_2Dimensional) {
     std::vector<double> from = {0, 0};
@@ -18,22 +27,42 @@ TEST(Sequential_TrapezoidalRule, Can_Integrate_2Dimensional) {
 }
 
 TEST(Sequential_TrapezoidalRule, Can_Integrate_3Dimensional) {
-    std::vector<double> from = {0, 0};
-    std::vector<double> to = {1, 1};
+    std::vector<double> from = {-2, 0, 1};
+    std::vector<double> to = {-1, 1, 2};
     double result = integrate([](std::vector<double> args) {
-        return args[0] * args[0] + args[1] + args[1];
+        return args[0] * args[1] * args[2];
         },
         from, to, 200);
-    ASSERT_NEAR(1.33333333333333, result, 1e-2);
+    ASSERT_NEAR(-1.125, result, 1e-2);
 }
 
-TEST(Sequential_TrapezoidalRule, Blank_1) {
+
+
+TEST(Sequential_TrapezoidalRule, Cant_Integrate_Zero_Steps) {
+    std::vector<double> from = {0};
+    std::vector<double> to = {1};
+    ASSERT_ANY_THROW(double result = integrate([](std::vector<double> args) {
+        return 1;
+        },
+        from, to, 0));
 }
 
-TEST(Sequential_TrapezoidalRule, Blank_2) {
+TEST(Sequential_TrapezoidalRule, Cant_Integrate_With_Wrong_Range_Vectors) {
+    std::vector<double> from = {0};
+    std::vector<double> to = {1, 2};
+    ASSERT_ANY_THROW(double result = integrate([](std::vector<double> args) {
+        return 1;
+        },
+        from, to, 200));
 }
 
-TEST(Sequential_TrapezoidalRule, Blank_3) {
+TEST(Sequential_TrapezoidalRule, Cant_Integrate_With_Empty_Range_Vectors) {
+    std::vector<double> from = {};
+    std::vector<double> to = {};
+    ASSERT_ANY_THROW(double result = integrate([](std::vector<double> args) {
+        return 1;
+        },
+        from, to, 200));
 }
 
 int main(int argc, char** argv) {
