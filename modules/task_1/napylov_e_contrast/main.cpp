@@ -7,8 +7,8 @@ TEST(Linear_stretch_contrast, Manual_Calc_1) {
     Image image = { {0, 1}, {1, 1}, {0, 1} };
     Image correct = { {0, 255}, {255, 255}, {0, 255} };
     Image res = vec_to_image(add_contrast(image_to_vec(image, w, h)), w, h);
-    for (size_t i = 0; i < w; i++) {
-        for (size_t j = 0; j < h; j++) {
+    for (int i = 0; i < w; i++) {
+        for (int j = 0; j < h; j++) {
             ASSERT_EQ(correct[i][j], res[i][j]);
         }
     }
@@ -19,8 +19,8 @@ TEST(Linear_stretch_contrast, Manual_Calc_2) {
     Image image = { {5, 123}, {28, 240} };
     Image correct = { {0, 128}, {25, 255} };
     Image res = vec_to_image(add_contrast(image_to_vec(image, w, h)), w, h);
-    for (size_t i = 0; i < w; i++) {
-        for (size_t j = 0; j < h; j++) {
+    for (int i = 0; i < w; i++) {
+        for (int j = 0; j < h; j++) {
             ASSERT_EQ(correct[i][j], res[i][j]);
         }
     }
@@ -31,8 +31,8 @@ TEST(Linear_stretch_contrast, Manual_Calc_3) {
     Image image = { {57, 120, 99}, {32, 17, 64}, {1, 55, 200} };
     Image correct = { {72, 152, 126}, {40, 21, 81}, {0, 69, 255} };
     Image res = vec_to_image(add_contrast(image_to_vec(image, w, h)), w, h);
-    for (size_t i = 0; i < w; i++) {
-        for (size_t j = 0; j < h; j++) {
+    for (int i = 0; i < w; i++) {
+        for (int j = 0; j < h; j++) {
             ASSERT_EQ(correct[i][j], res[i][j]);
         }
     }
@@ -43,8 +43,8 @@ TEST(Linear_stretch_contrast, Manual_Calc_4) {
     Image image = { {1, 2}, {3, 4}, {5, 1} };
     Image correct = { {0, 64}, {128, 191}, {255, 0} };
     Image res = vec_to_image(add_contrast(image_to_vec(image, w, h)), w, h);
-    for (size_t i = 0; i < w; i++) {
-        for (size_t j = 0; j < h; j++) {
+    for (int i = 0; i < w; i++) {
+        for (int j = 0; j < h; j++) {
             ASSERT_EQ(correct[i][j], res[i][j]);
         }
     }

@@ -11,8 +11,8 @@ void print_vec(const VecImage& vec) {
 VecImage image_to_vec(const Image& image, int w, int h) {
     VecImage res(w * h);
     int k = 0;
-    for (size_t i = 0; i < w; i++) {
-        for (size_t j = 0; j < h; j++) {
+    for (int i = 0; i < w; i++) {
+        for (int j = 0; j < h; j++) {
             res[k++] = image[i][j];
         }
     }
@@ -21,9 +21,9 @@ VecImage image_to_vec(const Image& image, int w, int h) {
 
 Image vec_to_image(const VecImage& vec, int w, int h) {
     Image res(w);
-    for (size_t i = 0; i < w; i++) {
+    for (int i = 0; i < w; i++) {
         res[i].resize(h);
-        for (size_t j = 0; j < h; j++) {
+        for (int j = 0; j < h; j++) {
             res[i][j] = vec[h * i + j];
         }
     }
