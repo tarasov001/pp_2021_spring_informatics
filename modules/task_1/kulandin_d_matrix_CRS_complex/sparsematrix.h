@@ -29,8 +29,9 @@ class SparseMatrix {
     std::vector<int> cols, pointers;
 };
 
-SparseMatrix generateRandomSparseMatrix(const int size, const int nonZeroElementsInEveryRow);
-std::vector<std::complex<double>> 
+SparseMatrix generateRandomSparseMatrix(const int size,
+                                        const int nonZeroElementsInEveryRow);
+std::vector<std::complex<double>>
    stupidDenseMultiplication(const std::vector<std::complex<double>> & a,
                              const std::vector<std::complex<double>> & b,
                              const int size);

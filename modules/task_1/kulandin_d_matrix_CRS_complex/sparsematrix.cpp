@@ -136,8 +136,9 @@ SparseMatrix SparseMatrix::operator*(const SparseMatrix & a) {
     return ans;
 }
 
-SparseMatrix generateRandomSparseMatrix(const int size, const int nonZeroElementsInEveryRow) {
-    if (nonZeroElementsInEveryRow > size){
+SparseMatrix generateRandomSparseMatrix(const int size,
+                                        const int nonZeroElementsInEveryRow) {
+    if (nonZeroElementsInEveryRow > size) {
         throw(std::string)"Wrong input arguments";
     }
     std::mt19937 gen;
@@ -149,7 +150,7 @@ SparseMatrix generateRandomSparseMatrix(const int size, const int nonZeroElement
     pointers.push_back(0);
     for (int row = 0; row < size; ++row) {
         std::set<int> generatedCols;
-        while(generatedCols.size() < nonZeroElementsInEveryRow) {
+        while (generatedCols.size() < nonZeroElementsInEveryRow) {
             generatedCols.insert(gen() % size);
         }
         for (auto &i : generatedCols) {

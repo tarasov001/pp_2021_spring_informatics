@@ -121,7 +121,8 @@ TEST(matrix_CSR_complex, exception_generateRandomSparseMatrix) {
     ASSERT_THROW(generateRandomSparseMatrix(5, 6), std::string);
 }
 
-typedef testing::TestWithParam<std::tuple<int, int>> parametrized_matrix_multiplication;
+typedef testing::TestWithParam<std::tuple<int, int>>
+    parametrized_matrix_multiplication;
 
 TEST_P(parametrized_matrix_multiplication, mult_small_dimensions) {
     int size       = std::get<0>(GetParam());
@@ -132,12 +133,16 @@ TEST_P(parametrized_matrix_multiplication, mult_small_dimensions) {
     }
     SparseMatrix a = generateRandomSparseMatrix(size, nonZero);
     SparseMatrix b = generateRandomSparseMatrix(size, nonZero);
-    
     SparseMatrix res = a * b;
-    ASSERT_EQ(res.getDenseMatrix(), stupidDenseMultiplication(a.getDenseMatrix(), b.getDenseMatrix(), size));
+    ASSERT_EQ(res.getDenseMatrix(),
+              stupidDenseMultiplication(a.getDenseMatrix(),
+                                        b.getDenseMatrix(),
+                                        size));
 }
 
-INSTANTIATE_TEST_SUITE_P(matrix_CSR_complex, parametrized_matrix_multiplication, testing::Combine(
+INSTANTIATE_TEST_SUITE_P(matrix_CSR_complex,
+                         parametrized_matrix_multiplication,
+                         testing::Combine(
     testing::Values(10, 30, 50, 70, 90),
     testing::Values(1, 5, 10, 15, 20, 25)
 ));
