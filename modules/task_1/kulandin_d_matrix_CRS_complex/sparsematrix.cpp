@@ -150,7 +150,7 @@ SparseMatrix generateRandomSparseMatrix(const int size,
     pointers.push_back(0);
     for (int row = 0; row < size; ++row) {
         std::set<int> generatedCols;
-        while (generatedCols.size() < nonZeroElementsInEveryRow) {
+        while (static_cast<int>(generatedCols.size()) < nonZeroElementsInEveryRow) {
             generatedCols.insert(gen() % size);
         }
         for (auto &i : generatedCols) {
