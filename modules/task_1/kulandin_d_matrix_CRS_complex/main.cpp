@@ -116,11 +116,6 @@ TEST(matrix_CSR_complex, matrix_multiplication_only0) {
     ASSERT_EQ(res.getDenseMatrix(), ans);
 }
 
-TEST(matrix_CSR_complex, exception_generateRandomSparseMatrix) {
-    ASSERT_NO_THROW(generateRandomSparseMatrix(6, 5));
-    ASSERT_THROW(generateRandomSparseMatrix(5, 6), std::string);
-}
-
 typedef testing::TestWithParam<std::tuple<int, int>>
     parametrized_matrix_multiplication;
 
