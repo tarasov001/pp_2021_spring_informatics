@@ -10,4 +10,4 @@ std::pair<std::vector<int>, std::vector<int> > firstMark(std::vector<int>, int, 
 std::vector<int> secondMark(std::vector<int>, int, int, std::vector<int>);
 std::vector<int> CLabeling(std::vector<int>, int, int);
 
-#endif // MODULES_TASK_1_PARANICHEVA_A_LABELING_LABELING_H_
+#endif  // MODULES_TASK_1_PARANICHEVA_A_LABELING_LABELING_H_
