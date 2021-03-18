@@ -51,8 +51,7 @@ std::pair<std::vector<int>, std::vector<int> > firstMark(std::vector<int> arr, i
                 if (arr[i * cols + j - 1] < arr[(i - 1) * cols + j]) {
                     tmp = arr[i * cols + j - 1];
                     tmpch = arr[(i - 1) * cols + j];
-                }
-                else {
+                } else {
                     tmp = arr[(i - 1) * cols + j];
                     tmpch = arr[i * cols + j - 1];
                 }
