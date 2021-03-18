@@ -70,7 +70,7 @@ TEST(QSort_Sequential, Test_Creating_Vector_Exception) {
 }
 
 TEST(QSort_Sequential, Test_Out_Of_Bounds_Exception) {
-    int n = 10;
+    int n = 11;
     std::vector<double> vec = createRandomVector(n);
     std::vector<double> vec_copy = vec;
     ASSERT_ANY_THROW(qSort(vec, -1, n));
