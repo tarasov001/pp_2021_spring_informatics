@@ -72,15 +72,13 @@ TEST(QSort_Sequential, Test_Creating_Vector_Exception) {
 TEST(QSort_Sequential, Test_Out_Of_Bounds_Exception) {
     int n = 11;
     std::vector<double> vec = createRandomVector(n);
-    std::vector<double> vec_copy = vec;
     ASSERT_ANY_THROW(qSort(vec, -1, n));
 }
 
 TEST(QSort_Sequential, Test_Index_Overlap_Exception) {
     int n = 10;
     std::vector<double> vec = createRandomVector(n);
-    std::vector<double> vec_copy = vec;
-    ASSERT_ANY_THROW(qSort(vec, 0, n - 1));
+    ASSERT_ANY_THROW(qSort(vec, n - 1, 0));
 }
 
 int main(int argc, char** argv) {

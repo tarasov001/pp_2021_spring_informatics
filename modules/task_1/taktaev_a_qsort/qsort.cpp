@@ -1,4 +1,4 @@
-//Copyright 2021 Taktaev Artem
+// Copyright 2021 Taktaev Artem
 #include "../../../modules/task_1/taktaev_a_qsort/qsort.h"
 
 #include <random>
@@ -12,7 +12,7 @@ std::vector<double> createRandomVector(int vec_size) {
 
     for (int  i = 0; i < vec_size; i++)
         res_vec[i] = static_cast<double>((gen() % 101) - 50);
-        
+
     return res_vec;
 }
 
@@ -26,10 +26,10 @@ void qSort(std::vector<double> &arr, int left, int right) {
     int i = left, j = right;
 
     do {
-        while(arr[i] < p) i++;
+        while (arr[i] < p) i++;
         while (arr[j] > p) j--;
-        if (i < j) std::swap(arr[i], arr[j]);
-        if (i == j) {
+        if (i <= j) {
+            if (i < j) std::swap(arr[i], arr[j]);
             i++;
             j--;
         }
