@@ -1,4 +1,4 @@
-//Copyright 2021 Taktaev Artem
+// Copyright 2021 Taktaev Artem
 #include <gtest/gtest.h>
 #include <vector>
 
@@ -14,7 +14,7 @@ TEST(QSort_Sequential, Test_Correct_Sorting_Rand_Even_Vec) {
     int n = 10;
     std::vector<double> vec = createRandomVector(n);
     std::vector<double> vec_copy = vec;
-    qSort(vec, 0, n - 1);
+    qSort(&vec, 0, n - 1);
     std::sort(vec_copy.begin(), vec_copy.end());
     ASSERT_EQ(vec, vec_copy);
 }
@@ -23,7 +23,7 @@ TEST(QSort_Sequential, Test_Correct_Sorting_Rand_Odd_Vec) {
     int n = 11;
     std::vector<double> vec = createRandomVector(n);
     std::vector<double> vec_copy = vec;
-    qSort(vec, 0, n - 1);
+    qSort(&vec, 0, n - 1);
     std::sort(vec_copy.begin(), vec_copy.end());
     ASSERT_EQ(vec, vec_copy);
 }
@@ -35,7 +35,7 @@ TEST(QSort_Sequential, Test_Correct_Sorting_Sorted_Vec) {
         vec[i] = i;
     }
     std::vector<double> vec_copy = vec;
-    qSort(vec, 0, n - 1);
+    qSort(&vec, 0, n - 1);
     std::sort(vec_copy.begin(), vec_copy.end());
     ASSERT_EQ(vec, vec_copy);
 }
@@ -47,7 +47,7 @@ TEST(QSort_Sequential, Test_Correct_Sorting_Reverse_Sorted_Vec) {
         vec[i] = n - i;
     }
     std::vector<double> vec_copy = vec;
-    qSort(vec, 0, n - 1);
+    qSort(&vec, 0, n - 1);
     std::sort(vec_copy.begin(), vec_copy.end());
     ASSERT_EQ(vec, vec_copy);
 }
@@ -59,7 +59,7 @@ TEST(QSort_Sequential, Test_Correct_Sorting_Eq_Elements_Vec) {
         vec[i] = 1;
     }
     std::vector<double> vec_copy = vec;
-    qSort(vec, 0, n - 1);
+    qSort(&vec, 0, n - 1);
     std::sort(vec_copy.begin(), vec_copy.end());
     ASSERT_EQ(vec, vec_copy);
 }
@@ -72,13 +72,13 @@ TEST(QSort_Sequential, Test_Creating_Vector_Exception) {
 TEST(QSort_Sequential, Test_Out_Of_Bounds_Exception) {
     int n = 11;
     std::vector<double> vec = createRandomVector(n);
-    ASSERT_ANY_THROW(qSort(vec, -1, n));
+    ASSERT_ANY_THROW(qSort(&vec, -1, n));
 }
 
 TEST(QSort_Sequential, Test_Index_Overlap_Exception) {
     int n = 10;
     std::vector<double> vec = createRandomVector(n);
-    ASSERT_ANY_THROW(qSort(vec, n - 1, 0));
+    ASSERT_ANY_THROW(qSort(&vec, n - 1, 0));
 }
 
 int main(int argc, char** argv) {

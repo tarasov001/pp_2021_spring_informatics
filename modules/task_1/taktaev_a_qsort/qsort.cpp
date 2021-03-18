@@ -16,20 +16,18 @@ std::vector<double> createRandomVector(int vec_size) {
     return res_vec;
 }
 
-void qSort(std::vector<double> &arr, int left, int right) {
-    arr.at(left);
-    arr.at(right);
+void qSort(std::vector<double> *arr, int left, int right) {
     if (left >= right) throw "Left idx must be >= that right one.";
 
     int pidx = (left + right) / 2;
-    double p = arr[pidx];
+    double p = arr->at(pidx);
     int i = left, j = right;
 
     do {
-        while (arr[i] < p) i++;
-        while (arr[j] > p) j--;
+        while (arr->at(i) < p) i++;
+        while (arr->at(j) > p) j--;
         if (i <= j) {
-            if (i < j) std::swap(arr[i], arr[j]);
+            if (i < j) std::swap(arr->at(i), arr->at(j));
             i++;
             j--;
         }
