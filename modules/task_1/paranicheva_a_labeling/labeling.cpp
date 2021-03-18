@@ -72,7 +72,7 @@ std::vector<int> secondMark(std::vector<int> arr, int rows, int cols, std::vecto
     return arr;
 }
 
-std::vector<int> CLabeling(std::vector<int> array, int rows, int cols) {
+std::vector<int> CLabeling(const std::vector<int> array, int rows, int cols) {
     std::vector<int> res(rows * cols);
     std::pair<std::vector<int>, std::vector<int> > firstm = firstMark(array, rows, cols);
     std::vector<int> arr = firstm.first;
