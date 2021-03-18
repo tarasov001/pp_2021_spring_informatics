@@ -17,7 +17,7 @@ std::vector<int> getRandomMatrix(int rows, int cols) {
         for (int j = 0; j < cols; j++) {
             if ((j == 0) || (j == cols - 1))
                 array[i * cols + j] = 0;
-            else 
+            else
                 array[i * cols + j] = static_cast<int>(gen() % 2);
         }
     for (int i = 0; i < cols; i++)
