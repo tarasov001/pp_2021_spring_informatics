@@ -7,7 +7,7 @@
 TEST(CLabeling, 5x5) {
     int rows = 5;
     int cols = 5;
-    std::vector<int> img = {
+    const std::vector<int> img = {
         0, 0, 0, 0, 0,
         0, 0, 0, 1, 0,
         0, 1, 1, 0, 0,
@@ -28,7 +28,7 @@ TEST(CLabeling, 5x5) {
 TEST(CLabeling, 5x6) {
     int rows = 5;
     int cols = 6;
-    std::vector<int> img = {
+    const std::vector<int> img = {
         0, 0, 0, 0, 0, 0,
         0, 1, 0, 1, 0, 0,
         0, 1, 0, 1, 0, 0,
@@ -49,7 +49,7 @@ TEST(CLabeling, 5x6) {
 TEST(CLabeling, 6x12) {
     int rows = 6;
     int cols = 12;
-    std::vector<int> img = {
+    const std::vector<int> img = {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 1, 1, 0, 1, 1, 0, 0, 1, 0,
         0, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0,
@@ -72,7 +72,7 @@ TEST(CLabeling, 6x12) {
 TEST(CLabeling, 2x2) {
     int rows = 2;
     int cols = 2;
-    std::vector<int> img = {
+    const std::vector<int> img = {
         0, 0,
         0, 0,
     };
@@ -84,7 +84,7 @@ TEST(CLabeling, 2x2) {
     ASSERT_EQ(expres, res);
 }
 
-TEST(Matrix_gen, invalid_size) {
+TEST(Clabeling_Matrix_gen, invalid_size) {
     int rows = -5;
     int cols = 7;
     ASSERT_ANY_THROW(getRandomMatrix(rows, cols));
