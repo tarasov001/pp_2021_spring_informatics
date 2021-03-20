@@ -42,14 +42,14 @@ TEST(Parallel_SimpsonMethodTest, can_integrate_2d_function) {
     std::vector<double> seg_begin = {0};
     std::vector<double> seg_end = {2};
     double square = SimpsonMethod::parallel(parabola, seg_begin, seg_end, 100);
-    ASSERT_NEAR(16.0 / 3.0, square, 1e-6);
+    ASSERT_NEAR(16.0 / 3.0, square, 1e-5);
 }
 
 TEST(Parallel_SimpsonMethodTest, can_integrate_3d_function) {
     std::vector<double> seg_begin = {0, 0};
     std::vector<double> seg_end = {1, 1};
     double volume = SimpsonMethod::parallel(body, seg_begin, seg_end, 100);
-    ASSERT_NEAR(2.0 / 3.0, volume, 1e-6);
+    ASSERT_NEAR(2.0 / 3.0, volume, 1e-5);
 }
 
 // Calculated by WolframAlpha with the following query:
@@ -58,7 +58,7 @@ TEST(Parallel_SimpsonMethodTest, can_integrate_super_function) {
     std::vector<double> seg_begin = {-2, 1, 0};
     std::vector<double> seg_end = {1, 3, 2};
     double integral = SimpsonMethod::parallel(super, seg_begin, seg_end, 100);
-    ASSERT_NEAR(13.0007625, integral, 1e-6);
+    ASSERT_NEAR(13.0007625, integral, 1e-5);
 }
 
 TEST(Parallel_SimpsonMethodTest, cannot_accept_empty_segment_vectors) {
