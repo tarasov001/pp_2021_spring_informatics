@@ -69,7 +69,8 @@ double SimpsonMethod::parallel(
             seg_begin[i] = seg_begin[i] + step_size * t_id;
             seg_end[i] = seg_begin[i] + step_size;
         }
-        double part_sum = sequential(func, seg_begin, seg_end, steps_count / t_count);
+        double part_sum =
+            sequential(func, seg_begin, seg_end, steps_count / t_count);
 #pragma omp critical
         sum += part_sum;
     }

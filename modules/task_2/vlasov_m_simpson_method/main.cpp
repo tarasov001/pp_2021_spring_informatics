@@ -26,13 +26,16 @@ TEST(Parallel_SimpsonMethodTest, same_result_as_sequential) {
     std::vector<double> seg_end = {20};
     std::pair<double, double> time = {0, 0};
     time.first = omp_get_wtime();
-    double seq = SimpsonMethod::sequential(parabola, seg_begin, seg_end, 1000000);
+    double seq =
+        SimpsonMethod::sequential(parabola, seg_begin, seg_end, 1000000);
     time.second = omp_get_wtime();
-    std::cout << "Sequential " << (time.second - time.first) << ' ' << seq << std::endl;
+    std::cout << "Sequential " << (time.second - time.first) << ' ' << seq
+              << std::endl;
     time.first = omp_get_wtime();
     double par = SimpsonMethod::parallel(parabola, seg_begin, seg_end, 1000000);
     time.second = omp_get_wtime();
-    std::cout << "Parallel " << (time.second - time.first) << ' ' << par << std::endl;
+    std::cout << "Parallel " << (time.second - time.first) << ' ' << par
+              << std::endl;
     ASSERT_NEAR(seq, par, 1e-6);
 }
 
