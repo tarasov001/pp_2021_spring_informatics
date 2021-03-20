@@ -37,6 +37,9 @@ void qsort(int* vec, int left, int right) {
 
 std::vector<int> quickSortV(const std::vector<int>& vec) {
     int size = vec.size();
+    if (size <= 1) {
+        return vec;
+    }
     int* arr = new int[size];
     for (int i = 0; i < size; i++) {
         arr[i] = vec[i];

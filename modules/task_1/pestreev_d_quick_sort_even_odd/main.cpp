@@ -11,15 +11,33 @@ TEST(Quick_Sort_Operations, Test_manual_vector) {
     std::sort(vec_stan.begin(), vec_stan.end());
     ASSERT_EQ(vec_V, vec_stan);
 }
-TEST(Quick_Sort_Operations, Test_random_vector_100) {
-    std::vector<int> vec = getRandomVector(100);
+TEST(Quick_Sort_Operations, Test_random_vector_0) {
+    std::vector<int> vec = getRandomVector(0);
     std::vector<int> vec_V = quickSortV(vec);
     std::vector<int> vec_stan = vec;
     std::sort(vec_stan.begin(), vec_stan.end());
     ASSERT_EQ(vec_V, vec_stan);
 }
-TEST(Quick_Sort_Operations, Test_random_vector_1000) {
-    std::vector<int> vec = getRandomVector(1000);
+TEST(Quick_Sort_Operations, Test_random_vector_1) {
+    std::vector<int> vec = getRandomVector(1);
+    std::vector<int> vec_V = quickSortV(vec);
+    std::vector<int> vec_stan = vec;
+    std::sort(vec_stan.begin(), vec_stan.end());
+    ASSERT_EQ(vec_V, vec_stan);
+}
+TEST(Quick_Sort_Operations, Test_sorted_vector) {
+    std::vector<int> vec = getRandomVector(42211);
+    std::sort(vec.begin(), vec.end());
+    std::vector<int> vec_V = quickSortV(vec);
+    std::vector<int> vec_stan = vec;
+    std::sort(vec_stan.begin(), vec_stan.end());
+    ASSERT_EQ(vec_V, vec_stan);
+}
+TEST(Quick_Sort_Operations, Test_inverted_sorted_vector42211) {
+    std::vector<int> vec = getRandomVector(42211);
+    std::sort(vec.begin(), vec.end(), [](int a, int b){
+        return a > b;
+    });
     std::vector<int> vec_V = quickSortV(vec);
     std::vector<int> vec_stan = vec;
     std::sort(vec_stan.begin(), vec_stan.end());
@@ -27,13 +45,6 @@ TEST(Quick_Sort_Operations, Test_random_vector_1000) {
 }
 TEST(Quick_Sort_Operations, Test_random_vector_42211) {
     std::vector<int> vec = getRandomVector(42211);
-    std::vector<int> vec_V = quickSortV(vec);
-    std::vector<int> vec_stan = vec;
-    std::sort(vec_stan.begin(), vec_stan.end());
-    ASSERT_EQ(vec_V, vec_stan);
-}
-TEST(Quick_Sort_Operations, Test_random_vector_412211) {
-    std::vector<int> vec = getRandomVector(412211);
     std::vector<int> vec_V = quickSortV(vec);
     std::vector<int> vec_stan = vec;
     std::sort(vec_stan.begin(), vec_stan.end());
