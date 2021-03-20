@@ -64,11 +64,14 @@ double SimpsonMethod::parallel(
         int t_id = omp_get_thread_num();
         int t_count = omp_get_num_threads();
         size_t dim = seg_begin.size();
-        for (size_t i = 0; i < dim; i++) {
-            double step_size = (seg_end[i] - seg_begin[i]) / t_count;
-            seg_begin[i] = seg_begin[i] + step_size * t_id;
-            seg_end[i] = seg_begin[i] + step_size;
+        size_t i_base = 0;
+        for (size_t i = 1; i < dim; i++) {
+            if (seg_end[i] - seg_begin[i] > seg_end[i_base] - seg_begin[i_base])
+                i_base = i;
         }
+        double step_size = (seg_end[i_base] - seg_begin[i_base]) / t_count;
+        seg_begin[i_base] = seg_begin[i_base] + step_size * t_id;
+        seg_end[i_base] = seg_begin[i_base] + step_size;
         double part_sum =
             sequential(func, seg_begin, seg_end, steps_count / t_count);
 #pragma omp critical
