@@ -1,6 +1,6 @@
 // Copyright 2021 Volkova Anastasia
-#include <iostream>
 #include <omp.h>
+#include <iostream>
 #include "../../../modules/task_2/volkova_a_rectangle_method/rectangle_method_omp.h"
 
 double function1(double x, double y, double z) {

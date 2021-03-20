@@ -1,7 +1,5 @@
 // Copyright 2021 Volkova Anastasia
 #include <gtest/gtest.h>
-#include <random>
-#include <vector>
 #include "./rectangle_method_omp.h"
 
 TEST(Integral, Test1_10) {
