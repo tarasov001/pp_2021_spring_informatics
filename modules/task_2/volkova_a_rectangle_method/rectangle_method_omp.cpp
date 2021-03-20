@@ -1,8 +1,6 @@
 // Copyright 2021 Volkova Anastasia
 #include <iostream>
 #include <omp.h>
-#include <chrono>
-#include <iomanip>
 #include "../../../modules/task_2/volkova_a_rectangle_method/rectangle_method_omp.h"
 
 double function1(double x, double y, double z) {
@@ -23,7 +21,7 @@ double integralFunction(double (*f)(double, double, double),
                         double ay, double by,
                         double az, double bz,
                         int n, int m, int k) {
-    auto start_calc = std::chrono::high_resolution_clock::now();
+    double start_calc = omp_get_wtime();
     const double hx = (bx - ax) / static_cast<double>(n);
     const double hy = (by - ay) / static_cast<double>(m);
     const double hz = (bz - az) / static_cast<double>(k);
@@ -41,10 +39,8 @@ double integralFunction(double (*f)(double, double, double),
         }
     }
     ans *= hx * hy * hz;
-    auto end_calc = std::chrono::high_resolution_clock::now();
-    auto duration = std::chrono::duration<double>(end_calc - start_calc);
-    std::cout << std::fixed<< std::setprecision(10);
-    std::cout << "Runtime: " << static_cast<double>(duration.count()) << std::endl;
+    double end_calc = omp_get_wtime();
+    std::cout << "Runtime: " << end_calc - start_calc << std::endl;
     return ans;
 }
 
@@ -68,7 +64,7 @@ double ParallelIntegralFunction(double (*f)(double, double, double),
     }*/
     #pragma omp parallel for private(X, Y, Z, sum1, sum2) reduction(+ : ans)
     for (int i = 0; i < n; ++i) {
-        sum1=0;
+        sum1 = 0;
         X = static_cast<double>(ax) + i * hx + 0.5 * hx;
         for (int j = 0; j < m; ++j) {
             sum2 = 0;
