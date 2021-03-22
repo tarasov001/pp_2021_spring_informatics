@@ -19,7 +19,7 @@ std::vector<Point> getRandomPoints(size_t size) {
     std::random_device device;
     std::mt19937 gen(device());
     std::vector<Point> points(size);
-    for (int i = 0; i < size; i++) {
+    for (size_t i = 0; i < size; i++) {
         size_t x = static_cast<size_t>(gen() % 1000ull);
         size_t y = static_cast<size_t>(gen() % 1000ull);
         points[i] = Point(x, y);
