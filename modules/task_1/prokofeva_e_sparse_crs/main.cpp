@@ -1,8 +1,9 @@
 // Copyright 2021 Prokofeva Elizaveta
-#include "../../../modules/task_1/prokofeva_e_sparse_crs/sparse_crs.h"
 #include <gtest/gtest.h>
 #include <vector>
 #include <algorithm>
+#include "../../../modules/task_1/prokofeva_e_sparse_crs/sparse_crs.h"
+
 
 TEST(Sparse_crs_matrix_1, Create) {
     std::vector<double> a = { 0, 3, 0, 7,

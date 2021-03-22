@@ -6,8 +6,7 @@
 #include <algorithm>
 #include <iostream>
 
-crs_matrix create(int size, std::vector<double> mat)
-{
+crs_matrix create(int size, std::vector<double> mat) {
     crs_matrix res;
     res.N = size;
 
@@ -28,8 +27,7 @@ crs_matrix create(int size, std::vector<double> mat)
     return res;
 }
 
-crs_matrix transpose(crs_matrix matrix)
-{
+crs_matrix transpose(crs_matrix matrix) {
     crs_matrix Tmatrix;
     Tmatrix.N = matrix.N;
     Tmatrix.row_index = std::vector<int>(static_cast<size_t>(matrix.N + 1));
@@ -58,15 +56,13 @@ crs_matrix transpose(crs_matrix matrix)
     return Tmatrix;
 }
 
-double scalar_mult(crs_matrix A, crs_matrix B, int i, int j)
-{
+double scalar_mult(crs_matrix A, crs_matrix B, int i, int j) {
     double sum = 0.0;
     for (int k = A.row_index[i]; k < A.row_index[i + 1]; k++) {
         for (int l = B.row_index[j]; l < B.row_index[j + 1]; l++) {
             if (A.cols[k] == B.cols[l]) {
-
+                
                 sum += A.values[k] * B.values[l];
-
                 break;
             }
         }
@@ -74,8 +70,7 @@ double scalar_mult(crs_matrix A, crs_matrix B, int i, int j)
     return sum;
 }
 
-crs_matrix mult(crs_matrix A, crs_matrix B)
-{
+crs_matrix mult(crs_matrix A, crs_matrix B) {
     int N = A.N;
     crs_matrix result;
     B = transpose(B);
@@ -88,7 +83,6 @@ crs_matrix mult(crs_matrix A, crs_matrix B)
         for (int j = 0; j < N; j++) {
 
             sum = scalar_mult(A, B, i, j);
-
             if (sum != 0) {
                 result.cols.push_back(j);
                 result.values.push_back(sum);
