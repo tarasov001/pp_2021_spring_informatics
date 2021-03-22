@@ -58,7 +58,7 @@ TEST(Parallel_SimpsonMethodTest, can_integrate_super_function) {
     std::vector<double> seg_begin = {-2, 1, 0};
     std::vector<double> seg_end = {1, 3, 2};
     double integral = SimpsonMethod::parallel(super, seg_begin, seg_end, 100);
-    ASSERT_NEAR(13.0007625, integral, 1e-5);
+    ASSERT_NEAR(13.0007625, integral, 1e-4);
 }
 
 TEST(Parallel_SimpsonMethodTest, cannot_accept_empty_segment_vectors) {
