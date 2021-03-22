@@ -30,7 +30,7 @@ TEST(Sparse_crs_matrix_2, Transposition) {
     std::vector<int> rowIndex = { 0, 1, 2, 4, 6 };
     ASSERT_EQ(A.values, value);
     ASSERT_EQ(A.cols, col);
-    ASSERT_EQ(A.row_index, rowIndex);  
+    ASSERT_EQ(A.row_index, rowIndex);
 }
 TEST(Sparse_crs_matrix_3, Multiplication_3x3) {
     std::vector<double> a = { 0, 2, 0,

@@ -64,7 +64,7 @@ double scalar_mult(crs_matrix A, crs_matrix B, int i, int j) {
     int b1 = B.row_index[j + 1];
     for (int k = a; k < a1; k++) {
         for (int l = b; l < b1; l++) {
-            if (A.cols[k] == B.cols[l]) { 
+            if (A.cols[k] == B.cols[l]) {
                 sum += A.values[k] * B.values[l];
                 break;
             }
