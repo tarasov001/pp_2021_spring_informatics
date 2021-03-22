@@ -24,6 +24,7 @@ crs_matrix create(int size, std::vector<double> mat)
         count += res.row_index.back();
         res.row_index.push_back(res.cols.size());
     }
+
     return res;
 }
 
