@@ -9,11 +9,11 @@
 
 std::vector<uint8_t> filter(const std::vector<uint8_t>& matrix, int width, int coreSize) {
     std::size_t length = matrix.size();
-    
+
     if (length == 0 || width <= 0 || length % width != 0 || coreSize < 3 || coreSize % 2 == 0) {
         throw std::invalid_argument("Zero or negative argument passed");
     }
-    
+
     int shift = coreSize / 2;
     auto core = calculateCore(coreSize);
     int height = length / width;
@@ -48,17 +48,17 @@ std::vector<uint8_t> filterParallel(const std::vector<uint8_t>& matrix, int widt
     #pragma omp parallel
     {
     #pragma omp for collapse(2)
-        
+
         for (int i = radius; i < height - radius; i++) {
             for (int j = radius; j < width - radius; j++) {
                 uint8_t result = 0;
                 for (int m = -radius; m <= radius; m++) {
                     for (int n = -radius; n <= radius; n++) {
-                        result += matrix[width * (i + m) + j + n] 
+                        result += matrix[width * (i + m) + j + n]
                             * core[coreSize * (m + radius) + n + radius];
                     }
                 }
-                #pragma omp critical (assign)
+    #pragma omp critical (assign)
                 {
                     filtered[width * i + j] = result;
                 }
