@@ -33,8 +33,8 @@ crs_matrix transpose(crs_matrix matrix) {
     Tmatrix.row_index = std::vector<int>(static_cast<size_t>(matrix.N + 1));
     Tmatrix.values = std::vector<double>(static_cast<size_t>(matrix.values.size()));
     Tmatrix.cols = std::vector<int>(static_cast<size_t>(matrix.cols.size()));
-    int size = matrix.values.size();
-    for (size_t i = 0; i < size; i++) {
+    size_t val = matrix.values.size();
+    for (size_t i = 0; i < val; i++) {
         int col = matrix.cols[i];
         Tmatrix.row_index[col + 1]++;
     }
