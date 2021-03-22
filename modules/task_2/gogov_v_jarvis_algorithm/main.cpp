@@ -1,6 +1,6 @@
 // Copyright 2021 Gogov Vladislav
-#include "./jarivs_algorithm.h"
 #include <gtest/gtest.h>
+#include "./jarivs_algorithm.h"
 
 TEST(OpenMP_Jarvis_Algorithm, Jarvis_Algorithm_Cannot_Apply_Without_Points) {
     std::vector<Point> points(0);

@@ -1,9 +1,9 @@
 // Copyright 2021 Gogov Vladislav
-#include "../../../modules/task_2/gogov_v_jarvis_algorithm/jarivs_algorithm.h"
 #include <random>
+#include "../../../modules/task_2/gogov_v_jarvis_algorithm/jarivs_algorithm.h"
 
 int rotate(const Point& A, const Point& B, const Point& C) {
-    long long temp = (C.first - A.first) * (B.second - A.second) -
+    int64_t temp = (C.first - A.first) * (B.second - A.second) -
                     (C.second - A.second) * (B.first - A.first);
     if (temp > 0)
         return 1;

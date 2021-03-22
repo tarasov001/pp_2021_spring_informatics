@@ -1,10 +1,10 @@
 // Copyright 2021 Gogov Vladislav
-#ifndef MODULES_TASK_1_GOGOV_V_JARVIS_ALGORITHM_JARIVS_ALGORITHM_H_
-#define MODULES_TASK_1_GOGOV_V_JARVIS_ALGORITHM_JARIVS_ALGORITHM_H_
-
+#ifndef MODULES_TASK_2_GOGOV_V_JARVIS_ALGORITHM_JARIVS_ALGORITHM_H_
+#define MODULES_TASK_2_GOGOV_V_JARVIS_ALGORITHM_JARIVS_ALGORITHM_H_
+#include "omp.h"
 #include <ostream>
 #include <vector>
-#include "omp.h"
+#include <utility>
 
 using Point = std::pair<size_t, size_t>;
 
