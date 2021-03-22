@@ -47,8 +47,7 @@ std::vector<double>::const_iterator getSubMatrConstIter(const std::vector<double
             return getLeftUpSubMatrConstIter(matr);
         else
             return getLeftDownSubMatrConstIter(matr);
-    }
-    else {
+    } else {
         if (vert_angle_pos == up)
             return getRightUpSubMatrConstIter(matr);
         else
