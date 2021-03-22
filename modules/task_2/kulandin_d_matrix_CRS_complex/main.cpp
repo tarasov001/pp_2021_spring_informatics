@@ -135,13 +135,13 @@ TEST_P(parametrized_matrix_multiplication, mult_small_dimensions) {
     SparseMatrix seq_res = a * b;
     auto end = omp_get_wtime();
     auto elapsed_ms = end - begin;
-    std::cout << "Sequential time = " << elapsed_ms / 1000 << "s\n";
+    std::cout << "Sequential time = " << elapsed_ms << "s\n";
 
     begin = omp_get_wtime();
     SparseMatrix openmp_res = a.openMPMultiplication(b);
     end = omp_get_wtime();
     elapsed_ms = end - begin;
-    std::cout << "openMP time = " << elapsed_ms / 1000 << "s\n";
+    std::cout << "openMP time = " << elapsed_ms << "s\n";
 
     ASSERT_EQ(seq_res.getSize(), openmp_res.getSize());
     ASSERT_EQ(seq_res.getCols(), openmp_res.getCols());
