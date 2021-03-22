@@ -1,4 +1,4 @@
-// Copyright 2021 Gogov Vladislav
+// Copyright 2021 Kolesin Andrey
 
 #include <iostream>
 #include "../../../modules/task_1/kolesin_a_radix_sort/radix.h"
