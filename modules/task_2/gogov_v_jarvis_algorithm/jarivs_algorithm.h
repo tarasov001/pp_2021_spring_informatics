@@ -1,7 +1,7 @@
 // Copyright 2021 Gogov Vladislav
 #ifndef MODULES_TASK_2_GOGOV_V_JARVIS_ALGORITHM_JARIVS_ALGORITHM_H_
 #define MODULES_TASK_2_GOGOV_V_JARVIS_ALGORITHM_JARIVS_ALGORITHM_H_
-#include "omp.h"
+#include <omp.h>
 #include <ostream>
 #include <vector>
 #include <utility>
@@ -15,4 +15,4 @@ std::vector<Point> getRandomPoints(size_t size);
 std::vector<Point> jarvisAlgorithmSeq(const std::vector<Point>& points);
 std::vector<Point> jarvisAlgorithmOmp(const std::vector<Point>& points);
 
-#endif  // MODULES_TASK_1_GOGOV_V_JARVIS_ALGORITHM_JARIVS_ALGORITHM_H_
+#endif  // MODULES_TASK_2_GOGOV_V_JARVIS_ALGORITHM_JARIVS_ALGORITHM_H_
