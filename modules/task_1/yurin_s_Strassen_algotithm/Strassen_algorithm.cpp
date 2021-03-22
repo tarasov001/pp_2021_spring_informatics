@@ -56,40 +56,35 @@ std::vector<double>::const_iterator getSubMatrConstIter(const std::vector<double
     }
 }
 
-std::vector<double>::iterator getLeftUpSubMatrIter(std::vector<double>& matr) {
-    return matr.begin();
+std::vector<double>::iterator getLeftUpSubMatrIter(std::vector<double>::iterator matr, int row_num) {
+    return matr;
 }
 
-std::vector<double>::iterator getLeftDownSubMatrIter(std::vector<double>& matr) {
-    return matr.begin() + (matr.size() / 2);
+std::vector<double>::iterator getLeftDownSubMatrIter(std::vector<double>::iterator matr, int row_num) {
+    return matr + ((row_num * row_num) / 2);
 }
 
-std::vector<double>::iterator getRightUpSubMatrIter(std::vector<double>& matr) {
-    int row_num = sqrt(matr.size());
-
-    return matr.begin() + (row_num / 2);
+std::vector<double>::iterator getRightUpSubMatrIter(std::vector<double>::iterator matr, int row_num) {
+    return matr + (row_num / 2);
 }
 
-std::vector<double>::iterator getRightDownSubMatrIter(std::vector<double>& matr) {
-    int row_num = sqrt(matr.size());
-
-    return matr.begin() + (matr.size() / 2) + (row_num / 2);
+std::vector<double>::iterator getRightDownSubMatrIter(std::vector<double>::iterator matr, int row_num) {
+    return matr + ((row_num * row_num) / 2) + (row_num / 2);
 }
 
 
-std::vector<double>::iterator getSubMatrIter(std::vector<double>& matr,
-    HorAnglePos hor_angle_pos, VertAnglePos vert_angle_pos) {
+std::vector<double>::iterator getSubMatrIter(std::vector<double>::iterator matr,
+    HorAnglePos hor_angle_pos, VertAnglePos vert_angle_pos, int row_num) {
     if (hor_angle_pos == left) {
         if (vert_angle_pos == up)
-            return getLeftUpSubMatrIter(matr);
+            return getLeftUpSubMatrIter(matr, row_num);
         else
-            return getLeftDownSubMatrIter(matr);
-    }
-    else {
+            return getLeftDownSubMatrIter(matr, row_num);
+    } else {
         if (vert_angle_pos == up)
-            return getRightUpSubMatrIter(matr);
+            return getRightUpSubMatrIter(matr, row_num);
         else
-            return getRightDownSubMatrIter(matr);
+            return getRightDownSubMatrIter(matr, row_num);
     }
 }
 
@@ -107,10 +102,12 @@ std::vector<double> StrassenMulti(const std::vector<double>& a, const std::vecto
     std::vector<double>::const_iterator b21 = getSubMatrConstIter(b, left, down);
     std::vector<double>::const_iterator b22 = getSubMatrConstIter(b, right, down);
 
-    std::vector<double>::iterator c11 = getSubMatrIter(c, left, up);
-    std::vector<double>::iterator c12 = getSubMatrIter(c, right, up);
-    std::vector<double>::iterator c21 = getSubMatrIter(c, left, down);
-    std::vector<double>::iterator c22 = getSubMatrIter(c, right, down);
+    std::vector<double>::iterator c_it = c.begin();
+    int c_row_num = sqrt(c.size());
+    std::vector<double>::iterator c11 = getSubMatrIter(c_it, left, up, c_row_num);
+    std::vector<double>::iterator c12 = getSubMatrIter(c_it, right, up, c_row_num);
+    std::vector<double>::iterator c21 = getSubMatrIter(c_it, left, down, c_row_num);
+    std::vector<double>::iterator c22 = getSubMatrIter(c_it, right, down, c_row_num);
 
     // заведем служебные матрицы m1 и m2
     // и матрицы промежуточных результатов p1-p7

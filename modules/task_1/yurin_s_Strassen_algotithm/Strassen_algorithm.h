@@ -56,5 +56,5 @@ void matrMulti(const std::vector<double>& p1,
     const std::vector<double>& p2,
     std::vector<double>::iterator m_it,
     int m_rows_num);
-
+    
 #endif  // MODULES_TASK_1_YURIN_S_STRASSEN_ALGORITHM_STRASSEN_ALGORITHM_H_

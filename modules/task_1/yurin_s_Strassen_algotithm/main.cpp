@@ -12,10 +12,10 @@ TEST(Strassen_algorithm, TEST1) {
     std::vector<double> b(rows_num * rows_num);
 
 
-    for (int i = 0; i < static_cast<int>a.size(); i++)
+    for (int i = 0; i < static_cast<int>(a.size()); i++)
         a[i] = getRandomNumber(-100, 100);
 
-    for (int i = 0; i < static_cast<int>b.size(); i++)
+    for (int i = 0; i < static_cast<int>(b.size()); i++)
         b[i] = getRandomNumber(-100, 100);
 
     std::vector<double> c_strass(rows_num * rows_num);
@@ -26,7 +26,7 @@ TEST(Strassen_algorithm, TEST1) {
 
     matrMulti(a, b, c_it, rows_num);
 
-    for (int i = 0; i < static_cast<int>c_strass.size(); i++) {
+    for (int i = 0; i < static_cast<int>(c_strass.size()); i++) {
         ASSERT_LT(abs(c_strass[i] - c_default[i]), EPS);
     }
 }
@@ -38,10 +38,10 @@ TEST(Strassen_algorithm, TEST2) {
     std::vector<double> b(rows_num * rows_num);
 
 
-    for (int i = 0; i < static_cast<int>a.size(); i++)
+    for (int i = 0; i < static_cast<int>(a.size()); i++)
         a[i] = getRandomNumber(-31, 36);
 
-    for (int i = 0; i < static_cast<int>b.size(); i++)
+    for (int i = 0; i < static_cast<int>(b.size()); i++)
         b[i] = getRandomNumber(-12, 89);
 
     std::vector<double> c_strass(rows_num * rows_num);
@@ -52,7 +52,7 @@ TEST(Strassen_algorithm, TEST2) {
 
     matrMulti(a, b, c_it, rows_num);
 
-    for (int i = 0; i < static_cast<int>c_strass.size(); i++) {
+    for (int i = 0; i < static_cast<int>(c_strass.size()); i++) {
         ASSERT_LT(abs(c_strass[i] - c_default[i]), EPS);
     }
 }
@@ -64,10 +64,10 @@ TEST(Strassen_algorithm, TEST3) {
     std::vector<double> b(rows_num * rows_num);
 
 
-    for (int i = 0; i < static_cast<int>a.size(); i++)
+    for (int i = 0; i < static_cast<int>(a.size()); i++)
         a[i] = getRandomNumber(4, 301);
 
-    for (int i = 0; i < static_cast<int>b.size(); i++)
+    for (int i = 0; i < static_cast<int>(b.size()); i++)
         b[i] = getRandomNumber(-16, 0);
 
     std::vector<double> c_strass(rows_num * rows_num);
@@ -78,7 +78,7 @@ TEST(Strassen_algorithm, TEST3) {
 
     matrMulti(a, b, c_it, rows_num);
 
-    for (int i = 0; i < static_cast<int>c_strass.size(); i++) {
+    for (int i = 0; i < static_cast<int>(c_strass.size()); i++) {
         ASSERT_LT(abs(c_strass[i] - c_default[i]), EPS);
     }
 }
@@ -90,10 +90,10 @@ TEST(Strassen_algorithm, TEST4) {
     std::vector<double> b(rows_num * rows_num);
 
 
-    for (int i = 0; i < static_cast<int>a.size(); i++)
+    for (int i = 0; i < static_cast<int>(a.size()); i++)
         a[i] = getRandomNumber(-56, 90);
 
-    for (int i = 0; i < static_cast<int>b.size(); i++)
+    for (int i = 0; i < static_cast<int>(b.size()); i++)
         b[i] = getRandomNumber(0, 103);
 
     std::vector<double> c_strass(rows_num * rows_num);
@@ -104,7 +104,7 @@ TEST(Strassen_algorithm, TEST4) {
 
     matrMulti(a, b, c_it, rows_num);
 
-    for (int i = 0; i < static_cast<int>c_strass.size(); i++) {
+    for (int i = 0; i < static_cast<int>(c_strass.size()); i++) {
         ASSERT_LT(abs(c_strass[i] - c_default[i]), EPS);
     }
 }
@@ -116,10 +116,10 @@ TEST(Strassen_algorithm, TEST5) {
     std::vector<double> b(rows_num * rows_num);
 
 
-    for (int i = 0; i < static_cast<int>a.size(); i++)
+    for (int i = 0; i < static_cast<int>(a.size()); i++)
         a[i] = getRandomNumber(-150, 0);
 
-    for (int i = 0; i < static_cast<int>b.size(); i++)
+    for (int i = 0; i < static_cast<int>(b.size()); i++)
         b[i] = getRandomNumber(-41, 300);
 
     std::vector<double> c_strass(rows_num * rows_num);
@@ -130,7 +130,7 @@ TEST(Strassen_algorithm, TEST5) {
 
     matrMulti(a, b, c_it, rows_num);
 
-    for (int i = 0; i < static_cast<int>c_strass.size(); i++) {
+    for (int i = 0; i < static_cast<int>(c_strass.size()); i++) {
         ASSERT_LT(abs(c_strass[i] - c_default[i]), EPS);
     }
 }
