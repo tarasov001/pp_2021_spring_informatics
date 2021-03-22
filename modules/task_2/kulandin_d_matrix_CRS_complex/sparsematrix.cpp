@@ -146,9 +146,9 @@ SparseMatrix SparseMatrix::openMPMultiplication(const SparseMatrix & a) {
     auto a_t_pointers = a_t.getPointers();
     std::vector<std::vector<int>> parallel_columns(size);
     std::vector<std::vector<std::complex<double>>> parallel_values(size);
-    #pragma omp parallel num_threads(8)
+    #pragma omp parallel
     {
-        #pragma omp for schedule(dynamic, 10)
+        #pragma omp for schedule(dynamic, 12)
         for (int row1 = 0; row1 < size; ++row1) {
             for (int row2 = 0; row2 < size; ++row2) {
                 std::vector<int> used(size, -1);
