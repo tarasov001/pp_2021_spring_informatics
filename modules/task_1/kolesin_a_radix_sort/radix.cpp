@@ -11,7 +11,7 @@ void printVec(std::vector<int> vec) {
   if (vec.empty()) {
     return;
   }
-  for (int i = 0; i < vec.size(); i++) {
+  for (size_t i = 0; i < vec.size(); i++) {
     std::cout << vec[i] << " ";
   }
   std::cout << std::endl;
