@@ -1,7 +1,7 @@
 // Copyright 2021 Yurin Stanislav
 #include <gtest/gtest.h>
 #include <vector>
-#include "./Strassen_algorithm.h"
+#include "./strassen_algorithm.h"
 
 #define EPS 0.00001
 

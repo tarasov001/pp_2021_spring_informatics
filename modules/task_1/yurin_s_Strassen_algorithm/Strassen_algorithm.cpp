@@ -2,7 +2,7 @@
 #include <vector>
 #include <random>
 #include <iostream>
-#include "../../../modules/task_1/yurin_s_Strassen_algorithm/Strassen_algorithm.h"
+#include "../../../modules/task_1/yurin_s_strassen_algorithm/strassen_algorithm.h"
 
 unsigned int time_increase = static_cast<unsigned int>(time(0));
 
