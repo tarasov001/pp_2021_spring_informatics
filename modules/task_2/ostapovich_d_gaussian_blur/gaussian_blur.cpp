@@ -58,7 +58,7 @@ std::vector<uint8_t> filterParallel(const std::vector<uint8_t>& matrix, int widt
                             * core[coreSize * (m + radius) + n + radius];
                     }
                 }
-    #pragma omp critical (assign)
+    #pragma omp critical(assign)
                 {
                     filtered[width * i + j] = result;
                 }
