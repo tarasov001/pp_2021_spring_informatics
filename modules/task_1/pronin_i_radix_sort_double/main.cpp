@@ -1,6 +1,6 @@
 // Copyright 2021 Pronin Igor
 #include <gtest/gtest.h>
-#include "algorithm"
+#include <algorithm>
 #include <vector>
 #include "./radix_sort_double.h"
 

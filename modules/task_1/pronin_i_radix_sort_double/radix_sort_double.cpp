@@ -1,5 +1,5 @@
 // Copyright 2021 Pronin Igor
-#include "radix_sort_double.h"
+#include "../../../modules/task_1/pronin_i_radix_sort_double/radix_sort_double.h"
 void RandVec(double* vec, int left, int right, int size) {
     std::mt19937 gen(time(0));
     std::uniform_real_distribution<> urd(left, right);
