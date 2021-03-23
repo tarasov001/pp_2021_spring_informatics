@@ -11,7 +11,7 @@ ComplexMatr rand(int n, int m, int nz) {
     }
     std::random_device rd;
     std::mt19937 g(rd());
-    shuffle(tmp.begin(), tmp.end(), g);
+    std::shuffle(tmp.begin(), tmp.end(), g);
     for (int i = 0; i < nz; i++) {
         num.push_back(tmp[i]);
     }
