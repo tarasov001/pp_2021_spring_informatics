@@ -30,8 +30,8 @@ std::vector<int> seqDijkstras(std::vector<int> graph, int start, int end) {
     std::vector<int> dist(size, max_weight);
     std::vector<bool> visit(size, false);
     std::vector<int> res;
-    start = start--;
-    end = end--;
+    start--;
+    end--;
 
     int min_index = max_weight;
     dist[start] = 0;
