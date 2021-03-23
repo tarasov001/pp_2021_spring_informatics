@@ -90,7 +90,6 @@ std::vector<double>::iterator getSubMatrIter(std::vector<double>::iterator matr,
 std::vector<double> StrassenMulti(const std::vector<double>& a, const std::vector<double>& b) {
     std::vector<double> c(a.size());
 
-    // Заведем итераторы на начальные элементы подматриц
     std::vector<double>::const_iterator a11 = getSubMatrConstIter(a, left, up);
     std::vector<double>::const_iterator a12 = getSubMatrConstIter(a, right, up);
     std::vector<double>::const_iterator a21 = getSubMatrConstIter(a, left, down);
@@ -108,8 +107,7 @@ std::vector<double> StrassenMulti(const std::vector<double>& a, const std::vecto
     std::vector<double>::iterator c21 = getSubMatrIter(c_it, left, down, c_row_num);
     std::vector<double>::iterator c22 = getSubMatrIter(c_it, right, down, c_row_num);
 
-    // заведем служебные матрицы m1 и m2
-    // и матрицы промежуточных результатов p1-p7
+
     int p_size = a.size() / 4;
     int p_rows_num = sqrt(p_size);
     std::vector<double> m1(p_size);
