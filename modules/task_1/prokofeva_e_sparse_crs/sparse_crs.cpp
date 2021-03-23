@@ -6,31 +6,32 @@
 #include <algorithm>
 #include <iostream>
 
-crs_matrix create(int size, std::vector<double> mat) {
-    crs_matrix res;
-    res.N = size;
+crs_matrix create(int size, std::vector<double> matrix) {
+    crs_matrix result;
+    result.N = size;
+    int tmp = 0;
 
-    res.row_index.push_back(0);
+    result.row_index.push_back(tmp);
     for (int i = 0; i < size; i++) {
         int count = 0;
         for (int j = 0; j < size; j++) {
-            if (mat[res.N * i + j] != 0) {
+            if (matrix[result.N * i + j] != 0) {
                 count++;
-                res.values.push_back(mat[size * i + j]);
-                res.cols.push_back(j);
+                result.cols.push_back(j);
+                result.values.push_back(matrix[result.N * i + j]);
             }
         }
-        count += res.row_index.back();
-        res.row_index.push_back(res.cols.size());
+        count += result.row_index.back();
+        result.row_index.push_back(result.cols.size());
     }
 
-    return res;
+    return result;
 }
 
 crs_matrix transpose(crs_matrix matrix) {
     crs_matrix Tmatrix;
     int N = Tmatrix.N = matrix.N;
-    Tmatrix.row_index = std::vector<int>(static_cast<size_t>(matrix.N + 1));
+    Tmatrix.row_index = std::vector<int>(static_cast<size_t>(N + 1));
     Tmatrix.values = std::vector<double>(static_cast<size_t>(matrix.values.size()));
     Tmatrix.cols = std::vector<int>(static_cast<size_t>(matrix.cols.size()));
     size_t val = matrix.values.size();
@@ -41,9 +42,9 @@ crs_matrix transpose(crs_matrix matrix) {
 
     double s = 0;
     for (int i = 1; i <= N; i++) {
-        int tmp = Tmatrix.row_index[i];
+        int temp = Tmatrix.row_index[i];
         Tmatrix.row_index[i] = s;
-        s += tmp;
+        s += temp;
     }
 
     for (int i = 0; i < N; i++) {
@@ -56,42 +57,42 @@ crs_matrix transpose(crs_matrix matrix) {
     return Tmatrix;
 }
 
-double scalar_mult(crs_matrix A, crs_matrix B, int i, int j) {
-    double sum = 0.0;
-    int a = A.row_index[i];
-    int a1 = A.row_index[i + 1];
-    int b = B.row_index[j];
-    int b1 = B.row_index[j + 1];
+double scalar_mult(crs_matrix first, crs_matrix second, int i, int j) {
+    double summ = 0.0;
+    int a = first.row_index[i];
+    int a1 = first.row_index[i + 1];
+    int b = second.row_index[j];
+    int b1 = second.row_index[j + 1];
     for (int k = a; k < a1; k++) {
         for (int l = b; l < b1; l++) {
-            if (A.cols[k] == B.cols[l]) {
-                sum += A.values[k] * B.values[l];
+            if (first.cols[k] == second.cols[l]) {
+                summ = summ + first.values[k] * second.values[l];
                 break;
             }
         }
     }
-    return sum;
+    return summ;
 }
 
-crs_matrix mult(crs_matrix A, crs_matrix B) {
-    int N = A.N;
+crs_matrix mult(crs_matrix first, crs_matrix second) {
+    int N = first.N;
     crs_matrix result;
-    B = transpose(B);
-    double sum;
+    second = transpose(second);
+    double summ;
     int rowNZ = 0;
     int tmp = 0;
 
     result.row_index.emplace_back(tmp);
     for (int i = 0; i < N; i++) {
         for (int j = 0; j < N; j++) {
-            sum = scalar_mult(A, B, i, j);
-            if (sum != 0) {
-                result.cols.emplace_back(j);
-                result.values.emplace_back(sum);
+            summ = scalar_mult(first, second, i, j);
+            if (summ != 0) {
                 rowNZ++;
+                result.cols.emplace_back(j);
+                result.values.emplace_back(summ);
             }
         }
-        result.row_index.emplace_back(rowNZ + result.row_index[i]);
+        result.row_index.emplace_back(result.row_index[i] + rowNZ);
     }
     return result;
 }

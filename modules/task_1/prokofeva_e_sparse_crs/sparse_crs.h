@@ -10,9 +10,9 @@ struct crs_matrix {
     std::vector<int> cols;
     std::vector<int> row_index; };
 
-crs_matrix transpose(crs_matrix A);
-crs_matrix create(int size, std::vector<double> mat);
-crs_matrix mult(crs_matrix A, crs_matrix B);
-double scalar_mult(crs_matrix A, crs_matrix B, int i, int j);
+crs_matrix transpose(crs_matrix matrix);
+crs_matrix create(int size, std::vector<double> matrix);
+crs_matrix mult(crs_matrix first, crs_matrix second);
+double scalar_mult(crs_matrix first, crs_matrix second, int i, int j);
 
 #endif  // MODULES_TASK_1_PROKOFEVA_E_SPARSE_CRS_SPARSE_CRS_H_
