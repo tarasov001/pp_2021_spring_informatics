@@ -6,6 +6,7 @@
 #include <cstdlib>
 #include <vector>
 #include <random>
+#include <algorithm>
 #include <complex>
 #include <ctime>
 
