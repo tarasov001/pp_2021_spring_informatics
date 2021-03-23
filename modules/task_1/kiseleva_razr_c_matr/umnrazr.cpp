@@ -150,7 +150,6 @@ ComplexMatr proverka(ComplexMatr a, ComplexMatr b,
     int na, int ma, int nb, int mb) {
     ComplexMatr C;
     if (ma == nb) {
-        int k = 0;
         std::complex<int> tmp1(std::complex<int>(0, 0));
         for (int i = 0; i < na; i++) {
             for (int k = 0; k < mb; k++) {

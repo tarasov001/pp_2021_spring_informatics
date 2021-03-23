@@ -48,8 +48,8 @@ TEST(CCR_UMN, razm113x85_85x21_7_1) {
     }
 }
 
-TEST(CCR_UMN, razm2063x899_899x215_100_26) {
-    int na = 2063;
+TEST(CCR_UMN, razm1063x899_899x215_100_26) {
+    int na = 1063;
     int ma = 899;
     int nb = 899;
     int mb = 215;
@@ -64,11 +64,11 @@ TEST(CCR_UMN, razm2063x899_899x215_100_26) {
     }
 }
 
-TEST(CCR_UMN, razm1000x5000_5000x2000_2_0) {
-    int na = 1000;
-    int ma = 5000;
-    int nb = 5000;
-    int mb = 2000;
+TEST(CCR_UMN, razm100x500_500x200_2_0) {
+    int na = 100;
+    int ma = 500;
+    int nb = 500;
+    int mb = 200;
     int nza = 2;
     int nzb = 0;
     ComplexMatr a = rand(na, ma, nza);
