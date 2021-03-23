@@ -66,7 +66,7 @@ double integrate_parallel(const std::function<double(std::vector<double>)>& f,
         blocks_count *= steps;
     }
 
-    double result = 0.0;    
+    double result = 0.0;
     #pragma omp parallel shared(dimension_divider, from, to, f, steps)
     {
         std::vector<double> block_coordinates(from.size());
@@ -79,7 +79,7 @@ double integrate_parallel(const std::function<double(std::vector<double>)>& f,
             result += f(block_coordinates);
         }
     }
-    
+
     result += (f(from) + f(to)) / 2;
     result *= block_size;
     return result;
