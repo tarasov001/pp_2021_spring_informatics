@@ -9,7 +9,11 @@
 #include <stdexcept>
 #include <vector>
 
-double integrate(const std::function<double(std::vector<double>)> &f,
+double integrate(const std::function<double(std::vector<double>)>& f,
+    const std::vector<double>& from, const std::vector<double>& to,
+    uint64_t steps);
+
+double integrate_parallel(const std::function<double(std::vector<double>)> &f,
                  const std::vector<double> &from, const std::vector<double> &to,
                  uint64_t steps);
 
