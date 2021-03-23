@@ -7,6 +7,7 @@
 #include <vector>
 #include <random>
 #include <complex>
+#include <ctime>
 
 #define SIZE_ERROR -2
 

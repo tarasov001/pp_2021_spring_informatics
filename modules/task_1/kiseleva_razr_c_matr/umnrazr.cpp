@@ -15,6 +15,8 @@ ComplexMatr rand(int n, int m, int nz) {
     for (int i = 0; i < nz; i++) {
         num.push_back(tmp[i]);
     }
+    std::mt19937 gen;
+    gen.seed(static_cast<unsigned int>(time(0)));
     for (int i = 0; i < n * m; i++) {
         int s = 0;
         for (int j = 0; j < nz; j++) {
@@ -25,7 +27,7 @@ ComplexMatr rand(int n, int m, int nz) {
             if (s == 0) {
                 matr.push_back(std::complex<int>(0, 0));
             } else {
-                matr.push_back(std::complex<int>(rand() % 10, rand() % 10));
+                matr.push_back(std::complex<int>(gen(), gen()));
             }
         }
     return matr;
