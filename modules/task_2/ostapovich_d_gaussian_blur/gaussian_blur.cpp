@@ -47,7 +47,7 @@ std::vector<uint8_t> filterParallel(const std::vector<uint8_t>& matrix, int widt
 
     #pragma omp parallel
     {
-    #pragma omp for collapse(2)
+    #pragma omp for collapse(2) schedule(static)
 
         for (int i = radius; i < height - radius; i++) {
             for (int j = radius; j < width - radius; j++) {
@@ -58,10 +58,7 @@ std::vector<uint8_t> filterParallel(const std::vector<uint8_t>& matrix, int widt
                             * core[coreSize * (m + radius) + n + radius];
                     }
                 }
-    #pragma omp critical(assign)
-                {
-                    filtered[width * i + j] = result;
-                }
+                filtered[width * i + j] = result;
             }
         }
     }
