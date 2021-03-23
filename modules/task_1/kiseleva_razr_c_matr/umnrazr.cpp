@@ -25,7 +25,7 @@ ComplexMatr rand(int n, int m, int nz) {
             if (s == 0) {
                 matr.push_back(std::complex<int>(0, 0));
             } else {
-                matr.push_back(std::complex<int>(rand_r() % 10, rand_r()%10));
+                matr.push_back(std::complex<int>(rand() % 10, rand() % 10));
             }
         }
     return matr;
