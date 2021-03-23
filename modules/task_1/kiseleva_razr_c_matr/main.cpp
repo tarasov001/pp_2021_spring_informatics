@@ -5,8 +5,8 @@
 #include "./umnrazr.h"
 
 TEST(CCR_UMN, razm3x3_1_1) {
-    int n = 3;
     int nz = 1;
+    int n = 3;
     ComplexMatr a = rand(n, n, nz);
     ComplexMatr b = rand(n, n, nz);
     ComplexMatr CCR = umn_posled(a, b, n, n, n, n);
