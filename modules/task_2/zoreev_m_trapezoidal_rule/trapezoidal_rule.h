@@ -17,4 +17,4 @@ double integrate_parallel(const std::function<double(std::vector<double>)> &f,
                  const std::vector<double> &from, const std::vector<double> &to,
                  uint64_t steps);
 
-#endif //  MODULES_TASK_2_ZOREEV_M_TRAPEZOIDAL_RULE_TRAPEZOIDAL_RULE_H_
+#endif  // MODULES_TASK_2_ZOREEV_M_TRAPEZOIDAL_RULE_TRAPEZOIDAL_RULE_H_
