@@ -2,14 +2,14 @@
 #ifndef MODULES_TASK_1_PRONKIN_D_GAUSSIAN_FILTER_GAUSSIAN_FILTER_H_
 #define MODULES_TASK_1_PRONKIN_D_GAUSSIAN_FILTER_GAUSSIAN_FILTER_H_
 
+#define _USE_MATH_DEFINES
+
 #include <vector>
 #include <stdexcept>
 #include <random>
 #include <ctime>
 #include <limits>
 #include <cmath>
-
-#define M_PI 3.14159265358979323846
 
 const int KERNEL_SIZE = 3;
 
