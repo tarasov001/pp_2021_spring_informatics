@@ -80,8 +80,8 @@ TEST(CCR_UMN, razm100x500_500x200_2_0) {
     }
 }
 
-TEST(CCR_UMN, razm100x500_500x200_0_0) {
-    int na = 100;
+TEST(CCR_UMN, razm1000x500_500x200_0_0) {
+    int na = 1000;
     int ma = 500;
     int nb = 500;
     int mb = 20;

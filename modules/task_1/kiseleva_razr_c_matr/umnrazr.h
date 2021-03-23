@@ -18,7 +18,7 @@ ComplexMatr transp(ComplexMatr a, int n, int m);
 ComplexMatr value(ComplexMatr matr, int n, int m);
 std::vector<int> rows(ComplexMatr matr, int n, int m);
 std::vector<int> index(ComplexMatr matr, int n, int m);
-ComplexMatr umn_posled(ComplexMatr A, ComplexMatr B,
+ComplexMatr umn_posled(ComplexMatr A, const ComplexMatr& B,
     int na, int ma, int nb, int mb);
 ComplexMatr proverka(ComplexMatr a, ComplexMatr b,
     int na, int ma, int nb, int mb);

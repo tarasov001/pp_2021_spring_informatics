@@ -106,7 +106,7 @@ std::vector<int> index(ComplexMatr matr, int n, int m) {
     return ind;
 }
 
-ComplexMatr umn_posled(ComplexMatr A, ComplexMatr B,
+ComplexMatr umn_posled(ComplexMatr A, const ComplexMatr& B,
     int na, int ma, int nb, int mb) {
     ComplexMatr C;
     if (ma == nb) {
