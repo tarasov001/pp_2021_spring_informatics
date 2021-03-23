@@ -5,7 +5,6 @@
 #include "./contrast.h"
 
 TEST(Linear_stretch_contrast_OMP, Manual_Calc_1) {
-    int w = 3; int h = 2;
     VecImage image = {0, 1, 1, 1, 0, 1 };
     VecImage correct = { 0, 255, 255, 255, 0, 255 };
     VecImage res = add_contrast_omp(image);
