@@ -133,3 +133,11 @@ TEST(Matrix_Multiplication, THROW_WRONG_BLOCK_SIZE) {
 
     ASSERT_ANY_THROW(foxMultiplication(A, B, 5));
 }
+
+TEST(Matrix_Multiplication, THROW_NULL_BLOCK_SIZE) {
+    std::vector<double> A = getRandomMatrix(4, time(0));
+
+    std::vector<double> B = getRandomMatrix(4, time(0) + 1);
+
+    ASSERT_ANY_THROW(foxMultiplication(A, B, 0));
+}

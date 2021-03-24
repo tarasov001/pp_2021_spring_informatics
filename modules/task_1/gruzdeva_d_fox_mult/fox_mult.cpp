@@ -40,6 +40,14 @@ std::vector<double> directMultiplication(std::vector<double> matrixA,
 
 std::vector<double> foxMultiplication(std::vector<double> matrixA,
                     std::vector<double> matrixB, int blockSize) {
+  if (blockSize == 0) {
+    throw "Block size cannot be zero";
+  }
+
+  if (blockSize < 0) {
+    throw "Block size cannot negative";
+  }
+
   if (matrixA.size() < (unsigned int)(blockSize * blockSize)) {
     throw "Block size cannot be larger than size of original matrices";
   }
@@ -50,10 +58,6 @@ std::vector<double> foxMultiplication(std::vector<double> matrixA,
 
   if (static_cast<int>(sqrt(matrixA.size())) % blockSize != 0) {
     throw "Cannot multiply matrices using this block size";
-  }
-
-  if (blockSize <= 0) {
-    throw "Block size cannot be zero or negative";
   }
 
   int size = static_cast<int>(sqrt(matrixA.size()));
