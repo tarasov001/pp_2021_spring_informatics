@@ -2,8 +2,7 @@
 
 #include <random>
 #include <iostream>
-// #include "../../../modules/task_1/rustamov_a_histogram_stretch/histogram_stretch.h"
-#include "histogram_stretch.h"
+#include "../../../modules/task_1/rustamov_a_histogram_stretch/histogram_stretch.h"
 
 
 
@@ -37,28 +36,6 @@ Matrix make_histogram(const Matrix& image, int w, int h) {
     return histogram;
 }
 
-void min_max_y(const Matrix& histogram, int* min_y, int* max_y) {
-    *min_y = NULL;
-    *max_y = NULL;
-    for (int i = 0; i < 256; i++) {
-        if ((histogram[i] != 0) && (*min_y == NULL)) {
-            *min_y = i;
-            break;
-        }
-    }
-    for (int i = 255; i >= 0; i--) {
-        if ((histogram[i] != 0) && (*max_y == NULL)) {
-            *max_y = i;
-            break;
-        }
-    }
-    /*
-    std::cout << std::endl;
-    std::cout << "Min y = " << min_y << std::endl;
-    std::cout << "Max y = " << max_y << std::endl;
-    */
-}
-
 int get_min_y(const Matrix& histogram) {
     int min_y;
     for (int i = 0; i < 256; i++) {
@@ -67,8 +44,9 @@ int get_min_y(const Matrix& histogram) {
             break;
         }
     }
-
+    return min_y;
 }
+
 int get_max_y(const Matrix& histogram) {
     int max_y;
     for (int i = 255; i >= 0; i--) {
@@ -77,9 +55,8 @@ int get_max_y(const Matrix& histogram) {
             break;
         }
     }
-
+    return max_y;
 }
-
 
 Matrix stretch_histogram(const Matrix& histogtram, const int& min_y, const int& max_y) {
     if (min_y >= max_y)

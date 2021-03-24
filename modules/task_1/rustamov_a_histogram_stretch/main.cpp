@@ -1,8 +1,8 @@
 // Copyright 2021 Rustamov Azer
 
 #include <gtest/gtest.h>
-#include "./histogram_stretch.h"
 #include <iostream>
+#include "../../../modules/task_1/rustamov_a_histogram_stretch/histogram_stretch.h"
 
 
 TEST(Histogram_Stretch, Incorrect_Image) {
