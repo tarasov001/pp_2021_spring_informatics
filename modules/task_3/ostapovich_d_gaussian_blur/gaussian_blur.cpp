@@ -1,5 +1,6 @@
 // Copyright 2021 Denis Ostapovich
 #define _USE_MATH_DEFINES
+#include <tbb/parallel_for.h>
 #include <vector>
 #include <cmath>
 #include <cstdint>
@@ -14,16 +15,16 @@ std::vector<uint8_t> filter(const std::vector<uint8_t>& matrix, int width, int c
         throw std::invalid_argument("Zero or negative argument passed");
     }
 
-    int shift = coreSize / 2;
+    int radius = coreSize / 2;
     auto core = calculateCore(coreSize);
     int height = length / width;
     std::vector<uint8_t> filtered(width * height);
-    for (int i = shift; i < height - shift; i++) {
-        for (int j = shift; j < width - shift; j++) {
+    for (int i = radius; i < height - radius; i++) {
+        for (int j = radius; j < width - radius; j++) {
             uint8_t result = 0;
-            for (int m = -shift; m <= shift; m++) {
-                for (int n = -shift; n <= shift; n++) {
-                    result += matrix[width * (i + m) + j + n] * core[coreSize * (m + shift) + n + shift];
+            for (int m = -radius; m <= radius; m++) {
+                for (int n = -radius; n <= radius; n++) {
+                    result += matrix[width * (i + m) + j + n] * core[coreSize * (m + radius) + n + radius];
                 }
             }
             filtered[width * i + j] = result;
@@ -75,13 +76,13 @@ std::vector<double> calculateCore(int size, double deviation) {
     }
     double sum = 0;
     double s = 2.0 * deviation * deviation;
-    int shift = size / 2;
+    int radius = size / 2;
     std::vector<double> core(size * size);
 
-    for (int i = -shift; i <= shift; i++) {
-        for (int j = -shift; j <= shift; j++) {
+    for (int i = -radius; i <= radius; i++) {
+        for (int j = -radius; j <= radius; j++) {
             double res = (std::exp(-(i * i + j * j) / s)) / (M_PI * s);
-            core[size * (i + shift) + j + shift] = res;
+            core[size * (i + radius) + j + radius] = res;
             sum += res;
         }
     }
