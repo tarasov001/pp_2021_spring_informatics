@@ -13,6 +13,11 @@ if ( USE_TBB )
     add_executable( ${ProjectId} ${ALL_SOURCE_FILES} )
 
     target_link_libraries(${ProjectId} ${PACK_LIB})
+    if( WIN32 )
+        target_link_libraries(${ProjectId} ${TBB_IMPORTED_TARGETS})
+    else( WIN32 )
+        target_link_libraries(${ProjectId} ${TBB_LIBRARIES})
+    endif( WIN32 )
     target_link_libraries(${ProjectId} gtest gtest_main)
 
     enable_testing()
