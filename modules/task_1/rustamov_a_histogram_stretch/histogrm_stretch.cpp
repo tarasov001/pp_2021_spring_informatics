@@ -37,7 +37,7 @@ Matrix make_histogram(const Matrix& image, int w, int h) {
 }
 
 int get_min_y(const Matrix& histogram) {
-    int min_y;
+    int min_y = -1;
     for (int i = 0; i < 256; i++) {
         if (histogram[i] != 0) {
             min_y = i;
@@ -48,7 +48,7 @@ int get_min_y(const Matrix& histogram) {
 }
 
 int get_max_y(const Matrix& histogram) {
-    int max_y;
+    int max_y = -1;
     for (int i = 255; i >= 0; i--) {
         if (histogram[i] != 0) {
             max_y = i;
