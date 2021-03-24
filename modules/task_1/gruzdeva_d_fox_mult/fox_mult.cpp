@@ -12,24 +12,24 @@ std::vector<double> getRandomMatrix(int size, time_t seed) {
   for (int i = 0; i < size * size; i++) {
     matrix[i] = dis(gen);
   }
-  
+
   return matrix;
 }
 
-std::vector<double> directMultiplication(std::vector<double> matrixA, 
+std::vector<double> directMultiplication(std::vector<double> matrixA,
                     std::vector<double> matrixB) {
   if (matrixA.size() != matrixB.size()) {
     throw "Matrices sizes differ";
   }
 
-  int size = sqrt(matrixA.size());
+  int size = static_cast<int>(sqrt(matrixA.size()));
   std::vector<double> matrixC(size * size);
 
   for (int i = 0; i < size; i++) {
     for (int j = 0; j < size; j++) {
       matrixC[i * size + j] = 0;
       for (int k = 0; k < size; k++) {
-        matrixC[i * size + j] += matrixA[i * size + k] 
+        matrixC[i * size + j] += matrixA[i * size + k]
         * matrixB[k * size + j];
       }
     }
@@ -38,9 +38,9 @@ std::vector<double> directMultiplication(std::vector<double> matrixA,
   return matrixC;
 }
 
-std::vector<double> foxMultiplication(std::vector<double> matrixA, 
+std::vector<double> foxMultiplication(std::vector<double> matrixA,
                     std::vector<double> matrixB, int blockSize) {
-  if (matrixA.size() < (unsigned int)blockSize) {
+  if (matrixA.size() < (unsigned int)(blockSize * blockSize)) {
     throw "Block size cannot be larger than size of original matrices";
   }
 
@@ -48,26 +48,29 @@ std::vector<double> foxMultiplication(std::vector<double> matrixA,
     throw "Matrice's sizes differ";
   }
 
-  if (matrixA.size() % blockSize != 0) {
+  if (static_cast<int>(sqrt(matrixA.size())) % blockSize != 0) {
     throw "Cannot multiply matrices using this block size";
   }
 
-  int size = sqrt(matrixA.size());
+  if (blockSize <= 0) {
+    throw "Block size cannot be zero or negative";
+  }
+
+  int size = static_cast<int>(sqrt(matrixA.size()));
   std::vector<double> matrixC(size * size);
   int blockCount = size / blockSize;
 
   for (int i = 0; i < size * size; i++) {
     matrixC[i] = 0;
   }
-  
+
   for (int i = 0; i < size; i += blockCount) {
     for (int j = 0; j < size; j += blockCount) {
       for (int k = 0; k < size; k += blockCount) {
         for (int ii = i; ii < std::min(size, i + blockCount); ii++) {
           for (int jj = j; jj < std::min(size, j + blockCount); jj++) {
-            double tmp = 0;
             for (int kk = k; kk < std::min(size, k + blockCount); kk++) {
-              matrixC[ii * size + jj] += matrixA[ii * size + kk] 
+              matrixC[ii * size + jj] += matrixA[ii * size + kk]
               * matrixB[kk * size + jj];
             }
           }
