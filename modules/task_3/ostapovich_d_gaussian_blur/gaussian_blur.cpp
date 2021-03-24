@@ -46,23 +46,17 @@ std::vector<uint8_t> filterParallel(const std::vector<uint8_t>& matrix, int widt
     int height = length / width;
     std::vector<uint8_t> filtered(width * height);
 
-    #pragma omp parallel
-    {
-    #pragma omp for collapse(2) schedule(static)
-
-        for (int i = radius; i < height - radius; i++) {
-            for (int j = radius; j < width - radius; j++) {
-                uint8_t result = 0;
-                for (int m = -radius; m <= radius; m++) {
-                    for (int n = -radius; n <= radius; n++) {
-                        result += matrix[width * (i + m) + j + n]
-                            * core[coreSize * (m + radius) + n + radius];
-                    }
+    tbb::parallel_for(radius, height - radius, [&](int i){
+        tbb::parallel_for(radius, width - radius, [&](int j){
+            uint8_t result = 0;
+            for (int m = -radius; m <= radius; m++) {
+                for (int n = -radius; n <= radius; n++) {
+                    result += matrix[width * (i + m) + j + n] * core[coreSize * (m + radius) + n + radius];
                 }
-                filtered[width * i + j] = result;
             }
-        }
-    }
+            filtered[width * i + j] = result;
+        });
+    });
 
     return filtered;
 }
