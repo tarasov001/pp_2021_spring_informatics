@@ -25,7 +25,8 @@ TEST(Histogram_Stretch, Histogram_Of_Result_Equal_To_Stretched_Histogram) {
     image[1] = 255;
     Matrix histogram = make_histogram(image, w, h);
     int min_y, max_y;
-    min_max_y(histogram, min_y, max_y);
+    int* p_min_y = &min_y, * p_max_y = &max_y;
+    min_max_y(histogram, p_min_y, p_max_y);
     Matrix str_histogram = stretch_histogram(histogram, min_y, max_y);
     Matrix result = histogram_sretch_algorithm(image, w, h);
     Matrix res_histogram = make_histogram(result, w, h);

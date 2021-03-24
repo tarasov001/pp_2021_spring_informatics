@@ -37,18 +37,18 @@ Matrix make_histogram(const Matrix& image, int w, int h) {
     return histogram;
 }
 
-void min_max_y(const Matrix& histogram, int& min_y, int& max_y) {
-    min_y = NULL;
-    max_y = NULL;
+void min_max_y(const Matrix& histogram, int* min_y, int* max_y) {
+    *min_y = NULL;
+    *max_y = NULL;
     for (int i = 0; i < 256; i++) {
         if ((histogram[i] != 0) && (min_y == NULL)) {
-            min_y = i;
+            *min_y = i;
             break;
         }
     }
     for (int i = 255; i >= 0; i--) {
         if ((histogram[i] != 0) && (max_y == NULL)) {
-            max_y = i;
+            *max_y = i;
             break;
         }
     }
@@ -59,8 +59,9 @@ void min_max_y(const Matrix& histogram, int& min_y, int& max_y) {
     */
 }
 
-Matrix stretch_histogram(const Matrix& histogtram, const int& min_y, const int& max_y) {
-    if (min_y >= max_y)
+Matrix stretch_histogram(const Matrix& histogtram, const int* p_min_y, const int* p_max_y) {
+
+    if (*p_min_y >= *p_max_y)
         throw std::exception("Cannot stretch histohram with provided min_y and max_y");
     Matrix result_histogram(256);
     for (int i = min_y; i < max_y + 1; i++) {
@@ -69,15 +70,15 @@ Matrix stretch_histogram(const Matrix& histogtram, const int& min_y, const int& 
     return result_histogram;
 }
 
-Matrix increase_contrast(const Matrix& image, int w, int h, int& min_y, int& max_y) {
+Matrix increase_contrast(const Matrix& image, int w, int h, int* p_min_y, int* p_max_y) {
     if ((w <= 0) || (h <= 0))
         throw std::exception("Incorrect input for 'increase_contrast'");
-    if ((min_y >= max_y) || ((min_y == 0) && (max_y == 255)))
+    if ((*p_min_y >= *p_max_y) || ((*p_min_y == 0) && (*p_max_y == 255)))
         throw std::exception("Cannot stretch histohram with provided min_y and max_y");
     Matrix result_image(h * w);
     for (int i = 0; i < h; i++) {
         for (int j = 0; j < w; j++) {
-            result_image[i * w + j] = 255 * (image[i * w + j] - min_y) / (max_y - min_y);
+            result_image[i * w + j] = 255 * (image[i * w + j] - *p_min_y) / (*p_max_y - *p_min_y);
         }
     }
     return result_image;
@@ -88,6 +89,7 @@ Matrix histogram_sretch_algorithm(const Matrix& image, const int w, const int h)
         throw std::exception("Incorrect input for 'make_histogram'");
     Matrix histogram = make_histogram(image, w, h);
     int min_y, max_y;
-    min_max_y(histogram, min_y, max_y);
-    return increase_contrast(image, w, h, min_y, max_y);
+    int* p_min_y = &min_y, * p_max_y = &max_y;
+    min_max_y(histogram, p_min_y, p_max_y);
+    return increase_contrast(image, w, h, p_min_y, p_max_y);
 }
