@@ -68,7 +68,7 @@ TEST(Histogram_Stretch, Correct_Stretching_10x10) {
                           0, 28, 56, 85, 113, 141, 170, 198, 226, 255,
                           0, 28, 56, 85, 113, 141, 170, 198, 226, 255,
                           0, 28, 56, 85, 113, 141, 170, 198, 226, 255,
-                          0, 28, 56, 85, 113, 141, 170, 198, 226, 255,
+                          0, 28, 56, 85, 113, 141, 170, 198, 226, 255, };
     Matrix histogram = make_histogram(image, w, h);
     Matrix result = histogram_sretch_algorithm(image, w, h);
     for (int i = 0; i < h * w; i++) {
