@@ -10,19 +10,9 @@ TEST(Histogram_Stretch, Incorrect_Image) {
     ASSERT_ANY_THROW(generate_random_image(w, h));
 }
 
-TEST(Histogram_Stretch, Histogram_Full_Range) {
-    int w = 10, h = 10;
-    Matrix image = generate_random_image(w, h);
-    image[0] = 0;
-    image[1] = 255;
-    ASSERT_ANY_THROW(histogram_sretch_algorithm(image, w, h));
-}
-
 TEST(Histogram_Stretch, Histogram_Of_Result_Equal_To_Stretched_Histogram) {
     int w = 100, h = 100;
     Matrix image = generate_random_image(w, h);
-    image[0] = 0;
-    image[1] = 255;
     Matrix histogram = make_histogram(image, w, h);
     int min_y, max_y;
     min_y = get_min_y(histogram);
@@ -44,7 +34,7 @@ TEST(Histogram_Stretch, Correct_Stretching_2x2) {
     Matrix histogram = make_histogram(image, w, h);
     Matrix result = histogram_sretch_algorithm(image, w, h);
     for (int i = 0; i < h * w; i++) {
-        ASSERT_EQ(image[i], exp_result[i]);
+        ASSERT_EQ(result[i], exp_result[i]);
     }
 }
 
@@ -73,7 +63,7 @@ TEST(Histogram_Stretch, Correct_Stretching_10x10) {
     Matrix histogram = make_histogram(image, w, h);
     Matrix result = histogram_sretch_algorithm(image, w, h);
     for (int i = 0; i < h * w; i++) {
-        ASSERT_EQ(image[i], exp_result[i]);
+        ASSERT_EQ(result[i], exp_result[i]);
     }
 }
 

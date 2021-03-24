@@ -71,7 +71,7 @@ Matrix stretch_histogram(const Matrix& histogtram, const int& min_y, const int& 
 Matrix increase_contrast(const Matrix& image, int w, int h, const int& min_y, const int& max_y) {
     if ((w <= 0) || (h <= 0))
         throw std::runtime_error("Incorrect input for 'increase_contrast'");
-    if ((min_y >= max_y) || ((min_y == 0) && (max_y == 255)))
+    if (min_y >= max_y)
         throw std::runtime_error("Cannot stretch histohram with provided min_y and max_y");
     Matrix result_image(h * w);
     for (int i = 0; i < h; i++) {
