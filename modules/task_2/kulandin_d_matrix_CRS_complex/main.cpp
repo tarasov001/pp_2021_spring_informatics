@@ -130,7 +130,8 @@ TEST_P(parametrized_matrix_multiplication, mult_small_dimensions) {
     SparseMatrix a = generateRandomSparseMatrix(size, nonZero);
     SparseMatrix b = generateRandomSparseMatrix(size, nonZero);
 
-    std::cout << "size = " << size << "; nonZeroElements = " << nonZero << '\n';
+    std::cout << "size = " << size <<
+        "; nonZeroElementsInEveryRow = " << nonZero << '\n';
     auto begin = omp_get_wtime();
     SparseMatrix seq_res = a * b;
     auto end = omp_get_wtime();
@@ -152,7 +153,7 @@ TEST_P(parametrized_matrix_multiplication, mult_small_dimensions) {
 INSTANTIATE_TEST_SUITE_P(matrix_CSR_complex,
                          parametrized_matrix_multiplication,
                          testing::Combine(
-    testing::Values(50, 100, 200, 500, 1000),
+    testing::Values(50, 100, 200, 500),
     testing::Values(1, 2, 3, 4, 5)
 ));
 
