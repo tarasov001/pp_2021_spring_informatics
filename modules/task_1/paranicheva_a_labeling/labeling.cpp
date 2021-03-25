@@ -58,7 +58,7 @@ std::pair<std::vector<int>, std::vector<int> > firstMark(std::vector<int> arr, i
                 }
                 arr[i * cols + j] = tmp;
                 rel[tmpch] = tmp;
-                for (int k = 0; k < rel.size(); k++)
+                for (long unsigned int k = 0; k < rel.size(); k++)
                     if (rel[k] == tmpch)
                         rel[k] = tmp;
             }
