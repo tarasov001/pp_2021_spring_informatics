@@ -49,15 +49,18 @@ std::pair<std::vector<int>, std::vector<int> > firstMark(std::vector<int> arr, i
             }
             if ((arr[i * cols + j - 1] != 0) && (arr[(i - 1) * cols + j] != 0)) {
                 int tmp, tmpch;
-                if (arr[i * cols + j - 1] < arr[(i - 1) * cols + j]) {
-                    tmp = arr[i * cols + j - 1];
-                    tmpch = arr[(i - 1) * cols + j];
+                if (rel[arr[i * cols + j - 1]] < rel[arr[(i - 1) * cols + j]]) {
+                    tmp = rel[arr[i * cols + j - 1]];
+                    tmpch = rel[arr[(i - 1) * cols + j]];
                 } else {
-                    tmp = arr[(i - 1) * cols + j];
-                    tmpch = arr[i * cols + j - 1];
+                    tmp = rel[arr[(i - 1) * cols + j]];
+                    tmpch = rel[arr[i * cols + j - 1]];
                 }
                 arr[i * cols + j] = tmp;
                 rel[tmpch] = tmp;
+                for (int k = 0; k < rel.size(); k++)
+                    if (rel[k] == tmpch)
+                        rel[k] = tmp;
             }
         }
     return { arr, rel };
