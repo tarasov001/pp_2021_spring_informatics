@@ -67,7 +67,7 @@ double integrate_parallel(const std::function<double(std::vector<double>)>& f,
     }
 
     double result = 0.0;
-    #pragma omp parallel shared(dimension_divider, from, to, f, steps)
+    #pragma omp parallel shared(dimension_divider, from, to, f, steps, blocks_count, deltas)
     {
         std::vector<double> block_coordinates(from.size());
         #pragma omp for reduction(+ : result)
