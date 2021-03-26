@@ -14,7 +14,7 @@ struct point {
 };
 double distance(point a, point b);
 double cosAngle(point a, point b, point c);
-std::vector<point> Jarvis_alg(mat &a);
+std::vector<point> Jarvis_alg(const mat &a);
 std::vector<point> get_points(mat img);
 
 #endif  // MODULES_TASK_1_LUCKIANCHENCKO_I_OBOLOCHKA_OBOLOCHKA_H_

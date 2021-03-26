@@ -36,7 +36,7 @@ std::vector<point> get_points(mat img) {
     }
     return res;
 }
-std::vector<point> Jarvis_alg(mat &img) {
+std::vector<point> Jarvis_alg(const mat &img) {
     std::vector<point> a = get_points(img);
     std::vector<point> res;
     int count = a.size();
