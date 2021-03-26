@@ -37,9 +37,7 @@ std::vector<point> get_points(mat img) {
     return res;
 }
 std::vector<point> Jarvis_alg(mat img) {
-    //считываем координаты черных точек
     std::vector<point> a = get_points(img);
-    //находим начальную точку
     std::vector<point> res;
     int count = a.size();
     int base = 0;
