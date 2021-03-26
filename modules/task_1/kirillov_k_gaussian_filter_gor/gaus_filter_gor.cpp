@@ -52,7 +52,6 @@ Matrix genMatrixKernel(int radius, double alpha) {
 Matrix SequentialGausFilter(Matrix img, int rows, int cols,
     int radius, double alpha) {
     Matrix resImg(rows, std::vector<double>(cols));
-    const int size = 2*radius + 1;
     Matrix vecKernel = genMatrixKernel(radius, alpha);
     for (int x = 0; x < rows; x++) {
         for (int y = 0; y < cols; y++) {
