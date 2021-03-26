@@ -157,6 +157,55 @@ TEST(test_tkachev_a_graham_pass, test_7_size_3_minus_only) {
     ASSERT_EQ(graham_y, true_solution_y);
 }
 
+TEST(test_tkachev_a_graham_pass, test_8_size_2) {
+    std::vector<Point> const points = {
+        {-1.5, 1.5}, {2.5, -2.5}
+    };
+    std::stack<Point> graham = useGrahamAlgorithm(points);
+    std::vector<double> graham_x(graham.size(), 0.0);
+    std::vector<double> graham_y(graham.size(), 0.0);
+
+    for (uint32_t i = 0; i < graham_x.size(); i++) {
+        graham_x[i] = graham.top().x;
+        graham_y[i] = graham.top().y;
+        graham.pop();
+    }
+
+    std::vector<double> true_solution_x =
+    {2.5, -1.5};
+
+    std::vector<double> true_solution_y =
+    {-2.5, 1.5};
+
+    ASSERT_EQ(graham_x, true_solution_x);
+    ASSERT_EQ(graham_y, true_solution_y);
+}
+
+TEST(test_tkachev_a_graham_pass, test_9_size_1) {
+    std::vector<Point> const points = {
+        {-1.5, 1.5}
+    };
+    std::stack<Point> graham = useGrahamAlgorithm(points);
+    std::vector<double> graham_x(graham.size(), 0.0);
+    std::vector<double> graham_y(graham.size(), 0.0);
+
+    for (uint32_t i = 0; i < graham_x.size(); i++) {
+        graham_x[i] = graham.top().x;
+        graham_y[i] = graham.top().y;
+        graham.pop();
+    }
+
+    std::vector<double> true_solution_x =
+    {-1.5};
+
+    std::vector<double> true_solution_y =
+    {1.5};
+
+    ASSERT_EQ(graham_x, true_solution_x);
+    ASSERT_EQ(graham_y, true_solution_y);
+}
+
+
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();

@@ -97,7 +97,7 @@ uint32_t getIndexMinLeftDownPoint(std::vector<Point> points) {
 }
 
 std::stack<Point> useGrahamAlgorithm(std::vector<Point> points) {
-    assert(points.size() > 2);
+    assert(!points.empty());
     if (points.size() == 3) {
         std::stack<Point> points_stack;
         for (uint32_t i = 0; i < points.size(); i++) {
@@ -105,6 +105,14 @@ std::stack<Point> useGrahamAlgorithm(std::vector<Point> points) {
         }
         points_stack.push(points[0]);
         return points_stack;
+    } else {
+        if (points.size() < 3) {
+            std::stack<Point> points_stack;
+            for (uint32_t i = 0; i < points.size(); i++) {
+                points_stack.push(points[i]);
+            }
+            return points_stack;
+        }
     }
 
     swapPoints(&points[0],
