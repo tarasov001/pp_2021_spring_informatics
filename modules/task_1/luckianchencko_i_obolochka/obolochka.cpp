@@ -1,9 +1,5 @@
 // Copyright 2021 Luckianchencko Ivan
-#include <vector>
-#include <cmath>
-#include <iostream>
 #include "../../../modules/task_1/luckianchencko_i_obolochka/obolochka.h"
-
 
 double distance(point a, point b) {
     double res = sqrt(pow(b.x-a.x, 2) + pow(b.y-a.y, 2));

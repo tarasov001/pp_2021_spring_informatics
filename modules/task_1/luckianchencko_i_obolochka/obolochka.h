@@ -3,6 +3,8 @@
 #define MODULES_TASK_1_LUCKIANCHENCKO_I_OBOLOCHKA_OBOLOCHKA_H_
 
 #include<vector>
+#include <cmath>
+#include <iostream>
 using mat = std::vector<std::vector<int>>;
 struct point {
     int x, y;
