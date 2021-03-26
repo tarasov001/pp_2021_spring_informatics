@@ -1,5 +1,4 @@
 // Copyright 2021 Luckianchencko Ivan
-#define _USE_MATH_DEFINES
 #include <vector>
 #include <cmath>
 #include <cstdint>
@@ -22,7 +21,7 @@ double cosAngle(point a, point b, point c) {
         return 10.0;
     }
 }
-std::vector<point> get_points(const mat img) {
+std::vector<point> get_points(mat img) {
     std::vector<point> res;
     point a;
     for (int i = 0; i < 3; i++) {
@@ -36,7 +35,7 @@ std::vector<point> get_points(const mat img) {
     }
     return res;
 }
-std::vector<point> Jarvis_alg(const mat img) {
+std::vector<point> Jarvis_alg(mat img) {
     std::vector<point> a = get_points(img);
     std::vector<point> res;
     int count = a.size();
