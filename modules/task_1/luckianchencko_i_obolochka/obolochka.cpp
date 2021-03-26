@@ -62,7 +62,7 @@ std::vector<point> Jarvis_alg(mat img) {
                 min = cosAngle(prev, cur, a[i]);
                 dist = distance(cur, a[i]);
                 num = i;
-                } else if (abs(cosAngle(prev, cur, a[i]) - min) < 1e5) {
+                } else if (std::abs(cosAngle(prev, cur, a[i]) - min) < 1e5) {
                 double curdist = distance(cur, a[i]);
                 if (curdist > dist) {
                     min = cosAngle(prev, cur, a[i]);

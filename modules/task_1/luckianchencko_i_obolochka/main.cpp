@@ -22,7 +22,8 @@ TEST(obolocha, firts_matr) {
     cor2.push_back(0);
     cor2.push_back(2);
     cor2.push_back(0);
-    for (int i = 0; i < res.size(); i++) {
+    int count = res.size();
+    for (int i = 0; i < count; i++) {
         std::cout << res[i].x << "," << res[i].y << std::endl;
         ASSERT_EQ(res[i].x, cor1[i]);
         ASSERT_EQ(res[i].y, cor2[i]);
@@ -43,7 +44,8 @@ TEST(obolocha, firts_matr1) {
     cor1.push_back(2);
     cor2.push_back(0);
     cor2.push_back(2);
-    for (int i = 0; i < res.size(); i++) {
+    int count = res.size();
+    for (int i = 0; i < count; i++) {
         std::cout << res[i].x << "," << res[i].y << std::endl;
         ASSERT_EQ(res[i].x, cor1[i]);
         ASSERT_EQ(res[i].y, cor2[i]);
@@ -68,7 +70,8 @@ mat a(3, std::vector<int>(3));
     cor2.push_back(0);
     cor2.push_back(2);
     cor2.push_back(1);
-    for (int i = 0; i < res.size(); i++) {
+    int count = res.size();
+    for (int i = 0; i < count; i++) {
         std::cout << res[i].x << "," << res[i].y << std::endl;
         ASSERT_EQ(res[i].x, cor1[i]);
         ASSERT_EQ(res[i].y, cor2[i]);
@@ -90,7 +93,8 @@ mat a(3, std::vector<int>(3));
     cor1.push_back(0);
     cor2.push_back(0);
     cor2.push_back(2);
-    for (int i = 0; i < res.size(); i++) {
+    int count = res.size();
+    for (int i = 0; i < count; i++) {
         std::cout << res[i].x << "," << res[i].y << std::endl;
         ASSERT_EQ(res[i].x, cor1[i]);
         ASSERT_EQ(res[i].y, cor2[i]);
@@ -115,7 +119,8 @@ TEST(obolocha, firts_matr4) {
     cor2.push_back(0);
     cor2.push_back(2);
     cor2.push_back(1);
-    for (int i = 0; i < res.size(); i++) {
+    int count = res.size();
+    for (int i = 0; i < count; i++) {
         std::cout << res[i].x << "," << res[i].y << std::endl;
         ASSERT_EQ(res[i].x, cor1[i]);
         ASSERT_EQ(res[i].y, cor2[i]);
