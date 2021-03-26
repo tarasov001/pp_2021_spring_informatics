@@ -68,7 +68,7 @@ double integrate_parallel(const std::function<double(std::vector<double>)>& f,
 
     double result = 0.0;
     result = tbb::parallel_reduce(tbb::blocked_range<int32_t>(1, static_cast<int32_t>(blocks_count - 1)), 0.0,
-        [&dimension_divider, &from, &to, &f, &steps, &blocks_count, &deltas]
+        [&dimension_divider, &from, &f, &steps, &deltas]
         (tbb::blocked_range<int> range, double state_result) {
         std::vector<double> block_coordinates(from.size());
         for (int32_t i = range.begin(); i < range.end(); i++) {
