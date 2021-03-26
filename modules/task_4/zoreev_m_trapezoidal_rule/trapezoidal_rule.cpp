@@ -70,7 +70,7 @@ double integrate_parallel(const std::function<double(std::vector<double>)> &f,
 
     double result = 0.0;
 
-    auto partial_integral = [&dimension_divider, &from, &to, &f, &steps, &blocks_count, &deltas]
+    auto partial_integral = [&dimension_divider, &from, &f, &steps, &deltas]
         (size_t block_begin, size_t block_end) {
         std::vector<double> block_coordinates(from.size());
         double state_result = 0.0;

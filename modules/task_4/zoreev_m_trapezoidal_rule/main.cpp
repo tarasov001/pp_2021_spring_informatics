@@ -6,9 +6,9 @@
 #include <cmath>
 #include <functional>
 #include <iostream>
-#include <thread>
 
 #include "../../../modules/task_4/zoreev_m_trapezoidal_rule/trapezoidal_rule.h"
+#include "../../../3rdparty/unapproved/unapproved.h"
 
 TEST(TrapezoidalRule, Manual_Speed_Test) {
     std::vector<double> from = {0, 0};

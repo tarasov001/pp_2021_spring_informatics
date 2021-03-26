@@ -6,9 +6,10 @@
 #include <omp.h>
 
 #include <functional>
-#include <future>
 #include <stdexcept>
 #include <vector>
+
+#include "../../../3rdparty/unapproved/unapproved.h"
 
 double integrate(const std::function<double(std::vector<double>)>& f,
     const std::vector<double>& from, const std::vector<double>& to,
