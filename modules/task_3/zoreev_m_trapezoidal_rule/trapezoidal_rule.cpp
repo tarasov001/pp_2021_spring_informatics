@@ -67,18 +67,6 @@ double integrate_parallel(const std::function<double(std::vector<double>)>& f,
     }
 
     double result = 0.0;
-    /*#pragma omp parallel shared(dimension_divider, from, to, f, steps, blocks_count, deltas)
-    {
-        std::vector<double> block_coordinates(from.size());
-        #pragma omp for reduction(+ : result)
-        for (int32_t i = 1; i < static_cast<int64_t>(blocks_count - 1); i++) {
-            for (size_t j = 0; j < from.size(); j++) {
-                block_coordinates[j] = from[j] + (i / dimension_divider[j] % steps)
-                    * deltas[j];
-            }
-            result += f(block_coordinates);
-        }
-    }*/
     result = tbb::parallel_reduce(tbb::blocked_range<int32_t>(1, static_cast<int32_t>(blocks_count - 1)), 0.0,
         [&](tbb::blocked_range<int> range, double state_result) {
                 std::vector<double> block_coordinates(from.size());
