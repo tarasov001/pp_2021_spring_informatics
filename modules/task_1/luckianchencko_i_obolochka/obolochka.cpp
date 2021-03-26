@@ -1,7 +1,6 @@
 // Copyright 2021 Luckianchencko Ivan
 #include <vector>
 #include <cmath>
-#include <cstdint>
 #include <iostream>
 #include "../../../modules/task_1/luckianchencko_i_obolochka/obolochka.h"
 
