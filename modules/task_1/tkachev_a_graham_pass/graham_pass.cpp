@@ -104,6 +104,7 @@ std::stack<Point> useGrahamAlgorithm(std::vector<Point> points) {
         for (uint32_t i = 0; i < points.size(); i++) {
             points_stack.push(points[i]);
         }
+        points_stack.push(points[0]);
         return points_stack;
     }
 
