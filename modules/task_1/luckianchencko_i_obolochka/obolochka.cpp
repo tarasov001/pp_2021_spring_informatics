@@ -22,7 +22,7 @@ double cosAngle(point a, point b, point c) {
         return 10.0;
     }
 }
-std::vector<point> get_points(mat img) {
+std::vector<point> get_points(const mat img) {
     std::vector<point> res;
     point a;
     for (int i = 0; i < 3; i++) {
@@ -36,7 +36,7 @@ std::vector<point> get_points(mat img) {
     }
     return res;
 }
-std::vector<point> Jarvis_alg(mat img) {
+std::vector<point> Jarvis_alg(const mat img) {
     std::vector<point> a = get_points(img);
     std::vector<point> res;
     int count = a.size();
@@ -53,7 +53,7 @@ std::vector<point> Jarvis_alg(mat img) {
     point prev = first;
     prev.y -= 1;
     point cur = first;
-    int num;
+    int num = -1;
     while (1) {
         double min = 2;
         double dist = 0;
