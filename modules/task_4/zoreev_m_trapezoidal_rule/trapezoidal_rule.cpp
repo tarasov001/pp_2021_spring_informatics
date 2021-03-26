@@ -87,9 +87,9 @@ double integrate_parallel(const std::function<double(std::vector<double>)> &f,
     std::vector<std::future<double>> futures(0);
     size_t part = (blocks_count - 2) / threads_count;
     for (size_t i = 0; i < threads_count - 1; i++) {
-        futures.push_back(std::move(std::async(partial_integral, 1 + i * part, 1 + (i + 1) * part)));
+        futures.push_back(std::async(partial_integral, 1 + i * part, 1 + (i + 1) * part));
     }
-    futures.push_back(std::move(std::async(partial_integral, 1 + (threads_count - 1) * part, blocks_count - 1)));
+    futures.push_back(std::async(partial_integral, 1 + (threads_count - 1) * part, blocks_count - 1));
 
     for (size_t i = 0; i < threads_count; i++) {
         result += futures[i].get();
