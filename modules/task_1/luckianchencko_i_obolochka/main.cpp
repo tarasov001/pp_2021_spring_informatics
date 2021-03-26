@@ -1,6 +1,5 @@
 // Copyright 2021 Luckianchencko Ivan
 #include <gtest/gtest.h>
-#include <vector>
 #include "./obolochka.h"
 
 TEST(obolocha, firts_matr) {
