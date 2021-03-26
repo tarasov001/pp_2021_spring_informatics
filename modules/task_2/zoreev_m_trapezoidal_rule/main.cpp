@@ -15,11 +15,11 @@ TEST(TrapezoidalRule, Manual_Speed_Test) {
         return std::sin(args[0]) * args[1];
     };
     double seqential_begin = omp_get_wtime();
-    double sequential_result = integrate(f, from, to, 200);
+    double sequential_result = integrate(f, from, to, 2000);
     double seqential_end = omp_get_wtime();
     std::cout << "Seqential time: " << seqential_end - seqential_begin << std::endl;
     double parallel_begin = omp_get_wtime();
-    double parallel_result = integrate_parallel(f, from, to, 200);
+    double parallel_result = integrate_parallel(f, from, to, 2000);
     double parallel_end = omp_get_wtime();
     std::cout << "Parallel time:  " << parallel_end - parallel_begin << std::endl;
     ASSERT_NEAR(parallel_result, sequential_result, 1e-2);

@@ -15,14 +15,17 @@ TEST(TrapezoidalRule, Manual_Speed_Test) {
     std::function<double(std::vector<double>)> f = [](std::vector<double> args) {
         return std::sin(args[0]) * args[1];
     };
-    tbb::tick_count seqential_begin = tbb::tick_count::now();
-    double sequential_result = integrate(f, from, to, 200);
-    tbb::tick_count seqential_end = tbb::tick_count::now();
-    std::cout << "Seqential time: " << (seqential_end - seqential_begin).seconds() << std::endl;
+
     tbb::tick_count  parallel_begin = tbb::tick_count::now();
     double parallel_result = integrate_parallel(f, from, to, 200);
     tbb::tick_count  parallel_end = tbb::tick_count::now();
     std::cout << "Parallel time:  " << (parallel_end - parallel_begin).seconds() << std::endl;
+    
+    tbb::tick_count seqential_begin = tbb::tick_count::now();
+    double sequential_result = integrate(f, from, to, 200);
+    tbb::tick_count seqential_end = tbb::tick_count::now();
+    std::cout << "Seqential time: " << (seqential_end - seqential_begin).seconds() << std::endl;
+
     ASSERT_NEAR(parallel_result, sequential_result, 1e-2);
 }
 
