@@ -1,4 +1,10 @@
 // Copyright 2021 Luckianchencko Ivan
+#include <cmath>
+#include <ctime>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+#include <stack>
 #include "../../../modules/task_1/luckianchencko_i_obolochka/obolochka.h"
 
 double distance(point a, point b) {
