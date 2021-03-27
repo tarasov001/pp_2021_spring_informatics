@@ -64,7 +64,7 @@ TEST(Sparse_Matrix_CCS_1, Multiplication_1) {
 }
 
 TEST(Sparse_Matrix_CCS_1, Multiplication_2) {
-  std::vector<std::complex<int>> a = { 
+  std::vector<std::complex<int>> a = {
     {0, 0}, {12, 0}, {0, 0},
     {1, 0}, {0, 0}, {5, 0},
     {0, 0}, {4, 0}, {7, 0} };
