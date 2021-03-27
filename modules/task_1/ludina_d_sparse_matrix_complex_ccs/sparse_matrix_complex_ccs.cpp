@@ -11,8 +11,8 @@ SparseMatrix::SparseMatrix(int _rows, int _cols) {
   cols = _cols;
 }
 
-SparseMatrix::SparseMatrix(int _rows, int _cols, std::vector<std::complex<int>>& _value,
-  std::vector<int>& _col_idx, std::vector<int>& _row) {
+SparseMatrix::SparseMatrix(int _rows, int _cols, const std::vector<std::complex<int>>& _value,
+  const std::vector<int>& _col_idx, const std::vector<int>& _row) {
   rows = _rows;
   cols = _cols;
   value = _value;

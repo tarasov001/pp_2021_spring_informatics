@@ -16,8 +16,8 @@ struct SparseMatrix {
   SparseMatrix();
   SparseMatrix(int _rows, int _cols);
   SparseMatrix(int _rows, int _cols,
-    std::vector<std::complex<int>>& _value,
-    std::vector<int>& _col_idx, std::vector<int>& _row);
+    const std::vector<std::complex<int>>& _value,
+    const std::vector<int>& _col_idx, const std::vector<int>& _row);
   SparseMatrix(int _rows, int _cols, std::vector<std::complex<int>> matrix);
   SparseMatrix transpose();
 };
