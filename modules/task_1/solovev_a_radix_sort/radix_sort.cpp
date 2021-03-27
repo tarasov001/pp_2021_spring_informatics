@@ -6,19 +6,16 @@
 #include <iostream>
 
 
-int generateRandomArray(std::vector<int> *buffer, double min, double max) {
+int generateRandomArray(std::vector<int> *buffer, int min, int max) {
     if (buffer->size() <= 0)
         return -1;
     if (min >= max) {
-        double temp = min;
-        min = max;
-        max = temp;
+        std::swap(min, max);
     }
     std::mt19937 gen;
     gen.seed(static_cast<unsigned int>(time(0)));
-    std::uniform_real_distribution<double> buf(min, max);
     for (size_t i = 0; i < buffer->size(); i++) {
-        buffer->at(i) = static_cast<int>(buf(gen));
+        buffer->at(i) = static_cast<int>(gen()) % (max - min + 1) + min;
     }
     return 0;
 }

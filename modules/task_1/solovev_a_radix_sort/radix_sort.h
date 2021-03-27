@@ -6,7 +6,7 @@
 #include <random>
 #include <vector>
 
-int generateRandomArray(std::vector<int> *buffer, double min, double max);
+int generateRandomArray(std::vector<int> *buffer, int min, int max);
 int MergeArrays(std::vector<int> *buffer1, std::vector<int> *buffer2,  std::vector<int> *result);
 int SortingCheck(std::vector<int> *buffer);
 int RadixSortUnsigned(std::vector<int> *buffer);
