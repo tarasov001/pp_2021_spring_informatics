@@ -25,7 +25,7 @@ TEST(MULTIPLY_SPARSE_MATRIX, SOLUTION_WITH_50_ELEM_NO_THROW) {
   A = CCS(randMat(50, 50), 50, 50);
   B = CCS(randMat(50, 50), 50, 50);
   std::vector<double> res = A * B;
-  ASSERT_NO_THROW(res);
+  EXPECT_NO_THROW(res);
 }
 
 TEST(MULTIPLY_SPARSE_MATRIX, SOLUTION_WITH_N_ELEM_NO_THROW) {
@@ -33,5 +33,5 @@ TEST(MULTIPLY_SPARSE_MATRIX, SOLUTION_WITH_N_ELEM_NO_THROW) {
   A = CCS(randMat(SIZE, SIZE), SIZE, SIZE);
   B = CCS(randMat(SIZE, SIZE), SIZE, SIZE);
   std::vector<double> res = A * B;
-  ASSERT_NO_THROW(res);
+  EXPECT_NO_THROW(res);
 }
