@@ -70,7 +70,7 @@ void CountingSort(int* input, int* output, int valbyte, size_t length) {
         value += tmp;
     }
 
-    for (int i = 0; i < length; i++) {
+    for (size_t i = 0; i < length; i++) {
         output[counter[buffer[4 * i + valbyte]]++] = input[i];
     }
 }
