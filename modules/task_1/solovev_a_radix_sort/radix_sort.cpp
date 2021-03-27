@@ -57,9 +57,8 @@ int SortingCheck(int* buffer, size_t length) {
 void CountingSort(int* input, int* output, int valbyte, size_t length) {
     unsigned char *buffer = (unsigned char *)input;
 
-    int counter[256];
+    int counter[256] = {0};
     int value;
-    std::fill(counter, counter + 256, 0);
 
     for (size_t i = 0; i < length; i++) {
         counter[buffer[4 * i + valbyte]]++;
