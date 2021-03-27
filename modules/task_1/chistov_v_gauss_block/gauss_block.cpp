@@ -119,8 +119,9 @@ std::vector<double> Gauss_Parallel(const std::vector<double> &image,
                 hrem--;
             }
             locbh = blockheight + heightcalc;
-            //auto block = Block_Construct(image, start, locbw, locbh, height);
-            res = Block_Destruct(res, Block_Construct(image, start, locbw, locbh, height), start, locbw, locbh, height);
+            // auto block = Block_Construct(image, start, locbw, locbh, height);
+            res = Block_Destruct(res, Block_Construct(image, start, locbw,
+                locbh, height), start, locbw, locbh, height);
             start = start + locbh;
         }
         start = start + height * (locbw - 1);
