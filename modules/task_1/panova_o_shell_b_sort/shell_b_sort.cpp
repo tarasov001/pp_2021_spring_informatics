@@ -92,7 +92,7 @@ std::vector<int> BatcherMerge(const std::vector<int>& left, const std::vector<in
     }
     return res;
 }
-std::vector<int> ShellSort(const std::vector<int> a) {
+std::vector<int> ShellSort(const std::vector<int>& a) {
     std::vector<int> res(a);
     int size = static_cast<int>(res.size());
     int k, incr, tmp;
@@ -122,7 +122,8 @@ std::vector<int> ShellSort(const std::vector<int> a) {
     return res;
 }
 std::vector<int> OddEvenShellSort(const std::vector<int>& a) {
-    std::vector<int> left, right;
+    std::vector<int> left;
+    std::vector<int> right;
     std::vector<int> even;
     std::vector<int> odd;
     int size = static_cast<int>(a.size());
