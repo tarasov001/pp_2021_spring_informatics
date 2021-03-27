@@ -73,7 +73,6 @@ SparseMatrix Multiplication(SparseMatrix A, SparseMatrix B) {
   int col_not_zero = 0;
   std::vector<std::complex<int>> tmp(A.rows, { 0, 0 });
   result.col_idx.push_back(0);
-  
   for (int j = 0; j < B.cols; j++) {
     for (int k = B.col_idx[j]; k < B.col_idx[j + 1]; k++) {
       col_not_zero = B.row[k];
