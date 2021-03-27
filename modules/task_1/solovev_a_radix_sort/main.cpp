@@ -118,7 +118,7 @@ TEST(Senquential, Test_Very_Large_Length) {
         status = -1;
     }
 
-    status = generateRandomArray(buffer, length, -1000.0, 1000.0);
+    status = generateRandomArray(buffer, length, -5000.0, 5000.0);
 
     status = RadixSort(buffer, length);
     status = SortingCheck(buffer, length);

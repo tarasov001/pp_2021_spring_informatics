@@ -101,8 +101,8 @@ int RadixSort(int* buffer, size_t length) {
         return -1;
     if (buffer == nullptr)
         return -1;
-    int *positive_numbers = nullptr;
-    int *negative_numbers = nullptr;
+    int* positive_numbers = nullptr;
+    int* negative_numbers = nullptr;
     int positive_length = 0, negative_length = 0;
     int status = 0;
 
