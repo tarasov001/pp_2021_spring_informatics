@@ -58,21 +58,13 @@ void CountingSort(int* input, int* output, int valbyte, size_t length) {
     unsigned char *buffer = (unsigned char *)input;
 
     int counter[256] = {0};
-    int value;
+    size_t length_counter = 256;
+    int value = 0;
 
     for (size_t i = 0; i < length; i++) {
         counter[buffer[4 * i + valbyte]]++;
     }
-    int j;
-    for (j = 0; j < 256; j++) {
-        if (counter[j] != 0)
-            break;
-    }
-
-    value = counter[j];
-    counter[j] = 0;
-    j++;
-    for (; j < 256; j++) {
+    for (size_t j = 0; j < length_counter; j++) {
         int tmp = counter[j];
         counter[j] = value;
         value += tmp;
