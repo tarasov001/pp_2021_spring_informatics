@@ -118,13 +118,10 @@ int RadixSort(std::vector<int> &buffer) {
             negative_length++;
         }
     }
-    
+ 
     status = RadixSortUnsigned(positive_numbers);
     status = RadixSortUnsigned(negative_numbers);
-    
-    
-    
-    
+
     status = MergeArrays(negative_numbers,  positive_numbers,  buffer);
     return status;
 }

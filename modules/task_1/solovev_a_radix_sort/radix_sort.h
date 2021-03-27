@@ -11,5 +11,4 @@ int SortingCheck(std::vector<int> &buffer);
 int RadixSortUnsigned(std::vector<int> &buffer);
 int RadixSort(std::vector<int> &buffer);
 
-
 #endif  // MODULES_TASK_1_SOLOVEV_A_RADIX_SORT_RADIX_SORT_H_

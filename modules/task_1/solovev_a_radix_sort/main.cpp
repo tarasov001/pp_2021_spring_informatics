@@ -7,9 +7,9 @@
 
 
 TEST(Senquential, Test_Only_Positive) {
-    const int length = 10;
+    const int length = 1000;
     int status = 0;
-    
+
     std::vector<int> buffer1(length);
     status = generateRandomArray(buffer1,  0.0, 1000.0);
     status = RadixSort(buffer1);
@@ -21,10 +21,10 @@ TEST(Senquential, Test_Only_Positive) {
 
 
 TEST(Senquential, Test_Only_Negative) {
-    const int length = 100;
+    const int length = 1000;
     int status = 0;
     std::vector<int> buffer1(length);
-    status = generateRandomArray(buffer1,  -10.0, -1.0);
+    status = generateRandomArray(buffer1,  -1000.0, -1.0);
 
     status = RadixSort(buffer1);
     status = SortingCheck(buffer1);
@@ -34,7 +34,7 @@ TEST(Senquential, Test_Only_Negative) {
 }
 
 TEST(Senquential, Test_Small_length) {
-    const int length = 10;
+    const int length = 100;
     int status = 0;
     std::vector<int> buffer1(length);
     status = generateRandomArray(buffer1,  -1000.0, 1000.0);
@@ -48,7 +48,7 @@ TEST(Senquential, Test_Small_length) {
 }
 
 TEST(Senquential, Test_Medium_Length) {
-    const int length = 100;
+    const int length = 1000;
     int status = 0;
     std::vector<int> buffer1(length);
     status = generateRandomArray(buffer1,  -1000.0, 1000.0);
@@ -62,7 +62,7 @@ TEST(Senquential, Test_Medium_Length) {
 }
 
 TEST(Senquential, Test_Large_Length) {
-    const int length = 100;
+    const int length = 15000;
     int status = 0;
     std::vector<int> buffer1(length);
     status = generateRandomArray(buffer1,  -1000.0, 1000.0);
@@ -76,10 +76,10 @@ TEST(Senquential, Test_Large_Length) {
 }
 
 TEST(Senquential, Test_Very_Large_Length) {
-    const int length = 100;
+    const int length = 100000;
     int status = 0;
     std::vector<int> buffer1(length);
-    status = generateRandomArray(buffer1,  -5000.0, 1000.0);
+    status = generateRandomArray(buffer1,  -5000.0, 5000.0);
 
     status = RadixSort(buffer1);
 
