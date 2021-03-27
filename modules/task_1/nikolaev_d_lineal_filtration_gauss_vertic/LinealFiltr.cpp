@@ -6,7 +6,7 @@
 #include <cmath>
 #include <stdexcept>
 #include <algorithm>
-#include "./modules/task_1/nikolaev_d_lineal_filtration_gauss_vertic/LinealFiltr.h"
+#include "../../../modules/task_1/nikolaev_d_lineal_filtration_gauss_vertic/LinealFiltr.h"
 
 int clamp(int n, int upper, int lower) {
     return n <= lower ? lower : n >= upper ? upper : n;
