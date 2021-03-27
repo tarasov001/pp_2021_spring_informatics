@@ -4,7 +4,7 @@
 #include <ctime>
 #include "../../../modules/task_1/kuznetsov_n_mult_sparse_mat/sparse_matrix.h"
 
-std::vector<double> randMat(const int cols, const int rows) {
+std::vector<double> randMat(const int rows, const int cols) {
   if (rows <= 0 || cols <= 0) {
     throw - 1;
   }
