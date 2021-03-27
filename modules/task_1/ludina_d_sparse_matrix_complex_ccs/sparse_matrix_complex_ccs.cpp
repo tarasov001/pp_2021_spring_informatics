@@ -6,11 +6,6 @@ SparseMatrix::SparseMatrix() {
   cols = 0;
 }
 
-SparseMatrix::SparseMatrix(int _rows, int _cols) {
-  rows = _rows;
-  cols = _cols;
-}
-
 SparseMatrix::SparseMatrix(int _rows, int _cols, const std::vector<int>& _col_idx,
   const std::vector<int>& _row, const std::vector<std::complex<int>>& _value) {
   rows = _rows;
@@ -68,7 +63,7 @@ SparseMatrix SparseMatrix::transpose() {
 SparseMatrix Multiplication(SparseMatrix A, SparseMatrix B) {
   if (A.cols != B.rows)
     throw "Size col A not equal size row B";
-  SparseMatrix result(A.rows, B.cols);
+  SparseMatrix result;
   A.transpose();
   int col_not_zero = 0;
   std::vector<std::complex<int>> tmp(A.rows, { 0, 0 });
