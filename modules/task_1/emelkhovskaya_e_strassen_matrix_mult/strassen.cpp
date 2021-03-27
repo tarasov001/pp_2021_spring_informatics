@@ -1,6 +1,8 @@
 // Copyright 2021 Emelkhovskaya Ekaterina
 
+#include <math.h>
 #include <string>
+#include <stdexcept>
 #include "../../modules/task_1/emelkhovskaya_e_strassen_matrix_mult/strassen.h"
 
 void seqMult(double* a, double* b, double* c, int size) {

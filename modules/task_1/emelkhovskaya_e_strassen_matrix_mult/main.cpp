@@ -1,6 +1,7 @@
 // Copyright 2021 Emelkhovskaya Ekaterina
 
 #include <gtest/gtest.h>
+#include <stdexcept>
 #include <vector>
 
 #include "./strassen.h"
