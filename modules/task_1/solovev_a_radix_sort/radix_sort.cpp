@@ -5,7 +5,7 @@
 #include <utility>
 #include <iostream>
 
-int generateRandomArray(int *buffer, size_t length, double min, double max) {
+int generateRandomArray(int* buffer, size_t length, double min, double max) {
     if ((length <= 0) || (buffer == nullptr))
         return -1;
     if (min >= max) {
@@ -22,7 +22,7 @@ int generateRandomArray(int *buffer, size_t length, double min, double max) {
     return 0;
 }
 
-int MergeArrays(int *buffer1, size_t length1, int *buffer2, size_t length2, int *result) {
+int MergeArrays(int* buffer1, size_t length1, int* buffer2, size_t length2, int* result) {
     if ((length1 < 0) || (length2 < 0))
         return -1;
     if ((buffer1 == nullptr) || (buffer2 == nullptr) || (result == nullptr))
@@ -41,7 +41,7 @@ int MergeArrays(int *buffer1, size_t length1, int *buffer2, size_t length2, int 
     return 0;
 }
 
-int SortingCheck(int *buffer, size_t length) {
+int SortingCheck(int* buffer, size_t length) {
     if (length < 1)
         return -1;
     if (buffer == nullptr)
@@ -54,7 +54,7 @@ int SortingCheck(int *buffer, size_t length) {
     return 0;
 }
 
-void CountingSort(int *input, int *output, int valbyte, size_t length) {
+void CountingSort(int* input, int* output, int valbyte, size_t length) {
     unsigned char *buffer = (unsigned char *)input;
 
     int counter[256];
@@ -84,14 +84,14 @@ void CountingSort(int *input, int *output, int valbyte, size_t length) {
     }
 }
 
-int RadixSortUnsigned(int *buffer, size_t length) {
+int RadixSortUnsigned(int* buffer, size_t length) {
     if (length < 1) {
         return 0;
     }
     if ((length < 0) || (buffer == nullptr)) {
         return -1;
     }
-    int *outbuf = reinterpret_cast<int *>(malloc(sizeof(int) * length));
+    int *outbuf = reinterpret_cast<int*>(malloc(sizeof(int) * length));
     if (outbuf == nullptr) {
         return -1;
     }
@@ -105,7 +105,7 @@ int RadixSortUnsigned(int *buffer, size_t length) {
     return 0;
 }
 
-int RadixSort(int *buffer, size_t length) {
+int RadixSort(int* buffer, size_t length) {
     if (length < 1)
         return -1;
     if (buffer == nullptr)
@@ -144,9 +144,8 @@ int RadixSort(int *buffer, size_t length) {
     return status;
 }
 
-void BufferClear(int *buffer) {
+void BufferClear(int* buffer) {
     if (buffer) {
         free(buffer);
-        buffer = nullptr;
     }
 }
