@@ -4,6 +4,7 @@
 #include <time.h>
 #include <stdlib.h>
 #include <random>
+#include <vector>
 
 int generateRandomArray(std::vector<int> *buffer, double min, double max);
 int MergeArrays(std::vector<int> *buffer1, std::vector<int> *buffer2,  std::vector<int> *result);

@@ -4,7 +4,7 @@
 #include <cstring>
 #include <utility>
 #include <iostream>
-#include <vector>
+
 
 int generateRandomArray(std::vector<int> *buffer, double min, double max) {
     if ((buffer->size() <= 0) || (buffer == nullptr))
