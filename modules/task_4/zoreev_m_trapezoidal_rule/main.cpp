@@ -1,7 +1,7 @@
 // Copyright 2021 Zoreev Mikhail
 
 #include <gtest/gtest.h>
-#include <omp.h>
+//#include <omp.h>
 
 #include <cmath>
 #include <functional>
@@ -16,14 +16,14 @@ TEST(TrapezoidalRule, Manual_Speed_Test) {
     std::function<double(std::vector<double>)> f = [](std::vector<double> args) {
         return std::sin(args[0]) * args[1];
     };
-    double seqential_begin = omp_get_wtime();
+    //double seqential_begin = omp_get_wtime();
     double sequential_result = integrate(f, from, to, 200);
-    double seqential_end = omp_get_wtime();
-    std::cout << "Seqential time: " << seqential_end - seqential_begin << std::endl;
-    double parallel_begin = omp_get_wtime();
+    //double seqential_end = omp_get_wtime();
+    //std::cout << "Seqential time: " << seqential_end - seqential_begin << std::endl;
+    //double parallel_begin = omp_get_wtime();
     double parallel_result = integrate_parallel(f, from, to, 200, std::thread::hardware_concurrency());
-    double parallel_end = omp_get_wtime();
-    std::cout << "Parallel time:  " << parallel_end - parallel_begin << std::endl;
+    //double parallel_end = omp_get_wtime();
+    //std::cout << "Parallel time:  " << parallel_end - parallel_begin << std::endl;
     ASSERT_NEAR(parallel_result, sequential_result, 1e-2);
 }
 
