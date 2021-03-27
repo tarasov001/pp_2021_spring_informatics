@@ -1,5 +1,5 @@
 // Copyright 2021 Bulychev Vladislav
-#include <vector>;
+#include <vector>
 #include <cmath>
 #include "../../../modules/task_1/bulychev_v_int_rec/int_rec.h"
 
