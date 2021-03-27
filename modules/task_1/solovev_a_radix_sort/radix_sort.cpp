@@ -25,10 +25,10 @@ int generateRandomArray(std::vector<int> *buffer, double min, double max) {
 
 int MergeArrays(std::vector<int> *buffer1, std::vector<int> *buffer2,  std::vector<int> *result) {
     result->resize(buffer1->size() + buffer2->size());
-    for (int i = 0; i < buffer1->size(); i++) {
+    for (size_t i = 0; i < buffer1->size(); i++) {
         result->at(i) = buffer1->at(i);
     }
-    for (int i = 0 ; i < buffer2->size(); i++) {
+    for (size_t i = 0 ; i < buffer2->size(); i++) {
         result->at(buffer1->size() + i) = buffer2->at(i);
     }
 
@@ -36,7 +36,7 @@ int MergeArrays(std::vector<int> *buffer1, std::vector<int> *buffer2,  std::vect
 }
 
 int SortingCheck(std::vector<int> *buffer) {
-    for (int i = 0; i < buffer->size() - 1; i++) {
+    for (size_t i = 0; i < buffer->size() - 1; i++) {
         if (buffer->at(i) <= buffer->at(i + 1)) {
             i++;
         } else {
@@ -99,7 +99,7 @@ int RadixSort(std::vector<int> *buffer) {
     std::vector<int> negative_numbers(negative_length);
     positive_length = 0;
     negative_length = 0;
-    for (int i = 0; i < buffer->size(); i++) {
+    for (size_t i = 0; i < buffer->size(); i++) {
         if (buffer->at(i) >= 0) {
             positive_numbers[positive_length] = buffer->at(i);
             positive_length++;
