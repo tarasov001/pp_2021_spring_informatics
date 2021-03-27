@@ -1,6 +1,6 @@
 // Copyright 2021 Kuznetsov Nikita
-#ifndef MODULES_TASK_1_KUZNETSOV_N_MULT_SPARSE_MAT_H_
-#define MODULES_TASK_1_KUZNETSOV_N_MULT_SPARSE_MAT_H_
+#ifndef MODULES_TASK_1_KUZNETSOV_N_MULT_SPARSE_MAT_SPARSE_MATRIX_H_
+#define MODULES_TASK_1_KUZNETSOV_N_MULT_SPARSE_MAT_SPARSE_MATRIX_H_
 
 #include <vector>
 
@@ -15,4 +15,4 @@ struct sparseMatrix {
 sparseMatrix CCS(const std::vector<double> new_mat, const int new_cols, const int new_rows);
 std::vector<double> randMat(const int rows, const int cols);
 
-#endif MODULES_TASK_1_KUZNETSOV_N_MULT_SPARSE_MAT_H_
+#endif  // MODULES_TASK_1_KUZNETSOV_N_MULT_SPARSE_MAT_SPARSE_MATRIX_H_
