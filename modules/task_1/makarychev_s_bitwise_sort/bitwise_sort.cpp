@@ -15,16 +15,6 @@ std::vector<int> getRandomVector(int sizeVec) {
     return rVec;
 }
 
-void printVec(std::vector<int> vec) {
-    if (vec.empty()) {
-        return;
-    }
-    for (size_t i = 0; i < vec.size(); i++) {
-        std::cout << vec[i] << " ";
-    }
-    std::cout << std::endl;
-}
-
 void createCounters(int* sortVec, int* counters, int sizeVec) {
   unsigned char* bytePointer = (unsigned char*)sortVec;
   unsigned char* dataEnd = (unsigned char*)(sortVec + sizeVec);

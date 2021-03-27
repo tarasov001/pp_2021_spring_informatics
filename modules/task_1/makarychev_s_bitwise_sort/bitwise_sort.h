@@ -8,6 +8,5 @@ std::vector<int> getRandomVector(int sizeVec);
 void createCounters(int* sortVec, int* counters, int sizeVec);
 void signedRadix(int byteNumber, int sizeVec, int* sourceVec, int* destVec, int* count);
 void signedRadixSort(int* sortVec, int sizeVec);
-void printVec(std::vector<int> vec);
 
 #endif // ! MODULES_TASK_1_MAKARYCHEV_S_FOXES_BITWISE_SORT_H_
