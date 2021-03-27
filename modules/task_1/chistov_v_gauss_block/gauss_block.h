@@ -11,7 +11,7 @@ std::vector <double> Block_Construct(std::vector<double> image,
 std::vector <double> Block_Destruct(std::vector<double> empty,
     std::vector<double> block, int num, int widthloc,
 int heightloc, int heigth);
-std::vector<double> Gauss_Parallel(std::vector<double> image,
+std::vector<double> Gauss_Parallel(const std::vector<double> &image,
     int width, int height, int num);
 std::vector<double> GenRandVec(int size);
 const double Gauss_Core[9] = { 1, 2, 1,

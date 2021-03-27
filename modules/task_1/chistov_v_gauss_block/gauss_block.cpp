@@ -79,7 +79,7 @@ int widthloc, int heightloc, int heigth) {
     return empty;
 }
 
-std::vector<double> Gauss_Parallel(std::vector<double> image,
+std::vector<double> Gauss_Parallel(const std::vector<double> &image,
     int width, int height, int num) {
     int sidenum = ceil(static_cast<double>(sqrt(num)));
     int blockwidth = width / sidenum;
@@ -119,8 +119,8 @@ std::vector<double> Gauss_Parallel(std::vector<double> image,
                 hrem--;
             }
             locbh = blockheight + heightcalc;
-            auto block = Block_Construct(image, start, locbw, locbh, height);
-            res = Block_Destruct(res, block, start, locbw, locbh, height);
+            //auto block = Block_Construct(image, start, locbw, locbh, height);
+            res = Block_Destruct(res, Block_Construct(image, start, locbw, locbh, height), start, locbw, locbh, height);
             start = start + locbh;
         }
         start = start + height * (locbw - 1);
