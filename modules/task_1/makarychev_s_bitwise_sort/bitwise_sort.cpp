@@ -18,8 +18,9 @@ std::vector<int> getRandomVector(int sizeVec) {
 void createCounters(int* sortVec, int* counters, int sizeVec) {
   unsigned char* bytePointer = (unsigned char*)sortVec;
   unsigned char* dataEnd = (unsigned char*)(sortVec + sizeVec);
+  int s = static_cast<int>(sizeof(int));
   while (bytePointer != dataEnd) {
-    for (int i = 0; i < sizeof(int); i++)
+    for (int i = 0; i < s; i++)
       counters[256 * i + *bytePointer++]++;
   }
 }
@@ -70,10 +71,11 @@ void signedRadixSort(int* sortVec, int sizeVec) {
   std::vector<int> counters(sizeof(int) * 256);
   int* count;
   createCounters(sortVec, counters.data(), sizeVec);
-  for (int i = 0; i < sizeof(int); i++) {
+  int s = static_cast<int>(sizeof(int));
+  for (int i = 0; i < s; i++) {
     count = counters.data() + 256 * i;
     signedRadix(i, sizeVec, sortVec, out, count);
     std::swap(sortVec, out);
   }
-  delete out;
+  delete[] out;
 }
