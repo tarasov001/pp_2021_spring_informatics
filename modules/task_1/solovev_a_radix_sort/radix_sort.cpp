@@ -5,8 +5,8 @@
 #include <utility>
 #include <iostream>
 
-int generateRandomArray(std::vector<int> &buffer, double min, double max) {
-    if ((buffer.size() <= 0) || (buffer.data() == nullptr))
+int generateRandomArray(int* buffer, size_t length, double min, double max) {
+    if ((length <= 0) || (buffer == nullptr))
         return -1;
     if (min >= max) {
         double temp = min;
@@ -16,24 +16,22 @@ int generateRandomArray(std::vector<int> &buffer, double min, double max) {
     std::mt19937 gen;
     gen.seed(static_cast<unsigned int>(time(0)));
     std::uniform_real_distribution<double> buf(min, max);
-    for (size_t i = 0; i < buffer.size(); i++) {
+    for (size_t i = 0; i < length; i++) {
         buffer[i] = static_cast<int>(buf(gen));
     }
     return 0;
 }
 
 int MergeArrays(std::vector<int> &buffer1, std::vector<int> &buffer2,  std::vector<int> &result) {
-    result.resize( buffer1.size() + buffer2.size() );
+    result.resize(buffer1.size() + buffer2.size());
     result.clear();
-    for (int i = 0; i < buffer1.size(); i++)
-    {
+    for (int i = 0; i < buffer1.size(); i++) {
         result.push_back(buffer1[i]);
     }
-    for (int i = 0 ; i < buffer2.size(); i++)
-    {
+    for (int i = 0 ; i < buffer2.size(); i++) {
         result.push_back(buffer2[i]);
     }
-    
+
     return 0;
 }
 
@@ -53,11 +51,11 @@ void CountingSort(std::vector<int> &input, std::vector<int> &output, int valbyte
     int counter[256] = {0};
     size_t length_counter = 256;
     int value = 0;
-    
+
     for (size_t i = 0; i < input.size(); i++) {
         counter[buffer[4 * i + valbyte]]++;
     }
-    
+
     for (size_t j = 0; j < length_counter; j++) {
         int tmp = counter[j];
         counter[j] = value;
@@ -95,7 +93,7 @@ int RadixSort(std::vector<int> &buffer) {
 
     int positive_length = 0, negative_length = 0;
     int status = 0;
-    
+
     for (size_t i = 0; i < buffer.size(); i++) {
         if (buffer[i] >= 0) {
             positive_length++;
@@ -107,10 +105,8 @@ int RadixSort(std::vector<int> &buffer) {
     std::vector<int> negative_numbers(negative_length);
     positive_length = 0;
     negative_length = 0;
-    for (int i = 0; i < buffer.size(); i++)
-    {
-        if (buffer[i] >= 0)
-        {
+    for (int i = 0; i < buffer.size(); i++) {
+        if (buffer[i] >= 0) {
             positive_numbers[positive_length] = buffer[i];
             positive_length++;
         } else {
