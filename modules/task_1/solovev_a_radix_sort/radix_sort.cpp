@@ -7,7 +7,7 @@
 
 
 int generateRandomArray(std::vector<int> *buffer, double min, double max) {
-    if ((buffer->size() <= 0) || (buffer == nullptr))
+    if (buffer->size() <= 0)
         return -1;
     if (min >= max) {
         double temp = min;
