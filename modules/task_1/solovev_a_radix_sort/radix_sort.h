@@ -1,6 +1,6 @@
 // Copyright 2021 Solovev Aleksandr
-#ifndef MODULES_TASK_1_SOLOVEV_A_RADIX_SORT_H_
-#define MODULES_TASK_1_SOLOVEV_A_RADIX_SORT_H_
+#ifndef MODULES_TASK_1_SOLOVEV_A_RADIX_SORT_RADIX_SORT_H_
+#define MODULES_TASK_1_SOLOVEV_A_RADIX_SORT_RADIX_SORT_H_
 #include <time.h>
 #include <stdlib.h>
 #include <random>
@@ -12,4 +12,4 @@ int RadixSortUnsigned(int *buffer, size_t length);
 int RadixSort(int* buffer, size_t length);
 void BufferClear(int * buffer);
 
-#endif  // MODULES_TASK_1_SOLOVEV_A_RADIX_SORT_H_
+#endif  // MODULES_TASK_1_SOLOVEV_A_RADIX_SORT_RADIX_SORT_H_

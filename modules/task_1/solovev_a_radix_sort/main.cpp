@@ -17,9 +17,9 @@ TEST(Senquential, Test_Only_Positive) {
     }
 
     status = generateRandomArray(buffer1, length, 0.0, 1000.0);
-    
+
     status = RadixSort(buffer1, length);
-    
+
     status = SortingCheck(buffer1, length);
     BufferClear(buffer1);
 
