@@ -1,9 +1,9 @@
 // Copyright 2021 Kulandin Denis
-#ifndef MODULES_TASK_1_KULANDIN_D_MATRIX_CRS_COMPLEX_SPARSEMATRIX_H_
-#define MODULES_TASK_1_KULANDIN_D_MATRIX_CRS_COMPLEX_SPARSEMATRIX_H_
+#ifndef MODULES_TASK_2_KULANDIN_D_MATRIX_CRS_COMPLEX_SPARSEMATRIX_H_
+#define MODULES_TASK_2_KULANDIN_D_MATRIX_CRS_COMPLEX_SPARSEMATRIX_H_
 
-#include<vector>
-#include<complex>
+#include <vector>
+#include <complex>
 
 class SparseMatrix {
  public:
@@ -23,6 +23,7 @@ class SparseMatrix {
     void setPointers(const std::vector<int> & pointers);
     std::vector<std::complex<double>> getDenseMatrix() const;
     SparseMatrix transposition() const;
+    SparseMatrix openMPMultiplication(const SparseMatrix & a);
  private:
     int size;
     std::vector<std::complex<double>> values;
@@ -35,4 +36,4 @@ std::vector<std::complex<double>>
    stupidDenseMultiplication(const std::vector<std::complex<double>> & a,
                              const std::vector<std::complex<double>> & b,
                              const int size);
-#endif  // MODULES_TASK_1_KULANDIN_D_MATRIX_CRS_COMPLEX_SPARSEMATRIX_H_
+#endif  // MODULES_TASK_2_KULANDIN_D_MATRIX_CRS_COMPLEX_SPARSEMATRIX_H_

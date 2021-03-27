@@ -1,5 +1,6 @@
 // Copyright 2021 Kulandin Denis
 #include <gtest/gtest.h>
+#include <omp.h>
 #include <vector>
 #include <complex>
 #include "./sparsematrix.h"
@@ -128,16 +129,31 @@ TEST_P(parametrized_matrix_multiplication, mult_small_dimensions) {
     }
     SparseMatrix a = generateRandomSparseMatrix(size, nonZero);
     SparseMatrix b = generateRandomSparseMatrix(size, nonZero);
-    SparseMatrix res = a * b;
-    ASSERT_EQ(res.getDenseMatrix(),
-              stupidDenseMultiplication(a.getDenseMatrix(),
-                                        b.getDenseMatrix(),
-                                        size));
+
+    std::cout << "size = " << size <<
+        "; nonZeroElementsInEveryRow = " << nonZero << '\n';
+    auto begin = omp_get_wtime();
+    SparseMatrix seq_res = a * b;
+    auto end = omp_get_wtime();
+    auto elapsed_ms = end - begin;
+    std::cout << "Sequential time = " << elapsed_ms << "s\n";
+
+    begin = omp_get_wtime();
+    SparseMatrix openmp_res = a.openMPMultiplication(b);
+    end = omp_get_wtime();
+    elapsed_ms = end - begin;
+    std::cout << "openMP time = " << elapsed_ms << "s\n";
+
+    ASSERT_EQ(seq_res.getSize(), openmp_res.getSize());
+    ASSERT_EQ(seq_res.getCols(), openmp_res.getCols());
+    ASSERT_EQ(seq_res.getValues(), openmp_res.getValues());
+    ASSERT_EQ(seq_res.getPointers(), openmp_res.getPointers());
 }
 
 INSTANTIATE_TEST_SUITE_P(matrix_CSR_complex,
                          parametrized_matrix_multiplication,
                          testing::Combine(
-    testing::Values(10, 30, 50, 70, 90),
-    testing::Values(1, 5, 10, 15, 20, 25)
+    testing::Values(50, 100, 200, 500),
+    testing::Values(1, 2, 3, 4, 5)
 ));
+

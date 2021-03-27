@@ -2,7 +2,7 @@
 #include <limits>
 #include <random>
 #include <set>
-#include "../../../modules/task_1/kulandin_d_matrix_CRS_complex/sparsematrix.h"
+#include "../../../modules/task_2/kulandin_d_matrix_CRS_complex/sparsematrix.h"
 
 bool equalZero(const std::complex<double> & a) {
     return std::abs(a) < std::numeric_limits<double>::epsilon();
@@ -115,10 +115,12 @@ SparseMatrix SparseMatrix::operator*(const SparseMatrix & a) {
     auto a_t_values = a_t.getValues();
     auto a_t_cols = a_t.getCols();
     auto a_t_pointers = a_t.getPointers();
+    std::vector<int> used(size, -1);
+    std::complex<double> cur(0, 0);
     for (int row1 = 0; row1 < size; ++row1) {
         for (int row2 = 0; row2 < size; ++row2) {
-            std::vector<int> used(size, -1);
-            std::complex<double> cur(0, 0);
+            used.assign(size, -1);
+            cur = {0, 0};
             for (int i = pointers[row1]; i < pointers[row1 + 1]; ++i) {
                 used[cols[i]] = i;
             }
@@ -127,11 +129,62 @@ SparseMatrix SparseMatrix::operator*(const SparseMatrix & a) {
                 cur += values[used[a_t_cols[i]]] * a_t_values[i];
             }
             if (!equalZero(cur)) {
-                ans.cols.push_back(row2);
-                ans.values.push_back(cur);
+                ans.cols.emplace_back(row2);
+                ans.values.emplace_back(cur);
             }
         }
-        ans.pointers.push_back(static_cast<int>(ans.values.size()));
+        ans.pointers.emplace_back(static_cast<int>(ans.values.size()));
+    }
+    return ans;
+}
+
+SparseMatrix SparseMatrix::openMPMultiplication(const SparseMatrix & a) {
+    if (size != a.getSize()) {
+        throw(std::string)"Wrong matrix sizes";
+    }
+    SparseMatrix a_t = a.transposition();
+    auto a_t_values = a_t.getValues();
+    auto a_t_cols = a_t.getCols();
+    auto a_t_pointers = a_t.getPointers();
+    std::vector<std::vector<int>> parallel_columns(size);
+    std::vector<std::vector<std::complex<double>>> parallel_values(size);
+    std::vector<int> used(size, -1);
+    std::complex<double> cur(0, 0);
+    #pragma omp parallel
+    {
+        #pragma omp for private(used, cur) schedule(static)
+        for (int row1 = 0; row1 < size; ++row1) {
+            for (int row2 = 0; row2 < size; ++row2) {
+                used.assign(size, -1);
+                cur = {0, 0};
+                for (int i = pointers[row1]; i < pointers[row1 + 1]; ++i) {
+                    used[cols[i]] = i;
+                }
+                for (int i = a_t_pointers[row2];
+                     i < a_t_pointers[row2 + 1];
+                     ++i) {
+                    if (used[a_t_cols[i]] == -1) continue;
+                    cur += values[used[a_t_cols[i]]] * a_t_values[i];
+                }
+                if (!equalZero(cur)) {
+                    parallel_columns[row1].emplace_back(row2);
+                    parallel_values[row1].emplace_back(cur);
+                }
+            }
+        }
+    }
+    SparseMatrix ans(size);
+    ans.pointers.emplace_back(0);
+    for (int i = 0; i < size; ++i) {
+        std::copy(parallel_columns[i].begin(),
+                  parallel_columns[i].end(),
+                  std::back_inserter(ans.cols));
+        std::copy(parallel_values[i].begin(),
+                  parallel_values[i].end(),
+                  std::back_inserter(ans.values));
+        ans.pointers.emplace_back(
+            ans.pointers.back() +
+            static_cast<int>(parallel_columns[i].size()));
     }
     return ans;
 }
@@ -150,7 +203,8 @@ SparseMatrix generateRandomSparseMatrix(const int size,
     pointers.push_back(0);
     for (int row = 0; row < size; ++row) {
         std::set<int> generatedCols;
-        while (static_cast<int>(generatedCols.size()) < nonZeroElementsInEveryRow) {
+        while (static_cast<int>(generatedCols.size()) <
+               nonZeroElementsInEveryRow) {
             generatedCols.insert(gen() % size);
         }
         for (auto &i : generatedCols) {
