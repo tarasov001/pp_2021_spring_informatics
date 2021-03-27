@@ -7,7 +7,7 @@
 
 
 int generateRandomArray(std::vector<int> *buffer, int min, int max) {
-    if (buffer->size() <= 0)
+    if (buffer->empty())
         return -1;
     if (min >= max) {
         std::swap(min, max);
@@ -65,7 +65,7 @@ void CountingSort(std::vector<int> *input, std::vector<int> *output, int valbyte
 }
 
 int RadixSortUnsigned(std::vector<int> *buffer) {
-    if (buffer->size() == 0) {
+    if (buffer->empty()) {
         return -1;
     }
     std::vector<int> outbuf(buffer->size());
