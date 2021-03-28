@@ -2,7 +2,7 @@
 #include <float.h>
 #include <random>
 #include <vector>
-#include "../../../modules/task_1/galindo_j_SparseCSR/csr_dispersa.h"
+#include "../../modules/task_1/galindo_j_SparseCSR/csr_dispersa.h"
 
 DispersaMatrix transposicion(DispersaMatrix AT) {
     DispersaMatrix transposed;
@@ -65,8 +65,7 @@ DispersaMatrix multiplicacion(DispersaMatrix p, DispersaMatrix q) {
     return r;
 }
 
-DispersaMatrix ma_generacion(int m,
-    const std::vector<std::complex<double>> &vectorial) {
+DispersaMatrix ma_generacion(const std::vector<std::complex<double>> &vectorial, int m) {
     DispersaMatrix matrix;
     matrix.n = m;
     matrix.filaN.push_back(0);

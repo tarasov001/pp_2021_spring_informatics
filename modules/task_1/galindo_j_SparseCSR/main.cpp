@@ -3,7 +3,7 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
-#include "../../../modules/task_1/galindo_j_SparseCSR/csr_dispersa.h"
+#include "../../modules/task_1/galindo_j_SparseCSR/csr_dispersa.h"
 
 TEST(csr_dispersa_test, testeo_de_generacion) {
     int n = 6;
@@ -16,7 +16,7 @@ TEST(csr_dispersa_test, testeo_de_generacion) {
         {0, 0}, {0, 7}, {0, 1}, {0, 0}, {0, 0}, {0, 6}
     };
     DispersaMatrix M_Dispersa;
-    M_Dispersa = ma_generacion(n, matricial);
+    M_Dispersa = ma_generacion(matricial, n);
     std::vector<std::complex<double>> valor_estimado = {
         {0, 1}, {0, 2}, {0, 3},
         {0, 4}, {0, 8}, {0, 5},
@@ -40,7 +40,7 @@ TEST(csr_dispersa_test, testeo_de_transposicion) {
         {0, 0}, {0, 4}, {0, 0}, {0, 2}, {0, 0},
     };
     DispersaMatrix TransponationMat, M_Dispersa;
-    M_Dispersa = ma_generacion(n, matricial);
+    M_Dispersa = ma_generacion(matricial, n);
     TransponationMat = transposicion(M_Dispersa);
     std::vector<int> RowIndex = { 0, 2, 5, 5, 7, 7 };
     ASSERT_EQ(TransponationMat.filaN, RowIndex);
@@ -55,7 +55,7 @@ TEST(csr_dispersa_test, testeo_de_transposicion_dos) {
         {0, 0}, {0, 0}, {0, 0}, {0, 0}
     };
     DispersaMatrix TransponationMat, M_Dispersa;
-    M_Dispersa = ma_generacion(n, matricial);
+    M_Dispersa = ma_generacion(matricial, n);
     TransponationMat = transposicion(M_Dispersa);
     std::vector<int> RowIndex = { 0, 1, 3, 3, 4 };
     ASSERT_EQ(TransponationMat.filaN, RowIndex);
@@ -73,8 +73,8 @@ TEST(csr_dispersa_test, testeo_de_multiplicacion) {
     };
 
     DispersaMatrix Primera_matrix, Segunda_matrix, Solucion;
-    Primera_matrix = ma_generacion(n, A1);
-    Segunda_matrix = ma_generacion(n, A2);
+    Primera_matrix = ma_generacion(A1, n);
+    Segunda_matrix = ma_generacion(A2, n);
     Solucion = multiplicacion(Primera_matrix, Segunda_matrix);
     std::vector<std::complex<double>> valor_estimado = { {4, 0}, {2, 0} };
     ASSERT_EQ(Solucion.valor, valor_estimado);
@@ -92,8 +92,8 @@ TEST(csr_dispersa_test, testeo_de_multiplicacion_dos) {
     };
 
     DispersaMatrix Primera_matrix, Segunda_matrix, Solucion;
-    Primera_matrix = ma_generacion(n, A1);
-    Segunda_matrix = ma_generacion(n, A2);
+    Primera_matrix = ma_generacion(A1, n);
+    Segunda_matrix = ma_generacion(A2, n);
     Solucion = multiplicacion(Primera_matrix, Segunda_matrix);
     std::vector<std::complex<double>> valor_estimado = {};
     ASSERT_EQ(Solucion.valor, valor_estimado);
