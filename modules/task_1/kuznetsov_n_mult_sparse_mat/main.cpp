@@ -4,25 +4,25 @@
 #include "../../../modules/task_1/kuznetsov_n_mult_sparse_mat/sparse_matrix.h"
 
 TEST(SPARSE_MATRIX, MAT_EQUAL_ITSELF_1) {
-  std::vector<double> arg1 = { 1,1,1 };
-  std::vector<int> arg2 = { 0,1,2,3 };
-  std::vector<int> arg3 = { 0,1,2 };
+  std::vector<double> arg1 = { 1, 1, 1 };
+  std::vector<int> arg2 = { 0, 1, 2, 3 };
+  std::vector<int> arg3 = { 0, 1, 2 };
   sMatrix A = sMatrix(arg1, arg2, arg3, 3, 3);
   ASSERT_TRUE(A == A);
 }
 
 TEST(SPARSE_MATRIX, MAT_EQUAL_ITSELF_2) {
-  std::vector<double> arg1 = { 5,8,1,2,6 };
-  std::vector<int> arg2 = { 0,2,3,5,5 };
-  std::vector<int> arg3 = { 0,3,2,1,3 };
+  std::vector<double> arg1 = { 5, 8, 1, 2, 6 };
+  std::vector<int> arg2 = { 0, 2, 3, 5, 5 };
+  std::vector<int> arg3 = { 0, 3, 2, 1, 3 };
   sMatrix A = sMatrix(arg1, arg2, arg3, 5, 4);
   ASSERT_TRUE(A == A);
 }
 
 TEST(SPARSE_MATRIX, NO_THROW_WHEN_TRANSPOSE) {
-  std::vector<double> arg1 = { 1,7,1,2,6 };
-  std::vector<int> arg2 = { 0,2,3,5,5 };
-  std::vector<int> arg3 = { 0,3,2,1,3 };
+  std::vector<double> arg1 = { 1, 7, 1, 2, 6 };
+  std::vector<int> arg2 = { 0, 2, 3, 5, 5 };
+  std::vector<int> arg3 = { 0, 3, 2, 1, 3 };
   sMatrix A = sMatrix(arg1, arg2, arg3, 5, 4);
   ASSERT_NO_THROW(A.transpose());
 }

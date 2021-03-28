@@ -4,7 +4,8 @@
 #include <limits>
 #include "../../../modules/task_1/kuznetsov_n_mult_sparse_mat/sparse_matrix.h"
 
-sMatrix::sMatrix(const std::vector<double>& _val, std::vector<int>& _c_ind, std::vector<int>& _rows, int _non_zero, int _size) {
+sMatrix::sMatrix(const std::vector<double>& _val, const std::vector<int>& _c_ind,
+  const std::vector<int>& _rows, int _non_zero, int _size) {
   if (_size < 0) throw "Negative size";
   non_zero = static_cast<int>(_val.size());
   size = _size;
