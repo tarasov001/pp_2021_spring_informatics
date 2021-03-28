@@ -60,6 +60,7 @@ void radixSort(double *vec, double *tmp, int size) {
     else
       vec[shift[arr2[8 * i + 7]]--] = arr[i];
   }
+  delete[] arr;
 }
 
 void merge(double *vec, double *tmp, int center, int size, int odd_even) {
