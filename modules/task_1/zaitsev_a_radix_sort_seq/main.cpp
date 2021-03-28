@@ -69,6 +69,7 @@ TEST(Test_Seq, Exact_Answer) {
   ASSERT_EQ(true, result);
   delete[] tmp;
   delete[] vec;
+  delete[] answer;
 }
 
 TEST(Test_Seq, Size_100_Batcher) {
