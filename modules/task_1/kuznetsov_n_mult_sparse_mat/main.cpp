@@ -1,37 +1,54 @@
 // Copyright 2021 Kuznetsov Nikita
 #include <gtest/gtest.h>
 #include <vector>
-#include "./sparse_matrix.h"
-#define SIZE 100
+#include "../../../modules/task_1/kuznetsov_n_mult_sparse_mat/sparse_matrix.h"
 
-TEST(MULTIPLY_SPARSE_MATRIX, THROWS_WHEN_SIZE_IS_NEGATIVE) {
-  ASSERT_ANY_THROW(randMat(-10, -10));
+TEST(SPARSE_MATRIX, MAT_EQUAL_ITSELF_1) {
+  std::vector<double> arg1 = { 1,1,1 };
+  std::vector<int> arg2 = { 0,1,2,3 };
+  std::vector<int> arg3 = { 0,1,2 };
+  sMatrix A = sMatrix(arg1, arg2, arg3, 3, 3);
+  ASSERT_TRUE(A == A);
 }
 
-TEST(MULTIPLY_SPARSE_MATRIX, THROWS_WHEN_SIZE_IS_ZERO) {
-  ASSERT_ANY_THROW(randMat(0, 0));
+TEST(SPARSE_MATRIX, MAT_EQUAL_ITSELF_2) {
+  std::vector<double> arg1 = { 5,8,1,2,6 };
+  std::vector<int> arg2 = { 0,2,3,5,5 };
+  std::vector<int> arg3 = { 0,3,2,1,3 };
+  sMatrix A = sMatrix(arg1, arg2, arg3, 5, 4);
+  ASSERT_TRUE(A == A);
 }
 
-TEST(MULTIPLY_SPARSE_MATRIX, SOLUTION_EQUAL_EXPECTED_RESULT) {
-  sparseMatrix A = CCS(std::vector<double>{0, 0, 1, 0, 2, 0, 0, 0, 3, 0, 0, 0}, 3, 4);
-  sparseMatrix B = CCS(std::vector<double>{3, 0, 0, 0, 4, 0}, 2, 3);
-  std::vector<double> exp_res = { 4, 0, 0, 0, 12, 0, 0, 0 };
-  std::vector<double> res = A * B;
-  ASSERT_EQ(res, exp_res);
+TEST(SPARSE_MATRIX, NO_THROW_WHEN_TRANSPOSE) {
+  std::vector<double> arg1 = { 1,7,1,2,6 };
+  std::vector<int> arg2 = { 0,2,3,5,5 };
+  std::vector<int> arg3 = { 0,3,2,1,3 };
+  sMatrix A = sMatrix(arg1, arg2, arg3, 5, 4);
+  ASSERT_NO_THROW(A.transpose());
 }
 
-TEST(MULTIPLY_SPARSE_MATRIX, SOLUTION_WITH_50_ELEM_NO_THROW) {
-  sparseMatrix A, B;
-  A = CCS(randMat(50, 50), 50, 50);
-  B = CCS(randMat(50, 50), 50, 50);
-  std::vector<double> res = A * B;
-  EXPECT_NO_THROW(res);
+TEST(SPARSE_MATRIX, NO_THROW_WHEN_CREATE_RANDOM_MAT) {
+  ASSERT_NO_THROW(sMatrix(1, 1, 475));
 }
 
-TEST(MULTIPLY_SPARSE_MATRIX, SOLUTION_WITH_N_ELEM_NO_THROW) {
-  sparseMatrix A, B;
-  A = CCS(randMat(SIZE, SIZE), SIZE, SIZE);
-  B = CCS(randMat(SIZE, SIZE), SIZE, SIZE);
-  std::vector<double> res = A * B;
-  EXPECT_NO_THROW(res);
+TEST(SPARSE_MATRIX, THROW_WHEN_SIZE_IS_NEGATIVE) {
+  ASSERT_ANY_THROW(sMatrix(-1, 1, 475));
+}
+
+TEST(SPARSE_MATRIX, MAT_EQUAL_WITH_SAME_SEED) {
+  sMatrix A = sMatrix(17, 8, 35);
+  sMatrix B = sMatrix(17, 8, 35);
+  ASSERT_TRUE(A == B);
+}
+
+TEST(SPARSE_MATRIX, NO_THROW_WHEN_MULTIPLY) {
+  sMatrix A = sMatrix(1000, 50, 475);
+  sMatrix B = sMatrix(1000, 50, 475);
+  ASSERT_NO_THROW(A * B);
+}
+
+TEST(SPARSE_MATRIX, NO_THROW_WHEN_MULTIPLY_2) {
+  sMatrix A = sMatrix(2000, 500, 475);
+  sMatrix B = sMatrix(2000, 500, 475);
+  ASSERT_NO_THROW(A * B);
 }

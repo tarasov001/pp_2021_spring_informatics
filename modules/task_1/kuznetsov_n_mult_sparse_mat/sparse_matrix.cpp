@@ -1,69 +1,94 @@
 // Copyright 2021 Kuznetsov Nikita
-#include <vector>
+#include <cmath>
 #include <random>
-#include <ctime>
+#include <limits>
 #include "../../../modules/task_1/kuznetsov_n_mult_sparse_mat/sparse_matrix.h"
 
-std::vector<double> randMat(const int rows, const int cols) {
-  if (rows <= 0 || cols <= 0) {
-    throw - 1;
-  }
-  std::srand(std::time(nullptr));
-  std::vector<double> res(cols * rows);
-  for (int i = 0; i < rows * cols; i++) {
-    double val_rand = static_cast<double>(std::rand() % 50 + 1);
-    if (val_rand < 4) {
-      res[i] = val_rand;
-    } else {
-      res[i] = 0;
-    }
-  }
-  return res;
+sMatrix::sMatrix(const std::vector<double>& _val, std::vector<int>& _c_ind, std::vector<int>& _rows, int _non_zero, int _size) {
+  if (_size < 0) throw "Negative size";
+  non_zero = static_cast<int>(_val.size());
+  size = _size;
+  val = _val;
+  c_ind = _c_ind;
+  rows = _rows;
 }
 
-sparseMatrix CCS(const std::vector<double> new_mat, const int new_cols, const int new_rows) {
-  if (new_cols <= 0 || new_rows <= 0) {
-    throw - 1;
+sMatrix::sMatrix(int _size, int _non_zero, unsigned int key) {
+  if (_size < 0) throw "Negative size";
+  size = _size;
+  non_zero = _non_zero;
+  val.resize(non_zero);
+  rows.resize(non_zero);
+  c_ind.resize(size + 1);
+  std::mt19937 generate;
+  generate.seed(key);
+  std::uniform_real_distribution<double> dgen(0.05, 1.0);
+  for (int i = 0; i < non_zero; ++i) {
+    double tmp = dgen(generate);
+    val[i] = tmp * generate();
+    rows[i] = generate() % size;
+    ++c_ind[generate() % size + 1];
   }
-  sparseMatrix res;
-  res.cols = new_cols;
-  res.rows = new_rows;
-  res.not_null = 0;
-  res.JA.push_back(0);
-  for (int column = 0; column < new_cols; column++) {
-    int not_null_count = 0;
-    for (int i = column; i <= (new_rows - 1) * new_cols + column;
-      i += new_cols) {
-      if (new_mat[i] != 0) {
-        not_null_count++;
-        res.val.push_back(new_mat[i]);
-        res.IA.push_back((i - column) / new_cols);
-      }
-    }
-    res.JA.push_back(res.JA.back() + not_null_count);
-    res.not_null += not_null_count;
+  for (int i = 0; i < size; ++i) {
+    c_ind[i + 1] += c_ind[i];
   }
-  return res;
 }
 
-const std::vector<double> operator*(const sparseMatrix& A, const sparseMatrix& B) {
-  if (A.cols != B.rows) {
-    throw - 1;
+bool sMatrix::operator==(const sMatrix& mat) {
+  if (non_zero != mat.non_zero || size != mat.size) {
+    return false;
   }
-  std::vector<double> result(A.rows * B.cols, 0);
-  for (int col = 0; col < A.cols; col++) {
-    for (int b_col = 0; b_col < B.cols; b_col++) {
-      for (int i = A.JA[col]; i <= A.JA[col + 1] - 1; i++) {
-        if (B.JA[b_col + 1] - B.JA[b_col] == 0) {
-          continue;
-        }
-        for (int j = B.JA[b_col]; j <= B.JA[b_col + 1] - 1; j++) {
-          if (B.IA[j] == col) {
-            result[A.IA[i] * B.cols + b_col] += A.val[i] * B.val[j];
+  return val == mat.val && c_ind == mat.c_ind && rows == mat.rows;
+}
+
+sMatrix sMatrix::operator*(const sMatrix& mat) {
+  std::vector<double> result_val;
+  std::vector<int> result_c_ind(size + 1);
+  std::vector<int> result_rows;
+  sMatrix tr_mat = this->transpose();
+  const double eps = std::numeric_limits<double>::epsilon();
+  for (int i = 0; i < size; ++i) {
+    for (int j = 0; j < size; ++j) {
+      double tmp = 0.0;
+      for (int ci = mat.c_ind[i]; ci < mat.c_ind[i + 1]; ++ci) {
+        for (int tr_ci = tr_mat.c_ind[j]; tr_ci < tr_mat.c_ind[j + 1]; ++tr_ci) {
+          if (mat.rows[ci] == tr_mat.rows[tr_ci]) {
+            tmp += tr_mat.val[tr_ci] * mat.val[ci];
+            break;
           }
         }
       }
+      if (tmp < eps || tmp < -eps) {
+        result_val.push_back(tmp);
+        result_rows.push_back(j);
+        ++result_c_ind[i + 1];
+      }
+    }
+    result_c_ind[i + 1] += result_c_ind[i];
+  }
+  return sMatrix(result_val, result_c_ind, result_rows, static_cast<int>(result_rows.size()), size);
+}
+
+sMatrix sMatrix::transpose() {
+  std::vector<double> tr_val(val.size());
+  std::vector<int> tr_ci(c_ind.size());
+  std::vector<int> tr_rows(rows.size());
+  for (int i = 0; i < non_zero; ++i) {
+    ++tr_ci[rows[i] + 1];
+  }
+  int sum = 0;
+  for (int i = 0; i <= size; ++i) {
+    int tmp = tr_ci[i];
+    tr_ci[i] = sum;
+    sum += tmp;
+  }
+  for (int i = 0; i < size; i++) {
+    for (int j = c_ind[i]; j < c_ind[i + 1]; j++) {
+      int tmp_ind = tr_ci[rows[j] + 1];
+      ++tr_ci[rows[j] + 1];
+      tr_val[tmp_ind] = val[j];
+      tr_rows[tmp_ind] = i;
     }
   }
-  return result;
+  return sMatrix(tr_val, tr_ci, tr_rows, non_zero, size);
 }

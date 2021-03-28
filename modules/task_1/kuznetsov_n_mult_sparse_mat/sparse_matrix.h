@@ -4,15 +4,17 @@
 
 #include <vector>
 
-struct sparseMatrix {
+class sMatrix {
+private:
   std::vector<double> val;
-  std::vector<int> JA;
-  std::vector<int> IA;
-  int cols, rows, not_null;
-  friend const std::vector<double> operator*(const sparseMatrix& A, const sparseMatrix& B);
+  std::vector<int> c_ind, rows;
+  int non_zero, size;
+public:
+  sMatrix(const std::vector<double>& _val, std::vector<int>& _c_ind, std::vector<int>& _rows, int _non_zero, int _size);
+  sMatrix(int _size, int _non_zero, unsigned int key);
+  bool operator==(const sMatrix& mat);
+  sMatrix operator*(const sMatrix& mat);
+  sMatrix transpose();
 };
-
-sparseMatrix CCS(const std::vector<double> new_mat, const int new_cols, const int new_rows);
-std::vector<double> randMat(const int rows, const int cols);
 
 #endif  // MODULES_TASK_1_KUZNETSOV_N_MULT_SPARSE_MAT_SPARSE_MATRIX_H_
