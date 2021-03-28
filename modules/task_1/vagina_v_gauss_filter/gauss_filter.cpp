@@ -20,7 +20,7 @@ std::vector<double> generateGaussianKernel(int radius) {
     for (int i = -radius; i <= radius; ++i) {
         for (int j = -radius; j <= radius; ++j) {
             sum += res[(i + radius) * size + j + radius] =
-            (double)(exp((-1) * (i * i + j * j) / (sigma * sigma)));
+            static_cast<double>(exp((-1) * (i * i + j * j) / (sigma * sigma)));
         }
     }
     for (int i = 0; i < size * size; ++i) {

@@ -1,6 +1,6 @@
 // Copyright 2021 Vagina Valeria
-#include <vector>
 #include <gtest/gtest.h>
+#include <vector>
 #include "../../../modules/task_1/vagina_v_gauss_filter/gauss_filter.h"
 
 TEST(Gauss_seq, Small_Image) {
