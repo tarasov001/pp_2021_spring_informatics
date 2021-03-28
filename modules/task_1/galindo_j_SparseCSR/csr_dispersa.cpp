@@ -55,7 +55,7 @@ DispersaMatrix multiplicacion(DispersaMatrix p, DispersaMatrix q) {
         }
         filaN_c.push_back(valor_c.size() + filaN_c[fila_en_a]);
     }
-    for (int j = 0; j <static_cast<int>(columnaN_c.size()); j++) {
+    for (int j = 0; j < static_cast<int>(columnaN_c.size()); j++) {
         r.columnaN.push_back(columnaN_c[j]);
         r.valor.push_back(valor_c[j]);
     }
