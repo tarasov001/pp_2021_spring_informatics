@@ -24,7 +24,6 @@ class SparseMatrix {
         const size_t n);
     size_t getMatrixSize() const;
     size_t getRealSize() const;
-    void printM() const;
 
     friend void convertMatrix(const SparseMatrix<CCS>& A, SparseMatrix<CRS>* B);
     friend void convertMatrix(const SparseMatrix<CRS>& A, SparseMatrix<CCS>* B);
@@ -233,16 +232,6 @@ size_t SparseMatrix<T>::getMatrixSize() const {
 template <type T>
 size_t SparseMatrix<T>::getRealSize() const {
     return A.size();
-}
-
-template <type T>
-void SparseMatrix<T>::printM() const {
-    for (size_t i = 0; i < A.size(); ++i) {
-        printf("A[%ld] = %f, LI[%ld] = %ld\n", i, A[i], i, LI[i]);
-    }
-    for (size_t i = 0; i < LJ.size(); ++i) {
-        printf("LJ[%ld] = %ld\n", i, LJ[i]);
-    }
 }
 
 void constructMatrix(const SparseMatrix<CCS>& A, std::vector<double>* B);
