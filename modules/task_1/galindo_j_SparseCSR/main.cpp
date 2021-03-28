@@ -3,7 +3,7 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
-#include "../../modules/task_1/galindo_j_SparseCSR/csr_dispersa.h"
+#include "./csr_dispersa.h"
 
 TEST(csr_dispersa_test, testeo_de_generacion) {
     int n = 6;
