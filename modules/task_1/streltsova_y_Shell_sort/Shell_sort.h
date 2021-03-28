@@ -1,6 +1,6 @@
 // Copyright 2021 Streltsova Yana
-#ifndef MODULES_TASK_1_STRELTSOVA_Y_SHELL_SORT_H_
-#define MODULES_TASK_1_STRELTSOVA_Y_SHELL_SORT_H_
+#ifndef MODULES_TASK_1_STRELTSOVA_Y_SHELL_SORT_SHELL_SORT_H_
+#define MODULES_TASK_1_STRELTSOVA_Y_SHELL_SORT_SHELL_SORT_H_
 
 #include <vector>
 
@@ -19,4 +19,4 @@ void shell_sort(RandomAccessIterator first, RandomAccessIterator last, bool (*Co
                 std::swap(*j, *(j - d));
 }
 
-#endif  // MODULES_TASK_1_STRELTSOVA_Y_SHELL_SORT_H_
+#endif  // MODULES_TASK_1_STRELTSOVA_Y_SHELL_SORT_SHELL_SORT_H_
