@@ -1,5 +1,5 @@
 // Copyright 2020 Lyutova Tanya
-#include "..\lyutova_t_sobel\lyutova_t_sobel.h"
+#include "../../modules/task_1/lyutova_t_sobel/lyutova_t_sobel.h"
 #include "gtest/gtest.h"
 
 TEST(sequential, EmptyMatrix) {
