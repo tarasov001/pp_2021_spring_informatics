@@ -1,8 +1,9 @@
+//Copyright 2021 Dobrov Pavel
 #include <gtest/gtest.h>
 #include <vector>
 #include "./m_cannon.h"
 
-TEST(m_cannon, comparison_of_NaiveMulti_and_MatrixMulti){
+TEST(m_cannon, comparison_of_NaiveMulti_and_MatrixMulti) {
     std::vector<double> A = RandomMatrix(16, 19);
     std::vector<double> B = RandomMatrix(19, 16);
 
@@ -14,15 +15,19 @@ TEST(m_cannon, comparison_of_NaiveMulti_and_MatrixMulti){
     }
 }
 
-TEST(m_Cannon, matrix_with_negative_size){
+TEST(m_Cannon, matrix_with_negative_size) {
     ASSERT_ANY_THROW(RandomMatrix(-1,-1));
 }
 
-TEST(m_Cannon, Cant_execute_with_negative_size_MatrixMulti){
+TEST(m_Cannon, Cant_execute_with_negative_size_MatrixMulti) {
+    std::vector<double> A = (1);
+    std::vector<double> B = (1);
     ASSERT_ANY_THROW(MatrixMulti(A, B, -1, -1, -1));
 }
 
-TEST(m_Cannon, Cant_execute_with_negative_size_NaiveMulti){
+TEST(m_Cannon, Cant_execute_with_negative_size_NaiveMulti) {
+    std::vector<double> A = (1);
+    std::vector<double> B = (1);
     ASSERT_ANY_THROW(NaiveMulti(A, B, -1, -1, -1));
 }
 

@@ -12,8 +12,8 @@ std::vector<double> RandomMatrix(int n, int m) {
     std::random_device device;
     generator.seed(device());
     std::uniform_real_distribution<double> distribution(0, 100);
-    
     std::vector<double> matrix(n * m);
+
     for (int i = 0; i < n * m; i++) {
         matrix[i] = distribution(generator);
     }
@@ -21,8 +21,7 @@ std::vector<double> RandomMatrix(int n, int m) {
     return matrix;
 }
 
-std::vector<double> MatrixMulti(const std::vector<double> &A, const std::vector<double> &B, 
-                                int m, int n, int l){
+std::vector<double> MatrixMulti(const std::vector<double> &A, const std::vector<double> &B, int m, int n, int l){
     if (m <= 0 || n <= 0 || l <= 0) {
         throw std::invalid_argument("The values of the matrix dimensions must be greater than 0");
     }
@@ -53,8 +52,7 @@ std::vector<double> MatrixMulti(const std::vector<double> &A, const std::vector<
     return C;
 }
 
-std::vector<double> NaiveMulti(const std::vector<double> &A, const std::vector<double> &B, 
-                                int m, int n, int l) {
+std::vector<double> NaiveMulti(const std::vector<double> &A, const std::vector<double> &B, int m, int n, int l) {
     if (m <= 0 || n <= 0 || l <= 0) {
         throw std::invalid_argument("The values of the matrix dimensions must be greater than 0");
     }
