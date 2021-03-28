@@ -1,10 +1,9 @@
 // Copyright 2020 Lyutova Tanya
-
-#include "lyutova_t_sobel.h"
+#include "..\lyutova_t_sobel\lyutova_t_sobel.h"
 #include "gtest/gtest.h"
 
 TEST(sequential, EmptyMatrix) {
-    Image tmp(0,0);
+    Image tmp(0, 0);
     ASSERT_EQ(tmp.cols, 0);
     ASSERT_EQ(tmp.rows, 0);
 }
@@ -26,7 +25,7 @@ TEST(sequential, Equal) {
     ASSERT_EQ(tmp, tmp);
 }
 
-TEST(sequential,CompareSameImage) {
+TEST(sequential, CompareSameImage) {
     Image tmp(1, 1);
     Image tmp2(1, 1);
     ASSERT_EQ(tmp, tmp2);

@@ -1,7 +1,6 @@
 // Copyright 2020 Lyutova Tanya
-
-#ifndef MODULES_TASK_1_LYUTOVA_T_SOBEL_LYUTOVA_T_H_
-#define MODULES_TASK_1_LYUTOVA_T_SOBEL_LYUTOVA_T_H_
+#ifndef MODULES_TASK_1_LYUTOVA_T_SOBEL_LYUTOVA_T_SOBEL_H_
+#define MODULES_TASK_1_LYUTOVA_T_SOBEL_LYUTOVA_T_SOBEL_H_
 
 #include <cmath>
 #include <vector>
@@ -38,4 +37,4 @@ inline int clamp(int value, int min, int max) {
     return value;
 }
 
-#endif  // MODULES_TASK_1_LYUTOVA_T_SOBEL_LYUTOVA_T_H_
+#endif  // MODULES_TASK_1_LYUTOVA_T_SOBEL_LYUTOVA_T_SOBEL_H_

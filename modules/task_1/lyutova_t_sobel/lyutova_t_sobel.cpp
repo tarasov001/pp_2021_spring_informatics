@@ -1,6 +1,5 @@
-﻿// Copyright 2020 Lyutova Tanya
-
-#include "lyutova_t_sobel.h"
+// Copyright 2020 Lyutova Tanya
+#include "..\lyutova_t_sobel\lyutova_t_sobel.h"
 
 Image sobel(const Image& image) {
     static const std::vector<int> matrixX = { -1, 2, -1, 0, 0, 0, 1, 2, 1 };
