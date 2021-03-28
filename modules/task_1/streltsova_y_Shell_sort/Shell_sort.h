@@ -3,6 +3,7 @@
 #define MODULES_TASK_1_STRELTSOVA_Y_SHELL_SORT_SHELL_SORT_H_
 
 #include <vector>
+#include <utility>
 
 std::vector<int> getRandomVector(int  sz);
 
