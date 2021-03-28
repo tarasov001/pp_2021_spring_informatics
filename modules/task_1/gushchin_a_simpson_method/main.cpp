@@ -47,8 +47,8 @@ TEST(SimpsonsMethodIntegrating, throwsWhenStepsCountIsZero) {
     auto func = [](const std::vector<double>& arguments) {
         return arguments[0] + arguments[1] + cos(arguments[2]);
     };
-    std::vector<std::pair<double, double>> segments = { {0, 5},
-                                                        {-2, 3},
+    std::vector<std::pair<double, double>> segments = { { 0, 5 },
+                                                        { -2, 3 },
                                                         { -1, 3 } };
     ASSERT_ANY_THROW(simpsonsMethod(func, segments, 0));
 }
