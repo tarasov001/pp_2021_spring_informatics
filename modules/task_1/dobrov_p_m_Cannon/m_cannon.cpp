@@ -61,9 +61,9 @@ std::vector<double> NaiveMulti(const std::vector<double> &A, const std::vector<d
 
     std::vector<double> C(m * l);
 
-     for (size_t i = 0; i < m; i++)
-        for (size_t j = 0; j < l; j++)
-            for (size_t k = 0; k < n; k++)
+     for (int i = 0; i < m; i++)
+        for (int j = 0; j < l; j++)
+            for (int k = 0; k < n; k++)
                 C[i * l + j] += A[i * n + k] * B[k * l + j];
 
     return C;
