@@ -23,17 +23,7 @@ std::vector<int> mark_components(const std::vector<int>& bin_image,
                     std::pair<int, int> curr_point = burn_stack.top();
                     int x = curr_point.first;
                     int y = curr_point.second;
-
-                    /*std::stack<std::pair<int, int> > tmp_stack(burn_stack);
-                    while (!tmp_stack.empty()) {
-                        std::pair<int, int> tmp_point = tmp_stack.top();
-                        std::cout << "(" << tmp_point.first << ";" << tmp_point.second << ")" << " ";
-                        tmp_stack.pop();
-                    }
-                    std::cout << std::endl;*/
-
                     burn_stack.pop();
-                    // result[y * w + x] = components_count;
                     if (y > 0 &&
                         result[(y - 1) * w + x] == 0) {
                         result[(y - 1) * w + x] = components_count;
