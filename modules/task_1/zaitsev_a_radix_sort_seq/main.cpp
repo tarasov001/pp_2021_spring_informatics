@@ -4,17 +4,6 @@
 #include <algorithm>
 #include "./RadixSortSeq.h"
 
-TEST(Test_Seq, Vector_One_El) {
-  int size = 1;
-  std::vector<double> vec = createVector(size, 0.0, 10.0);
-  double* tmp = new double[size];
-  std::vector<double> vec2(vec);
-  radixSort(vec.data(), tmp, size);
-  delete[] tmp;
-  std::sort(vec2.begin(), vec2.end());
-  ASSERT_EQ(vec2, vec);
-}
-
 TEST(Test_Seq, Size_5_Without_Random) {
   int size = 5;
   std::vector<double> vec = { 4.33, -6.541, 16.84, 2.662, -12.544 };
