@@ -1,5 +1,4 @@
-//Copyright 2021 Dobrov Pavel
-
+// Copyright 2021 Dobrov Pavel
 #include "../../../modules/task_1/dobrov_p_m_Cannon/m_cannon.h"
 #include <vector>
 #include <random>
@@ -21,7 +20,7 @@ std::vector<double> RandomMatrix(int n, int m) {
     return matrix;
 }
 
-std::vector<double> MatrixMulti(const std::vector<double> &A, const std::vector<double> &B, int m, int n, int l){
+std::vector<double> MatrixMulti(const std::vector<double> &A, const std::vector<double> &B, int m, int n, int l) {
     if (m <= 0 || n <= 0 || l <= 0) {
         throw std::invalid_argument("The values of the matrix dimensions must be greater than 0");
     }

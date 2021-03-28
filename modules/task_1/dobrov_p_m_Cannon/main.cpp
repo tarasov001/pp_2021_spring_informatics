@@ -1,4 +1,4 @@
-//Copyright 2021 Dobrov Pavel
+// Copyright 2021 Dobrov Pavel
 #include <gtest/gtest.h>
 #include <vector>
 #include "./m_cannon.h"
@@ -16,12 +16,12 @@ TEST(m_cannon, comparison_of_NaiveMulti_and_MatrixMulti) {
 }
 
 TEST(m_Cannon, matrix_with_negative_size) {
-    ASSERT_ANY_THROW(RandomMatrix(-1,-1));
+    ASSERT_ANY_THROW(RandomMatrix(-1, -1));
 }
 
 TEST(m_Cannon, Cant_execute_with_negative_size_MatrixMulti) {
-    std::vector<double> A = (1);
-    std::vector<double> B = (1);
+    std::vector<double> A(1);
+    std::vector<double> B(1);
     ASSERT_ANY_THROW(MatrixMulti(A, B, -1, -1, -1));
 }
 
