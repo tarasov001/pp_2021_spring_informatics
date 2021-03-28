@@ -137,13 +137,13 @@ TEST_P(parametrized_matrix_multiplication, mult_small_dimensions) {
     auto elapsed_ms = (end - begin).seconds();
     std::cout << "Sequential time = " << elapsed_ms << "s\n";
 
-    begin =tbb::tick_count::now();
+    begin = tbb::tick_count::now();
     SparseMatrix openmp_res = a.openMPMultiplication(b);
     end = tbb::tick_count::now();
     elapsed_ms = (end - begin).seconds();
     std::cout << "openMP time = " << elapsed_ms << "s\n";
 
-    begin =tbb::tick_count::now();
+    begin = tbb::tick_count::now();
     SparseMatrix tbb_res = a.TBBMultiplication(b, 4);
     end = tbb::tick_count::now();
     elapsed_ms = (end - begin).seconds();
