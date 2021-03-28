@@ -10,10 +10,10 @@ struct Image {
     int rows = 0;
     int cols = 0;
 
-    Image(const std::vector<int>& pixels, int rows, int cols) : cols(cols), rows(rows), pixels(pixels) {
+    Image(const std::vector<int>& pixels, int rows, int cols) : pixels(pixels), rows(rows), cols(cols) {
     }
 
-    Image(int rows, int cols) : cols(cols), rows(rows), pixels(cols * rows, 0) {
+    Image(int rows, int cols) : pixels(rows * cols, 0), rows(rows), cols(cols) {
     }
     const int& operator()(int x, int y) const {
         return pixels[x * cols + y];
