@@ -55,6 +55,12 @@ std::vector<double> MatrixMulti(const std::vector<double> &A, const std::vector<
 
 std::vector<double> NaiveMulti(const std::vector<double> &A, const std::vector<double> &B, 
                                 int m, int n, int l) {
+    if (m <= 0 || n <= 0 || l <= 0) {
+        throw std::invalid_argument("The values of the matrix dimensions must be greater than 0");
+    }
+    if (static_cast<size_t>(m * n) != A.size() || static_cast<size_t>(n * l) != B.size()) {
+        throw std::invalid_argument("Incorrect values");
+    }
 
     std::vector<double> C(m * l);
 

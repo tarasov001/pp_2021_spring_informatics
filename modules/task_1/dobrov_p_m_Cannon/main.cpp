@@ -2,7 +2,7 @@
 #include <vector>
 #include "./m_cannon.h"
 
-TEST(Xuy, XYU){
+TEST(m_cannon, comparison_of_NaiveMulti_and_MatrixMulti){
     std::vector<double> A = RandomMatrix(16, 19);
     std::vector<double> B = RandomMatrix(19, 16);
 
@@ -15,7 +15,15 @@ TEST(Xuy, XYU){
 }
 
 TEST(m_Cannon, matrix_with_negative_size){
-    ASSERT_ANY_THROW(RandomMatrix(0,0));
+    ASSERT_ANY_THROW(RandomMatrix(-1,-1));
+}
+
+TEST(m_Cannon, Cant_execute_with_negative_size_MatrixMulti){
+    ASSERT_ANY_THROW(MatrixMulti(A, B, -1, -1, -1));
+}
+
+TEST(m_Cannon, Cant_execute_with_negative_size_NaiveMulti){
+    ASSERT_ANY_THROW(NaiveMulti(A, B, -1, -1, -1));
 }
 
 TEST(m_Cannon, NaiveMulti) {
@@ -57,19 +65,6 @@ TEST(m_Cannon, MatrixMulti) {
     std::vector<double> MultiMatrix = MatrixMulti(A, B, 4, 4, 4);
     ASSERT_EQ(MultiMatrix, C);
 }
-
-TEST(Xuy, XYU4){
-    std::vector<double> A = RandomMatrix(16, 19);
-    std::vector<double> B = RandomMatrix(19, 16);
-
-    std::vector<double> C1 = NaiveMulti(A, B, 16, 19, 16);
-    std::vector<double> C2 = MatrixMulti(A, B, 16, 19, 16);
-
-    for(size_t i = 0; i < C1.size(); i++) {
-        ASSERT_DOUBLE_EQ(C1[i], C2[i]);
-    }
-}
-
 
 int main() {
     testing::InitGoogleTest();
