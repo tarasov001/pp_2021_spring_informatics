@@ -49,7 +49,6 @@ std::vector<std::vector<int>> Labeling(std::vector<std::vector<int>> arr, int ro
                          lab[i - 1][j] = minim;
                          label = minim;
                     }
-
                }
           }
      }
