@@ -5,28 +5,35 @@
 #include <algorithm>
 #include "../../../modules/task_1/zaitsev_a_radix_sort_seq/RadixSortSeq.h"
 
-std::vector<double> createVector(int size, double a, double b) {
+double* createVector(double* vec, int size, double a, double b) {
   std::mt19937 gen;
   gen.seed(static_cast<unsigned int>(time(0)));
   std::uniform_real_distribution<double> distr(a, b);
-  std::vector<double> vec(size);
   for (int i = 0; i < size; i++) {
     vec[i] = distr(gen);
   }
   return vec;
 }
 
-void radixSort(double *vec, double *tmp, int size) {
+bool check(double* vec, int size) {
+  for (int i = 0; i < size - 1; i++) {
+    if (vec[i + 1] >= vec[i]) {
+      i++;
+    } else {
+      return false;
+    }
+  }
+  return true;
+}
+
+void radixSort(double *vec, double *out, int size) {
   double* swap = nullptr;
-  double* arr = new double[size];
-  for (int i = 0; i < size; i++)
-    arr[i] = vec[i];
   for (int i = 0; i < 7; i++) {
-    unsigned char* arr2 = (unsigned char*)arr;
+    unsigned char* arr = (unsigned char*)vec;
     int cnt[256] = { 0 };
     int res = 0;
     for (int j = 0; j < size; j++)
-      cnt[arr2[8 * j + i]]++;
+      cnt[arr[8 * j + i]]++;
     for (int j = 0; j < 256; j++) {
       int tmp_ = cnt[j];
       cnt[j] = res;
@@ -34,16 +41,16 @@ void radixSort(double *vec, double *tmp, int size) {
     }
     for (int j = 0; j < size; j++) {
       int ind = 8 * j + i;
-      tmp[cnt[arr2[ind]]] = arr[j];
-      cnt[arr2[ind]]++;
+      out[cnt[arr[ind]]] = vec[j];
+      cnt[arr[ind]]++;
     }
 
-    swap = arr;
-    arr = tmp;
-    tmp = swap;
+    swap = vec;
+    vec = out;
+    out = swap;
   }
 
-  unsigned char* arr2 = (unsigned char*)arr;
+  unsigned char* arr2 = (unsigned char*)vec;
   int cnt[256] = { 0 };
   int shift[256] = { 0 };
   for (int i = 0; i < size; i++)
@@ -56,48 +63,47 @@ void radixSort(double *vec, double *tmp, int size) {
     shift[i] = shift[i - 1] + cnt[i - 1];
   for (int i = 0; i < size; i++) {
     if (arr2[8 * i + 7] < 128)
-      vec[shift[arr2[8 * i + 7]]++] = arr[i];
+      out[shift[arr2[8 * i + 7]]++] = vec[i];
     else
-      vec[shift[arr2[8 * i + 7]]--] = arr[i];
+      out[shift[arr2[8 * i + 7]]--] = vec[i];
   }
-  delete[] arr;
 }
 
-void merge(double *vec, double *tmp, int center, int size, int odd_even) {
+void merge(double *vec, double *out, int center, int size, int odd_even) {
   for (int i = odd_even; i < center; i += 2)
-    tmp[i] = vec[i];
+    out[i] = vec[i];
   double *inp2 = vec + center;
   int par1 = odd_even;
   int par2 = odd_even;
   int ind = odd_even;
   while ((par1 < center) && (par2 < size)) {
-    if (tmp[par1] > inp2[par2]) {
+    if (out[par1] > inp2[par2]) {
       vec[ind] = inp2[par2];
       par2 += 2;
     } else {
-      vec[ind] = tmp[par1];
+      vec[ind] = out[par1];
       par1 += 2;
     }
     ind += 2;
   }
   if (par1 != center) {
     for (int j = par1; j < center; j += 2, ind += 2)
-      vec[ind] = tmp[j];
+      vec[ind] = out[j];
   } else {
     for (int j = par2; j < size; j += 2, ind += 2)
       vec[ind] = inp2[j];
   }
 }
 
-void oddEvenMergeSort(double *vec, double *tmp, int size, int border) {
+void oddEvenMergeSort(double *vec, double *out, int size, int border) {
   if (size <= border) {
-    radixSort(vec, tmp, size);
+    radixSort(vec, out, size);
   } else {
     int center = size / 2 + (size / 2) % 2;
-    oddEvenMergeSort(vec, tmp, center, border);
-    oddEvenMergeSort(vec + center, tmp + center, size - center, border);
-    merge(vec, tmp, center, size - center, 0);
-    merge(vec, tmp, center, size - center, 1);
+    oddEvenMergeSort(vec, out, center, border);
+    oddEvenMergeSort(vec + center, out + center, size - center, border);
+    merge(vec, out, center, size - center, 0);
+    merge(vec, out, center, size - center, 1);
     for (int i = 1; i < (size + 1) / 2; i++) {
       if (vec[2 * i] < vec[2 * i - 1]) {
         double tmp = vec[2 * i - 1];
