@@ -4,11 +4,11 @@
 Result RandomM(int l, int k) {
     if (l <= 0 || k <= 0)
         throw std::runtime_error("Incorrect data!");
-    static std::mt19937 rand(time(0));
+    static std::mt19937 random(time(0));
     Result res(l * k);
     for (int i = 0; i < l; i++) {
         for (int j = 0; j < k; j++) {
-            res[i * l + j] = rand() % 256;
+            res[i * l + j] = random() % 256;
         }
     }
     return res;
