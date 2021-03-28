@@ -1,7 +1,6 @@
 // Copyright 2021 Kulandin Denis
 #include <limits>
 #include <random>
-#include <set>
 #include "../../../modules/task_3/kulandin_d_matrix_CRS_complex/sparsematrix.h"
 
 bool equalZero(const std::complex<double> & a) {
@@ -235,7 +234,7 @@ SparseMatrix SparseMatrix::TBBMultiplication(const SparseMatrix & a) {
     std::vector<std::complex<double>>* parallel_values =
         new std::vector<std::complex<double>>[size];
     tbb::task_scheduler_init init(4);
-    tbb::parallel_for(tbb::blocked_range<int>(0, size),
+    tbb::parallel_for(tbb::blocked_range<int>(0, size, size / 8),
                       TBBHelpMultiplication(*this,
                                             a_t,
                                             parallel_columns,
@@ -271,12 +270,17 @@ SparseMatrix generateRandomSparseMatrix(const int size,
     std::vector<int> cols, pointers;
     pointers.push_back(0);
     for (int row = 0; row < size; ++row) {
-        std::set<int> generatedCols;
-        while (static_cast<int>(generatedCols.size()) <
-               nonZeroElementsInEveryRow) {
-            generatedCols.insert(gen() % size);
+        std::vector<bool> generatedCols(size, 0);
+        int sum = 0;
+        while (sum < nonZeroElementsInEveryRow) {
+            int generated = gen() % size;
+            if (!generatedCols[generated]){
+                generatedCols[generated] = 1;
+                ++sum;
+            }
         }
-        for (auto &i : generatedCols) {
+        for (int i = 0; i < size; ++i) {
+            if (!generatedCols[i]) continue;
             cols.push_back(i);
             val.push_back(std::complex<double>(
                 static_cast<double>(gen()) / std::numeric_limits<int>::max(),

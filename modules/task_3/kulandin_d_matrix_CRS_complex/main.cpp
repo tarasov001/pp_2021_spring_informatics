@@ -160,6 +160,6 @@ INSTANTIATE_TEST_SUITE_P(matrix_CSR_complex,
                          parametrized_matrix_multiplication,
                          testing::Combine(
     testing::Values(5000),
-    testing::Values(10, 20, 30, 40, 50, 60, 70, 80, 90, 100)
+    testing::Values(10, 50, 100, 150, 200, 250, 300)
 ));
 
