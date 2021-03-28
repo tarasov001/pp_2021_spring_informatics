@@ -19,7 +19,7 @@ TEST(csr_dispersa_test, testeo_de_generacion) {
     std::vector<std::complex<double>> valor_estimado = {
         {0, 1}, {0, 2}, {0, 3},
         {0, 4}, {0, 8}, {0, 5},
-        {0, 7}, {0, 1}, {0, 6}        
+        {0, 7}, {0, 1}, {0, 6}
         };
     std::vector<int> columna_estimada = { 0, 4, 2, 3, 3, 5, 1, 2, 5};
     std::vector<int> RowIndex = { 0, 2, 4, 4, 6, 6, 9};
