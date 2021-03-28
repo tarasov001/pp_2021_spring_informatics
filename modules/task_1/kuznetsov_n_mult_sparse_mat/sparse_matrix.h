@@ -10,7 +10,7 @@ class sMatrix {
   std::vector<int> c_ind, rows;
   int non_zero, size;
  public:
-  sMatrix(const std::vector<double>& _val, const std::vector<int>& _c_ind, const std::vector<int>& _rows, 
+  sMatrix(const std::vector<double>& _val, const std::vector<int>& _c_ind, const std::vector<int>& _rows,
     int _non_zero, int _size);
   sMatrix(int _size, int _non_zero, unsigned int key);
   bool operator==(const sMatrix& mat);
