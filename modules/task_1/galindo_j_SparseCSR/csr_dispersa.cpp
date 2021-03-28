@@ -2,7 +2,7 @@
 #include <float.h>
 #include <random>
 #include <vector>
-#include "./csr_dispersa.h"
+#include "../../../modules/task_1/galindo_j_SparseCSR/csr_dispersa.h"
 
 DispersaMatrix transposicion(DispersaMatrix AT) {
     DispersaMatrix transposed;

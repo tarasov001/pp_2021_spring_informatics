@@ -1,6 +1,5 @@
 // Copyright 2021 Galindo Buitrago Julio Cesar
 #include <gtest/gtest.h>
-#include <iostream>
 #include <vector>
 #include <algorithm>
 #include "./csr_dispersa.h"
