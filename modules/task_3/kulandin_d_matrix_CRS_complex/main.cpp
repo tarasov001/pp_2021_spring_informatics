@@ -1,6 +1,5 @@
 // Copyright 2021 Kulandin Denis
 #include <gtest/gtest.h>
-#include <omp.h>
 #include <vector>
 #include <complex>
 #include "./sparsematrix.h"
@@ -132,23 +131,23 @@ TEST_P(parametrized_matrix_multiplication, mult_small_dimensions) {
 
     std::cout << "size = " << size <<
         "; nonZeroElementsInEveryRow = " << nonZero << '\n';
-    auto begin = omp_get_wtime();
+    auto begin = tbb::tick_count::now();
     SparseMatrix seq_res = a * b;
-    auto end = omp_get_wtime();
-    auto elapsed_ms = end - begin;
+    auto end = tbb::tick_count::now();
+    auto elapsed_ms = (end - begin).seconds();
     std::cout << "Sequential time = " << elapsed_ms << "s\n";
 
-    begin = omp_get_wtime();
+    begin =tbb::tick_count::now();
     SparseMatrix openmp_res = a.openMPMultiplication(b);
-    end = omp_get_wtime();
-    elapsed_ms = end - begin;
+    end = tbb::tick_count::now();
+    elapsed_ms = (end - begin).seconds();
     std::cout << "openMP time = " << elapsed_ms << "s\n";
 
-    auto tbbBegin = tbb::tick_count::now();
+    begin =tbb::tick_count::now();
     SparseMatrix tbb_res = a.TBBMultiplication(b, 4);
-    auto tbbEnd = tbb::tick_count::now();
-    auto tbb_elapsed_ms = (tbbEnd - tbbBegin).seconds();
-    std::cout << "TBB time = " << tbb_elapsed_ms << "s\n";
+    end = tbb::tick_count::now();
+    elapsed_ms = (end - begin).seconds();
+    std::cout << "TBB time = " << elapsed_ms << "s\n";
 
     ASSERT_EQ(tbb_res.getSize(),     openmp_res.getSize());
     ASSERT_EQ(tbb_res.getCols(),     openmp_res.getCols());
