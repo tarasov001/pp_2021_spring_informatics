@@ -15,11 +15,12 @@ DispersaMatrix transposicion(DispersaMatrix AT) {
             AlmacenamientoColumna[AT.columnaN[j]].push_back(i);
         }
     }
-    for (int i = 0; i < AT.n; i++)
+    for (int i = 0; i < AT.n; i++) {
         for (int j = 0; j < static_cast<int>(AlmacenamientoColumna[i].size()); j++) {
             transposed.columnaN.push_back(AlmacenamientoColumna[i][j]);
             transposed.valor.push_back(AlmacenamientoValor[i][j]);
         }
+    }
     int adicion = 0;
     for (int i = 0; i < AT.n; i++) {
         adicion += static_cast<int>(AlmacenamientoColumna[i].size());
