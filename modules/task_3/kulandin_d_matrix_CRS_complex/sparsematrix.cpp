@@ -141,28 +141,31 @@ SparseMatrix SparseMatrix::openMPMultiplication(const SparseMatrix & a) {
     if (size != a.getSize()) {
         throw(std::string)"Wrong matrix sizes";
     }
-    SparseMatrix a_t = a.transposition();
-    auto a_t_values = a_t.getValues();
-    auto a_t_cols = a_t.getCols();
+    SparseMatrix a_t  = a.transposition();
+    auto a_t_values   = a_t.getValues();
+    auto a_t_cols     = a_t.getCols();
     auto a_t_pointers = a_t.getPointers();
     std::vector<std::vector<int>> parallel_columns(size);
     std::vector<std::vector<std::complex<double>>> parallel_values(size);
-    std::vector<int> used(size, -1);
+    values.emplace_back(0, 0);
+    int tmp = static_cast<int>(values.size() - 1);
+    std::vector<int> used(size, tmp);
     std::complex<double> cur(0, 0);
     #pragma omp parallel
     {
         #pragma omp for private(used, cur) schedule(static)
         for (int row1 = 0; row1 < size; ++row1) {
             for (int row2 = 0; row2 < size; ++row2) {
-                used.assign(size, -1);
+                used.assign(size, tmp);
                 cur = {0, 0};
-                for (int i = pointers[row1]; i < pointers[row1 + 1]; ++i) {
+                int start = pointers[row1];
+                int finish = pointers[row1 + 1];
+                for (int i = start; i < finish; ++i) {
                     used[cols[i]] = i;
                 }
-                for (int i = a_t_pointers[row2];
-                     i < a_t_pointers[row2 + 1];
-                     ++i) {
-                    if (used[a_t_cols[i]] == -1) continue;
+                start = a_t_pointers[row2];
+                finish = a_t_pointers[row2 + 1];
+                for (int i = start; i < finish; ++i) {
                     cur += values[used[a_t_cols[i]]] * a_t_values[i];
                 }
                 if (!equalZero(cur)) {
@@ -172,7 +175,15 @@ SparseMatrix SparseMatrix::openMPMultiplication(const SparseMatrix & a) {
             }
         }
     }
+    values.pop_back();
+    int sum = 0;
+    for (int i = 0; i < size; ++i) {
+        sum += static_cast<int>(parallel_columns[i].size());
+    }
     SparseMatrix ans(size);
+    ans.cols.reserve(sum);
+    ans.values.reserve(sum);
+    ans.pointers.reserve(size + 1);
     ans.pointers.emplace_back(0);
     for (int i = 0; i < size; ++i) {
         std::copy(parallel_columns[i].begin(),
@@ -181,65 +192,59 @@ SparseMatrix SparseMatrix::openMPMultiplication(const SparseMatrix & a) {
         std::copy(parallel_values[i].begin(),
                   parallel_values[i].end(),
                   std::back_inserter(ans.values));
-        ans.pointers.emplace_back(
-            ans.pointers.back() +
-            static_cast<int>(parallel_columns[i].size()));
+        ans.pointers.emplace_back(static_cast<int>(ans.cols.size()));
     }
     return ans;
 }
 
-void TBBHelpMultiplication::operator()(const tbb::blocked_range<int> & range) const {
-    int size = a.getSize();
-
-    auto a_cols     = a.getCols();
-    auto a_val      = a.getValues();
-    auto a_pointers = a.getPointers();
-
-    auto b_cols     = b.getCols();
-    auto b_val      = b.getValues();
-    auto b_pointers = b.getPointers();
-
-    int start       = range.begin();
-    int finish      = range.end();
-
-    std::vector<int> used(size, -1);
-    for (int row1 = start; row1 < finish; ++row1) {
-        for (int row2 = 0; row2 < size; ++row2) {
-            used.assign(size, -1);
-            std::complex<double> cur(0, 0);
-            for (int i = a_pointers[row1]; i < a_pointers[row1 + 1]; ++i) {
-                used[a_cols[i]] = i;
-            }
-            for (int i = b_pointers[row2];
-                    i < b_pointers[row2 + 1];
-                    ++i) {
-                if (used[b_cols[i]] == -1) continue;
-                cur += a_val[used[b_cols[i]]] * b_val[i];
-            }
-            if (!equalZero(cur)) {
-                columns[row1].emplace_back(row2);
-                values[row1].emplace_back(cur);
-            }
-        }
-    }
-}
-
-SparseMatrix SparseMatrix::TBBMultiplication(const SparseMatrix & a) {
+SparseMatrix SparseMatrix::TBBMultiplication(const SparseMatrix & a,
+                                             const int threads) {
     if (size != a.getSize()) {
         throw(std::string)"Wrong matrix sizes";
     }
     SparseMatrix a_t = a.transposition();
-    std::vector<int>* parallel_columns =
-        new std::vector<int>[size];
-    std::vector<std::complex<double>>* parallel_values =
-        new std::vector<std::complex<double>>[size];
-    tbb::task_scheduler_init init(4);
-    tbb::parallel_for(tbb::blocked_range<int>(0, size, size / 8),
-                      TBBHelpMultiplication(*this,
-                                            a_t,
-                                            parallel_columns,
-                                            parallel_values));
+    auto b_cols     = a_t.getCols();
+    auto b_pointers = a_t.getPointers();
+    auto b_val      = a_t.getValues();
+    values.emplace_back(0, 0);
+    int tmp = static_cast<int>(values.size() - 1);
+    std::vector<std::vector<int>> parallel_columns(size);
+    std::vector<std::vector<std::complex<double>>> parallel_values(size);
+    tbb::task_scheduler_init init(threads);
+    tbb::parallel_for(tbb::blocked_range<int>(0, size, 100),
+        [&](const tbb::blocked_range<int> &r){
+        std::vector<int> used(size, tmp);
+        for (int row1 = r.begin(); row1 < r.end(); ++row1) {
+            for (int row2 = 0; row2 < size; ++row2) {
+                std::complex<double> cur(0, 0);
+                int start = pointers[row1];
+                int finish = pointers[row1 + 1];
+                for (int i = start; i < finish; ++i) {
+                    used[cols[i]] = i;
+                }
+                start = b_pointers[row2];
+                finish = b_pointers[row2 + 1];
+                for (int i = start; i < finish; ++i) {
+                    cur += values[used[b_cols[i]]] * b_val[i];
+                }
+                if (!equalZero(cur)) {
+                    parallel_columns[row1].emplace_back(row2);
+                    parallel_values[row1].emplace_back(cur);
+                }
+               used.assign(size, tmp);
+            }
+        }
+    });
+    init.terminate();
+    values.pop_back();
+    int sum = 0;
+    for (int i = 0; i < size; ++i) {
+        sum += static_cast<int>(parallel_columns[i].size());
+    }
     SparseMatrix ans(size);
+    ans.cols.reserve(sum);
+    ans.values.reserve(sum);
+    ans.pointers.reserve(size + 1);
     ans.pointers.emplace_back(0);
     for (int i = 0; i < size; ++i) {
         std::copy(parallel_columns[i].begin(),
@@ -248,12 +253,8 @@ SparseMatrix SparseMatrix::TBBMultiplication(const SparseMatrix & a) {
         std::copy(parallel_values[i].begin(),
                   parallel_values[i].end(),
                   std::back_inserter(ans.values));
-        ans.pointers.emplace_back(
-            ans.pointers.back() +
-            static_cast<int>(parallel_columns[i].size()));
+        ans.pointers.emplace_back(static_cast<int>(ans.cols.size()));
     }
-    delete[] parallel_values;
-    delete[] parallel_columns;
     return ans;
 }
 
@@ -274,7 +275,7 @@ SparseMatrix generateRandomSparseMatrix(const int size,
         int sum = 0;
         while (sum < nonZeroElementsInEveryRow) {
             int generated = gen() % size;
-            if (!generatedCols[generated]){
+            if (!generatedCols[generated]) {
                 generatedCols[generated] = 1;
                 ++sum;
             }
@@ -283,8 +284,8 @@ SparseMatrix generateRandomSparseMatrix(const int size,
             if (!generatedCols[i]) continue;
             cols.push_back(i);
             val.push_back(std::complex<double>(
-                static_cast<double>(gen()) / std::numeric_limits<int>::max(),
-                static_cast<double>(gen()) / std::numeric_limits<int>::max()));
+                static_cast<double>(gen()) / gen(),
+                static_cast<double>(gen()) / gen()));
         }
         pointers.push_back(static_cast<int>(cols.size()));
     }

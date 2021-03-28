@@ -144,22 +144,26 @@ TEST_P(parametrized_matrix_multiplication, mult_small_dimensions) {
     elapsed_ms = end - begin;
     std::cout << "openMP time = " << elapsed_ms << "s\n";
 
-    begin = omp_get_wtime();
-    SparseMatrix tbb_res = a.TBBMultiplication(b);
-    end = omp_get_wtime();
-    elapsed_ms = end - begin;
-    std::cout << "TBB time = " << elapsed_ms << "s\n";
+    auto tbbBegin = tbb::tick_count::now();
+    SparseMatrix tbb_res = a.TBBMultiplication(b, 4);
+    auto tbbEnd = tbb::tick_count::now();
+    auto tbb_elapsed_ms = (tbbEnd - tbbBegin).seconds();
+    std::cout << "TBB time = " << tbb_elapsed_ms << "s\n";
 
     ASSERT_EQ(tbb_res.getSize(),     openmp_res.getSize());
     ASSERT_EQ(tbb_res.getCols(),     openmp_res.getCols());
     ASSERT_EQ(tbb_res.getValues(),   openmp_res.getValues());
     ASSERT_EQ(tbb_res.getPointers(), openmp_res.getPointers());
+    ASSERT_EQ(tbb_res.getSize(),     seq_res.getSize());
+    ASSERT_EQ(tbb_res.getCols(),     seq_res.getCols());
+    ASSERT_EQ(tbb_res.getValues(),   seq_res.getValues());
+    ASSERT_EQ(tbb_res.getPointers(), seq_res.getPointers());
 }
 
 INSTANTIATE_TEST_SUITE_P(matrix_CSR_complex,
                          parametrized_matrix_multiplication,
                          testing::Combine(
-    testing::Values(5000),
-    testing::Values(10, 50, 100, 150, 200, 250, 300)
+    testing::Values(500),
+    testing::Values(5, 10, 15)
 ));
 

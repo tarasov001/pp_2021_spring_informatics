@@ -4,10 +4,10 @@
 
 #include <vector>
 #include <complex>
-// #define TBB_USE_DEBUG 1
 #include "tbb/blocked_range.h"
 #include "tbb/parallel_for.h"
 #include "tbb/task_scheduler_init.h"
+#include "tbb/tick_count.h"
 
 class SparseMatrix {
  public:
@@ -28,25 +28,11 @@ class SparseMatrix {
     std::vector<std::complex<double>> getDenseMatrix() const;
     SparseMatrix transposition() const;
     SparseMatrix openMPMultiplication(const SparseMatrix & a);
-    SparseMatrix TBBMultiplication(const SparseMatrix & a);
+    SparseMatrix TBBMultiplication(const SparseMatrix & a, const int threads);
  private:
     int size;
     std::vector<std::complex<double>> values;
     std::vector<int> cols, pointers;
-};
-
-class TBBHelpMultiplication {
-public:
-   TBBHelpMultiplication(SparseMatrix & original_a,
-                         SparseMatrix & original_b,
-                         std::vector<int>* col,
-                         std::vector<std::complex<double>>* val) :
-      a(original_a), b(original_b), columns(col), values(val) {}
-   void operator()(const tbb::blocked_range<int> & range) const;
-private:
-   SparseMatrix a, b;
-   std::vector<int>* columns;
-   std::vector<std::complex<double>>* values;
 };
 
 SparseMatrix generateRandomSparseMatrix(const int size,
