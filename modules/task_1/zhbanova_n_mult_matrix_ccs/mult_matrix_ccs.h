@@ -110,11 +110,8 @@ SparseMatrix<T>::SparseMatrix(const size_t size, const uint16_t coeff) {
 }
 
 template <type T>
-SparseMatrix<T>::SparseMatrix(const SparseMatrix<T>& mat) {
+SparseMatrix<T>::SparseMatrix(const SparseMatrix<T>& mat) : A(mat.A), LI(mat.LI), LJ(mat.LJ) {
     n = mat.n;
-    A = mat.A;
-    LI = mat.LI;
-    LJ = mat.LJ;
 }
 
 template <type T>
