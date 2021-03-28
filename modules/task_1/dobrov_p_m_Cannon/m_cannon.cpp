@@ -1,4 +1,4 @@
-// Copyright 2021 Dobrov Pavel
+//  Copyright 2021 Dobrov Pavel
 #include "../../../modules/task_1/dobrov_p_m_Cannon/m_cannon.h"
 #include <vector>
 #include <random>

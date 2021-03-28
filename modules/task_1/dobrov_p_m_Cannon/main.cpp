@@ -10,7 +10,7 @@ TEST(m_cannon, comparison_of_NaiveMulti_and_MatrixMulti) {
     std::vector<double> C1 = NaiveMulti(A, B, 16, 19, 16);
     std::vector<double> C2 = MatrixMulti(A, B, 16, 19, 16);
 
-    for(size_t i = 0; i < C1.size(); i++) {
+    for (size_t i = 0; i < C1.size(); i++) {
         ASSERT_DOUBLE_EQ(C1[i], C2[i]);
     }
 }
@@ -26,8 +26,8 @@ TEST(m_Cannon, Cant_execute_with_negative_size_MatrixMulti) {
 }
 
 TEST(m_Cannon, Cant_execute_with_negative_size_NaiveMulti) {
-    std::vector<double> A = (1);
-    std::vector<double> B = (1);
+    std::vector<double> A(1);
+    std::vector<double> B(1);
     ASSERT_ANY_THROW(NaiveMulti(A, B, -1, -1, -1));
 }
 
