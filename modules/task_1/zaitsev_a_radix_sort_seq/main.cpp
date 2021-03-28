@@ -10,9 +10,9 @@ TEST(Test_Seq, Size_5_Without_Random) {
   double* tmp = new double[size];
   std::vector<double> vec2(vec);
   radixSort(vec.data(), tmp, size);
-  delete[] tmp;
   std::sort(vec2.begin(), vec2.end());
   ASSERT_EQ(vec2, vec);
+  delete[] tmp;
 }
 
 TEST(Test_Seq, Size_1000_Random_Positive) {
@@ -21,9 +21,9 @@ TEST(Test_Seq, Size_1000_Random_Positive) {
   double* tmp = new double[size];
   std::vector<double> vec2(vec);
   radixSort(vec.data(), tmp, size);
-  delete[] tmp;
   std::sort(vec2.begin(), vec2.end());
   ASSERT_EQ(vec2, vec);
+  delete[] tmp;
 }
 
 TEST(Test_Seq, Size_1000_Random_Negative) {
@@ -32,9 +32,9 @@ TEST(Test_Seq, Size_1000_Random_Negative) {
   double* tmp = new double[size];
   std::vector<double> vec2(vec);
   radixSort(vec.data(), tmp, size);
-  delete[] tmp;
   std::sort(vec2.begin(), vec2.end());
   ASSERT_EQ(vec2, vec);
+  delete[] tmp;
 }
 
 TEST(Test_Seq, Size_1000_Random_Pos_And_Neg) {
@@ -43,9 +43,9 @@ TEST(Test_Seq, Size_1000_Random_Pos_And_Neg) {
   double* tmp = new double[size];
   std::vector<double> vec2(vec);
   radixSort(vec.data(), tmp, size);
-  delete[] tmp;
   std::sort(vec2.begin(), vec2.end());
   ASSERT_EQ(vec2, vec);
+  delete[] tmp;
 }
 
 TEST(Test_Seq, Exact_Answer) {
@@ -55,9 +55,9 @@ TEST(Test_Seq, Exact_Answer) {
   {3.463, 5.32, 8.25, 43.733, 53.41, 75.86, 120.632};
   double* tmp = new double[size];
   radixSort(vec.data(), tmp, size);
-  delete[] tmp;
   for (int i = 0; i < size; i++)
     ASSERT_NEAR(vec[i], answer[i], 0.01);
+  delete[] tmp;
 }
 
 TEST(Test_Seq, Size_100_Batcher) {
@@ -66,9 +66,9 @@ TEST(Test_Seq, Size_100_Batcher) {
   std::vector<double> vec = createVector(size, 0.0, 1000.0);
   std::vector<double> vec2(vec);
   oddEvenMergeSort(vec.data(), tmp, size, 6);
-  delete[] tmp;
   std::sort(vec2.begin(), vec2.end());
   ASSERT_EQ(vec2, vec);
+  delete[] tmp;
 }
 
 TEST(Test_Seq, Size_1000_Batcher_Border_20) {
@@ -77,9 +77,9 @@ TEST(Test_Seq, Size_1000_Batcher_Border_20) {
   std::vector<double> vec = createVector(size, -1000.0, 1000.0);
   std::vector<double> vec2(vec);
   oddEvenMergeSort(vec.data(), tmp, size, 20);
-  delete[] tmp;
   std::sort(vec2.begin(), vec2.end());
   ASSERT_EQ(vec2, vec);
+  delete[] tmp;
 }
 
 TEST(Test_Seq, Size_1000_Batcher_Border_1000) {
@@ -88,9 +88,9 @@ TEST(Test_Seq, Size_1000_Batcher_Border_1000) {
   std::vector<double> vec = createVector(size, -1000.0, 1000.0);
   std::vector<double> vec2(vec);
   oddEvenMergeSort(vec.data(), tmp, size, 1000);
-  delete[] tmp;
   std::sort(vec2.begin(), vec2.end());
   ASSERT_EQ(vec2, vec);
+  delete[] tmp;
 }
 
 int main(int argc, char** argv) {
