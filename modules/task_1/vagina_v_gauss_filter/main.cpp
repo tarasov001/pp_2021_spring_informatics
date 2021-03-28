@@ -1,13 +1,14 @@
 // Copyright 2021 Vagina Valeria
+#include <vector>
 #include <gtest/gtest.h>
-#include "./gauss_filter.h"
+#include "../../../modules/task_1/vagina_v_gauss_filter/gauss_filter.h"
 
 TEST(Gauss_seq, Small_Image) {
     const int width = 10;
     const int height = 10;
 
     std::vector<Pixel> img = generateRandomImage(width, height);
-    std::vector<Pixel> res = gaussianFilter(img, width, height);
+    std::vector<Pixel> res = gaussFilter(img, width, height);
 
     ASSERT_NE(res, img);
 }
@@ -18,7 +19,7 @@ TEST(Gauss_seq, Empty_Image) {
 
     std::vector<Pixel> img = generateRandomImage(width, height);
 
-    ASSERT_EQ(img, gaussianFilter(img, width, height));
+    ASSERT_EQ(img, gaussFilter(img, width, height));
 }
 
 TEST(Gauss_seq, Kernel_Size) {
@@ -27,7 +28,7 @@ TEST(Gauss_seq, Kernel_Size) {
 
     std::vector<Pixel> img = generateRandomImage(width, height);
 
-    ASSERT_NE(img, gaussianFilter(img, width, height));
+    ASSERT_NE(img, gaussFilter(img, width, height));
 }
 
 TEST(Gauss_seq, Kernel_Size_1) {
@@ -36,7 +37,7 @@ TEST(Gauss_seq, Kernel_Size_1) {
 
     std::vector<Pixel> img = generateRandomImage(width, height);
 
-    ASSERT_NE(img, gaussianFilter(img, width, height));
+    ASSERT_NE(img, gaussFilter(img, width, height));
 }
 
 TEST(Gauss_seq, Incorrect_Image_Height) {
@@ -45,7 +46,7 @@ TEST(Gauss_seq, Incorrect_Image_Height) {
 
     std::vector<Pixel> img = generateRandomImage(width, height);
 
-    ASSERT_ANY_THROW(gaussianFilter(img, width, height - 1));
+    ASSERT_ANY_THROW(gaussFilter(img, width, height - 1));
 }
 
 TEST(Gauss_seq, Incorrect_Image_Width) {
@@ -54,7 +55,7 @@ TEST(Gauss_seq, Incorrect_Image_Width) {
 
     std::vector<Pixel> img = generateRandomImage(width, height);
 
-    ASSERT_ANY_THROW(gaussianFilter(img, width + 1, height));
+    ASSERT_ANY_THROW(gaussFilter(img, width + 1, height));
 }
 
 int main(int argc, char** argv) {

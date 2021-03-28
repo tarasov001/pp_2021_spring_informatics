@@ -6,7 +6,7 @@
 #include <random>
 #include <stdexcept>
 #include <vector>
-#include "./gauss_filter.h"
+#include "../../../modules/task_1/vagina_v_gauss_filter/gauss_filter.h"
 
 bool operator==(const Pixel &a, const Pixel &b) {
     return (a.r == b.r) && (a.g == b.g) && (a.b == b.b);
@@ -20,7 +20,7 @@ std::vector<double> generateGaussianKernel(int radius) {
     for (int i = -radius; i <= radius; ++i) {
         for (int j = -radius; j <= radius; ++j) {
             sum += res[(i + radius) * size + j + radius] =
-            <double>(exp((-1) * (i * i + j * j) / (sigma * sigma)));
+            (double)(exp((-1) * (i * i + j * j) / (sigma * sigma)));
         }
     }
     for (int i = 0; i < size * size; ++i) {
@@ -42,7 +42,8 @@ std::vector<Pixel> generateRandomImage(int rows, int cols) {
     return result;
 }
 
-std::vector<Pixel> gaussFilter(const std::vector<Pixel> &a, int rows, int cols) {
+std::vector<Pixel> gaussFilter(const std::vector<Pixel> &a,
+                               int rows, int cols) {
     std::vector<Pixel> res(a);
     if (rows * cols != static_cast<int>(res.size())) {
         throw "Matrix radiusensions do not match";
