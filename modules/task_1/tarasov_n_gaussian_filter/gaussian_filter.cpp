@@ -59,6 +59,7 @@ std::vector<double> gaussian_filter(std::vector<double> img, int width, int heig
                     res += img[(i + n) * height + j + z] * core[(n + 1) * 3 + (z + 1)];
                 }
             }
+            res = round(res * 1000) / 1000;
             result_img[width * i + j] = res;
         }
     }
