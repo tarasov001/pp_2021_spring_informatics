@@ -17,22 +17,13 @@ std::vector<double> get_random_img(int _width, int _height) {
     return pic;
 }
 
-void print_img(std::vector<double> pic, int width, int height) {
-    for (int i = 0; i < height; i++) {
-        for (int j = 0; j < width; j++) {
-            std::cout << pic[i * height + j] << "\t";
-        }
-        std::cout << std::endl;
-    }
-}
-
 std::vector<double> gaussian_core(double sigma) {
     std::vector<double> result_core(9);
     double normalization = 0;
     for (int i = -1; i < 2; i++) {
         for (int j = -1; j < 2; j++) {
             double numerator = std::exp(-((i * i + j * j) / (2 * sigma * sigma)));
-            double denominator = (2 * M_PI * sigma * sigma);
+            double denominator = (2 * PI * sigma * sigma);
             result_core[(i + 1) * 3 + (j + 1)] = numerator / denominator;
             normalization += result_core[(i + 1) * 3 + (j + 1)];
         }
