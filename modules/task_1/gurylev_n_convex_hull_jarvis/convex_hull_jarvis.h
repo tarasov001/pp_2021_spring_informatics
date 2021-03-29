@@ -1,6 +1,6 @@
 // Copyright 2021 Gurylev Nikita
-#ifndef MODULES_TASK_1_GURYLEV_NIKITA_CONVEX_HULL_JARVIS_H_
-#define MODULES_TASK_1_GURYLEV_NIKITA_CONVEX_HULL_JARVIS_H_
+#ifndef MODULES_TASK_1_GURYLEV_N_CONVEX_HULL_JARVIS_CONVEX_HULL_JARVIS_H_
+#define MODULES_TASK_1_GURYLEV_N_CONVEX_HULL_JARVIS_CONVEX_HULL_JARVIS_H_
 
 #include <vector>
 #include <utility>
@@ -14,4 +14,4 @@ double Around(const std::pair<int, int>& A, const std::pair<int, int>& B,
 std::vector < std::pair<int, int>> JarvisAlg(const std::vector<std::pair<int,
     int>>& points);
 
-#endif  // MODULES_TASK_1_GURYLEV_NIKITA_CONVEX_HULL_JARVIS_H_
+#endif  // MODULES_TASK_1_GURYLEV_N_CONVEX_HULL_JARVIS_CONVEX_HULL_JARVIS_H_
