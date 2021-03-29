@@ -59,7 +59,7 @@ TEST(Gaussian_filter, Test7) {
     };
     img = gaussian_filter(img, 5, 5, 1.0);
     for (int i = 0; i < 25; i++) {
-        ASSERT_DOUBLE_EQ(img[i], expectation[i])
+        ASSERT_DOUBLE_EQ(img[i], expectation[i]);
     }
 }
 
