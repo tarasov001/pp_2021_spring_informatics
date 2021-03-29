@@ -58,7 +58,7 @@ TEST(Gaussian_filter, Test7) {
         140.0, 163.0, 180.0, 77.0, 124.0
     };
     img = gaussian_filter(img, 5, 5, 1.0);
-    ASSERT_EQ(img, expectation);
+    ASSERT_DOUBLE_EQ(img, expectation);
 }
 
 int main(int argc, char **argv) {
