@@ -1,6 +1,6 @@
-// Copyright 2021 Bessolytsin Sergay
-#ifndef MODULES_TASK_1_BESSOLITSYN_S_QUICK_SORT_QUICK_SORT_H
-#define MODULES_TASK_1_BESSOLITSYN_S_QUICK_SORT_QUICK_SORT_H
+// Copyright 2021 Bessolytsin Sergey
+#ifndef MODULES_TASK_1_BESSOLITSYN_S_QUICK_SORT_QUICK_SORT_H_
+#define MODULES_TASK_1_BESSOLITSYN_S_QUICK_SORT_QUICK_SORT_H_
 
 #include <vector>
 #include <random>
@@ -26,4 +26,4 @@ void quick_sort(T arr[], int right) {
 std::vector<int> getRandomVector(int size, uint64_t seed = 50);
 std::vector<double> getRandomDoubleVector(int size, uint64_t seed = 50);
 
-#endif  // MODULES_TASK_1_BESSOLITSYN_S_QUICK_SORT_QUICK_SORT_H
+#endif  // MODULES_TASK_1_BESSOLITSYN_S_QUICK_SORT_QUICK_SORT_H_
