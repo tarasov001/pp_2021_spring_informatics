@@ -1,5 +1,6 @@
 // Copyright 2021 Chirkov Roman
 #include <gtest/gtest.h>
+#include <vector>
 #include "./jarvis_march.h"
 
 TEST(jarvis_march, generation_wrong_size) {

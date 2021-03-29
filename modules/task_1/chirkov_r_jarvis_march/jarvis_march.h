@@ -2,6 +2,8 @@
 #ifndef MODULES_TASK_1_CHIRKOV_R_JARVIS_MARCH_JARVIS_MARCH_H_
 #define MODULES_TASK_1_CHIRKOV_R_JARVIS_MARCH_JARVIS_MARCH_H_
 
+#include <vector>
+
 class Point {
  private:
   double x;
