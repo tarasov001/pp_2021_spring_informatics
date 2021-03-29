@@ -8,7 +8,7 @@ TEST(shell_betcher, Shell) {
     std::vector<int> vec = { 3, -1, 12, 8, 5 };
     std::vector<int> res = ShellSort(vec, 5);
     std::vector<int> correct_res = { -1, 3, 5, 8, 12 };
-    
+
     ASSERT_EQ(res, correct_res);
 }
 
