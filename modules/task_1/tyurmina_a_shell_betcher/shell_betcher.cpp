@@ -13,7 +13,7 @@ std::vector<int> ShellSort(const std::vector<int>& massiv, int size) {
     int temp;
 
     std::vector<int>mass(massiv);
-   
+
     for (step = size / 2; step > 0; step = step / 2) {
         for (i = step; i < size; i++) {
             for (j = i - step; j >= 0 && mass[j] > mass[j + step]; j = j - step) {
