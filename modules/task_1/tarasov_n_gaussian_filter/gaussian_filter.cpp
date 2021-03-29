@@ -53,10 +53,10 @@ std::vector<double> gaussian_filter(std::vector<double> img, int width, int heig
 
     for (int i = 1; i < height - 1; i++) {
         for (int j = 1; j < width - 1; j++) {
-            int res = 0;
+            double res = 0;
             for (int n = -1; n <= 1; n++) {
                 for (int z = -1; z <= 1; z++) {
-                    res += img[(i + n) * height + j + z] * core[(n + 1) * 3 + z];
+                    res += img[(i + n) * height + j + z] * core[(n + 1) * 3 + (z + 1)];
                 }
             }
             result_img[width * i + j] = res;
