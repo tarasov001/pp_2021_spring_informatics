@@ -62,7 +62,7 @@ std::vector<double> minusVec(std::vector<double> x) {
     return res;
 }
 
-std::vector<double> calculateRes(std::vector<std::vector<double> > mtx, const std::vector<double> b) {
+std::vector<double> calculateRes(std::vector<std::vector<double> > mtx, const std::vector<double>& b) {
     int n = mtx.size();
     assert(n > 0);
     int m = mtx[0].size();
