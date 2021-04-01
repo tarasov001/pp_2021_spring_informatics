@@ -7,10 +7,10 @@
 #include <vector>
 #include <numeric>
 
-vector<double> linVec(double a, const vector<double> &v1, double b, const vector<double> &v2);
-double innerVec(const vector<double> &v1, const vector<double> &v2);
-vector<double> mMultv(const vector<vector<double>> &M, const vector<double> &V);
-double vecNorm(const vector<double> &V);
-vector<double> ConjugateGradient(const vector<vector<double>> &M, const vector<double> &B);
+std::vector<double> linVec(double a, const std::vector<double> &v1, double b, const std::vector<double> &v2);
+double innerVec(const std::vector<double> &v1, const std::vector<double> &v2);
+std::vector<double> mMultv(const std::vector<std::vector<double>> &M, const std::vector<double> &V);
+double vecNorm(const std::vector<double> &V);
+std::vector<double> ConjugateGradient(const std::vector<vector<double>> &M, const std::vector<double> &B);
 
 #endif  // MODULES_TASK_1_KUMBRASEV_M_CONJUGATE_GRADIENT_CONJUGATE_GRADIENT_H_
