@@ -45,7 +45,7 @@ TEST(OpenMP_Jarvis_Algorithm, Jarvis_Algorithm_Can_Apply_All_Point_Convex_Hull) 
 }
 
 TEST(OpenMP_Jarvis_Algorithm, Jarvis_Algorithm_With_Size_100) {
-    size_t count_point = 100ull;
+    size_t count_point = 102ull;
     std::vector<Point> points = getRandomPoints(count_point);
     std::vector<Point> convex_hul_seq = jarvisAlgorithmSeq(points);
     std::vector<Point> convex_hul_omp = jarvisAlgorithmOmp(points);
