@@ -29,7 +29,7 @@ TEST(Conjugate_gradient, M3) {
 
     std::vector<double> X = ConjugateGradient(M, B);
     std::vector<double> res = mMultv(M, X);
-    std::vector<double> finalr = { { 172.2, 137.814, 134.175 } }
+    std::vector<double> finalr = { { 172.2, 137.814, 134.175 } };
     for (size_t i = 0; i < res.size(); ++i) {
         ASSERT_NE(B[i], res[i]);
     }
