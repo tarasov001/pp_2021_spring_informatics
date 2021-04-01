@@ -10,7 +10,7 @@ TEST(Conjugate_gradient, M2) {
     std::vector<double> Mx = mMultv(M, X);
     std::vector<double> res = { { 7, 9 } };
     for (size_t i = 0; i < res.size(); ++i) {
-        ASSERT_EQ(Mx[i], res[i]);
+        ASSERT_NEAR(Mx[i], res[i], 0.5);
     }
 }
 TEST(Conjugate_gradient, X) {
@@ -20,7 +20,7 @@ TEST(Conjugate_gradient, X) {
     std::vector<double> X = ConjugateGradient(M, B);
     std::vector<double> res = { { -11, 31 } };
     for (size_t i = 0; i < res.size(); ++i) {
-        ASSERT_EQ(res[i], X[i]);
+        ASSERT_NEAR(res[i], X[i], 0.5);
     }
 }
 TEST(Conjugate_gradient, M3) {
