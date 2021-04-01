@@ -18,7 +18,7 @@ double innerVec(const std::vector<double> &v1, const std::vector<double> &v2) {
 
 std::vector<double> mMultv(const std::vector<std::vector<double>> &M, const std::vector<double> &V) {
     int n = M.size();
-    vector<double> C(n);
+    std::vector<double> C(n);
     for ( int i = 0; i < n; i++ ) {
         C[i] = innerVec(M[i], V);
     }
@@ -42,7 +42,7 @@ std::vector<double> ConjugateGradient(const std::vector<std::vector<double>> &M,
         std::vector<double> Rold = R;
         std::vector<double> MP = mMultv(M, P);
 
-        double alpha = innerVec(R, R) / max(innerVec(P, MP), nzero);
+        double alpha = innerVec(R, R) / fmax(innerVec(P, MP), nzero);
         X = linVec(1.0, X, alpha, P);
         R = linVec(1.0, R, -alpha, MP);
 
@@ -50,7 +50,7 @@ std::vector<double> ConjugateGradient(const std::vector<std::vector<double>> &M,
             break;
     }
 
-    double beta = innerVec(R, R) / max(innerVec(Rold, Rold), nzero);
+    double beta = innerVec(R, R) / fmax(innerVec(Rold, Rold), nzero);
     P = linVec(1.0, R, beta, P);
     k++;
     }
