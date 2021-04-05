@@ -1,6 +1,6 @@
 // Copyright 2021 Gogov Vladislav
-#include "../../../modules/task_3/gogov_v_jarvis_algorithm/jarivs_algorithm.h"
 #include <random>
+#include "../../../modules/task_3/gogov_v_jarvis_algorithm/jarivs_algorithm.h"
 
 int rotate(const Point& A, const Point& B, const Point& C) {
     int64_t temp = (C.first - A.first) * (B.second - A.second) -
@@ -83,12 +83,12 @@ class FirstPoint {
     Point base;
     const Point* points;
 
-  public:
+ public:
     FirstPoint(const Point* points_, Point base_)
         : points(points_), base(base_) {
     }
 
-    FirstPoint(FirstPoint& r, tbb::split) : base(r.base), points(r.points) {
+    FirstPoint(const FirstPoint& r, tbb::split) : base(r.base), points(r.points) {
     }
 
     void operator()(const tbb::blocked_range<size_t>& r) {
@@ -101,7 +101,7 @@ class FirstPoint {
 
     void join(const FirstPoint& r) {
         if (r.base < base)
-            base = r.base ;
+            base = r.base;
     }
 
     Point getBase() {
@@ -114,12 +114,12 @@ class NextPoint {
     const Point* points;
     Point last_point_hull;
 
-  public:
+ public:
     NextPoint(const Point* points_, Point next_, Point last_point_hull_)
         : next(next_), points(points_), last_point_hull(last_point_hull_) {
     }
 
-    NextPoint(NextPoint& r, tbb::split)
+    NextPoint(const NextPoint& r, tbb::split)
         : next(r.next), points(r.points), last_point_hull(r.last_point_hull) {
     }
 

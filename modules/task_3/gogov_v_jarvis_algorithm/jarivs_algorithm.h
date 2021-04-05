@@ -15,4 +15,4 @@ std::vector<Point> getRandomPoints(size_t size);
 std::vector<Point> jarvisAlgorithmSeq(const std::vector<Point>& points);
 std::vector<Point> jarvisAlgorithmTbb(const std::vector<Point>& points);
 
-#endif  // MODULES_TASK_2_GOGOV_V_JARVIS_ALGORITHM_JARIVS_ALGORITHM_H_
+#endif  // MODULES_TASK_3_GOGOV_V_JARVIS_ALGORITHM_JARIVS_ALGORITHM_H_
