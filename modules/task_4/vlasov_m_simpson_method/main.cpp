@@ -21,10 +21,15 @@ MULTIDIM_FUNC(parabola, 1, -x[0] * x[0] + 4);
 MULTIDIM_FUNC(body, 2, x[0] * x[0] + x[1] * x[1]);
 MULTIDIM_FUNC(super, 3, std::sin(x[0] + 3) - std::log(x[1]) + x[2] * x[2]);
 
-TEST(Parallel_SimpsonMethodTest, same_result_as_sequential) {
+// Performance test - for demo purposes, not for CI
+/*TEST(Parallel_SimpsonMethodTest, same_result_as_sequential) {
     std::vector<double> seg_begin = {0, 0};
     std::vector<double> seg_end = {1, 1};
     std::pair<double, double> time = {0, 0};
+    int num_threads;
+    std::cout << "num_threads: ";
+    std::cin >> num_threads;
+    omp_set_num_threads(num_threads);
     time.first = omp_get_wtime();
     double seq = SimpsonMethod::sequential(body, seg_begin, seg_end, 10000000);
     time.second = omp_get_wtime();
@@ -36,19 +41,19 @@ TEST(Parallel_SimpsonMethodTest, same_result_as_sequential) {
     std::cout << "Parallel " << (time.second - time.first) << ' ' << par
               << std::endl;
     ASSERT_NEAR(seq, par, 1e-6);
-}
+}*/
 
 TEST(Parallel_SimpsonMethodTest, can_integrate_2d_function) {
     std::vector<double> seg_begin = {0};
     std::vector<double> seg_end = {2};
-    double square = SimpsonMethod::parallel(parabola, seg_begin, seg_end, 100);
+    double square = SimpsonMethod::parallel(parabola, seg_begin, seg_end, 100, 4);
     ASSERT_NEAR(16.0 / 3.0, square, 1e-6);
 }
 
 TEST(Parallel_SimpsonMethodTest, can_integrate_3d_function) {
     std::vector<double> seg_begin = {0, 0};
     std::vector<double> seg_end = {1, 1};
-    double volume = SimpsonMethod::parallel(body, seg_begin, seg_end, 100);
+    double volume = SimpsonMethod::parallel(body, seg_begin, seg_end, 100, 3);
     ASSERT_NEAR(2.0 / 3.0, volume, 1e-6);
 }
 
@@ -57,7 +62,7 @@ TEST(Parallel_SimpsonMethodTest, can_integrate_3d_function) {
 TEST(Parallel_SimpsonMethodTest, can_integrate_super_function) {
     std::vector<double> seg_begin = {-2, 1, 0};
     std::vector<double> seg_end = {1, 3, 2};
-    double integral = SimpsonMethod::parallel(super, seg_begin, seg_end, 100);
+    double integral = SimpsonMethod::parallel(super, seg_begin, seg_end, 100, 2);
     ASSERT_NEAR(13.0007625, integral, 1e-6);
 }
 

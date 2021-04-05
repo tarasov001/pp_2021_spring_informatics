@@ -14,7 +14,7 @@ double sequential(const std::function<double(const std::vector<double>&)>& func,
 
 double parallel(const std::function<double(const std::vector<double>&)>& func,
                 std::vector<double> seg_begin, std::vector<double> seg_end,
-                int steps_count);
+                int steps_count, int num_threads = 1);
 
 }  // namespace SimpsonMethod
 

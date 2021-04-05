@@ -2,18 +2,15 @@
 
 #include "../../../modules/task_4/vlasov_m_simpson_method/simpson_method.h"
 
-#include <omp.h>
-
 #include <algorithm>
 #include <cassert>
 #include <cmath>
 #include <iostream>
-#include <memory>
-#include <mutex>
 #include <numeric>
 #include <stdexcept>
-#include <thread>
 #include <utility>
+
+#include "../../../3rdparty/unapproved/unapproved.h"
 
 static void sumUp(std::vector<double>* accum, const std::vector<double>& add) {
     assert(accum->size() == add.size());
@@ -39,11 +36,12 @@ double SimpsonMethod::sequential(
     }
     std::pair<double, double> sum = std::make_pair(0.0, 0.0);
     std::vector<double> args = seg_begin;
-    for (int i = 0; i < steps_count; i += 2) {
+    for (int i = 0; i < steps_count; i++) {
         sumUp(&args, steps);
-        sum.first += func(args);
-        sumUp(&args, steps);
-        sum.second += func(args);
+        if (i % 2 == 0)
+            sum.first += func(args);
+        else
+            sum.second += func(args);
     }
     double seg_prod = std::accumulate(segments.begin(), segments.end(), 1.0,
                                       [](double p, double s) { return p * s; });
@@ -53,42 +51,67 @@ double SimpsonMethod::sequential(
 
 double SimpsonMethod::parallel(
     const std::function<double(const std::vector<double>&)>& func,
-    std::vector<double> seg_begin, std::vector<double> seg_end,
-    int steps_count) {
+    std::vector<double> seg_begin, std::vector<double> seg_end, int steps_count,
+    int num_threads) {
+    if (num_threads <= 0)
+        throw std::runtime_error("Number of threads must be positive");
     if (steps_count <= 0)
         throw std::runtime_error("Steps count must be positive");
     if (seg_begin.empty() || seg_end.empty())
         throw std::runtime_error("No segments");
     if (seg_begin.size() != seg_end.size())
         throw std::runtime_error("Invalid segments");
-    double sum = 0;
-    int t_count = omp_get_num_procs();
-    std::vector<std::unique_ptr<std::thread>> threads(t_count);
-    std::mutex lock;
-    for (int t_id = 0; t_id < t_count; t_id++) {
-        threads[t_id].reset(new std::thread(
-            [t_id, t_count, &lock, &sum, &func, steps_count](
-                std::vector<double> seg_begin, std::vector<double> seg_end) {
-                size_t dim = seg_begin.size();
-                size_t i_base = 0;
-                for (size_t i = 1; i < dim; i++) {
-                    if (seg_end[i] - seg_begin[i] >
-                        seg_end[i_base] - seg_begin[i_base])
-                        i_base = i;
-                }
-                double step_size =
-                    (seg_end[i_base] - seg_begin[i_base]) / t_count;
-                seg_begin[i_base] = seg_begin[i_base] + step_size * t_id;
-                seg_end[i_base] = seg_begin[i_base] + step_size;
-                double part_sum =
-                    sequential(func, seg_begin, seg_end, steps_count / t_count);
-                {
-                    std::lock_guard<std::mutex> guard(lock);
-                    sum += part_sum;
-                }
-            },
-            seg_begin, seg_end));
-        threads[t_id]->join();
+    size_t dim = seg_begin.size();
+    std::vector<double> steps(dim), segments(dim);
+    for (size_t i = 0; i < dim; i++) {
+        steps[i] = (seg_end[i] - seg_begin[i]) / steps_count;
+        segments[i] = seg_end[i] - seg_begin[i];
     }
-    return sum;
+    int t_steps = 0;
+    auto runner = [&func, &num_threads, &dim, &steps_count, &steps,
+                   &seg_begin](int t_id) -> std::pair<double, double> {
+        std::vector<double> args(dim);
+        int t_steps = steps_count / num_threads;
+        for (size_t i = 0; i < dim; i++)
+            args[i] = seg_begin[i] + steps[i] * t_id * t_steps;
+        int t_start = t_id * t_steps;
+        int t_end = t_start + t_steps;
+        std::pair<double, double> sum = std::make_pair(0.0, 0.0);
+        for (int i = t_start; i < t_end; i++) {
+            sumUp(&args, steps);
+            if (i % 2 == 0)
+                sum.first += func(args);
+            else
+                sum.second += func(args);
+        }
+        return sum;
+    };
+    std::vector<std::future<std::pair<double, double>>> results(0);
+    results.reserve(num_threads);
+    for (int i = 0; i < num_threads; i++) {
+        results.push_back(std::async(runner, i));
+    }
+    std::pair<double, double> sum = std::make_pair(0.0, 0.0);
+    for (auto& result : results) {
+        auto local_sum = result.get();
+        sum.first += local_sum.first;
+        sum.second += local_sum.second;
+    }
+    if (steps_count % num_threads != 0) {
+        std::vector<double> args(dim);
+        int passed_steps_count = num_threads * t_steps;
+        for (size_t i = 0; i < dim; i++)
+            args[i] = seg_begin[i] + steps[i] * passed_steps_count;
+        for (int i = passed_steps_count; i < steps_count; i++) {
+            sumUp(&args, steps);
+            if (i % 2 == 0)
+                sum.first += func(args);
+            else
+                sum.second += func(args);
+        }
+    }
+    double seg_prod = std::accumulate(segments.begin(), segments.end(), 1.0,
+                                      [](double p, double s) { return p * s; });
+    return (func(seg_begin) + 4 * sum.first + 2 * sum.second - func(seg_end)) *
+           seg_prod / (3.0 * steps_count);
 }
