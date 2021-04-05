@@ -1,8 +1,8 @@
 // Copyright 2021 Kulandin Denis
 #include <gtest/gtest.h>
-#include <omp.h>
 #include <vector>
 #include <complex>
+#include <chrono>
 #include "./sparsematrix.h"
 
 template<class T>
@@ -149,28 +149,19 @@ TEST_P(parametrized_matrix_multiplication, mult_small_dimensions) {
 
     std::cout << "size = " << size <<
         "; nonZeroElementsInEveryRow = " << nonZero << '\n';
-    auto begin           = omp_get_wtime();
+    auto begin           = std::chrono::high_resolution_clock::now();
     SparseMatrix seq_res = a * b;
-    auto end             = omp_get_wtime();
-    auto elapsed_ms      = (end - begin);
-    std::cout << "Sequential time =  " << elapsed_ms << "s\n";
+    auto end             = std::chrono::high_resolution_clock::now();
+    auto elapsed_ms      =
+        std::chrono::duration_cast<std::chrono::milliseconds>(end - begin).count();
+    std::cout << "Sequential time =  " << elapsed_ms << "ms\n";
 
-    begin                   = omp_get_wtime();
-    SparseMatrix openmp_res = a.openMPMultiplication(b);
-    end                     = omp_get_wtime();
-    elapsed_ms              = (end - begin);
-    std::cout << "openMP time =      " << elapsed_ms << "s\n";
-
-    begin                = omp_get_wtime();
+    begin                = std::chrono::high_resolution_clock::now();
     SparseMatrix tbb_res = a.threadMultiplication(b);
-    end                  = omp_get_wtime();
-    elapsed_ms           = (end - begin);
-    std::cout << "std::thread time = " << elapsed_ms << "s\n";
-
-    ASSERT_EQ(tbb_res.getSize(),       openmp_res.getSize());
-    checkArrays(tbb_res.getValues(),   openmp_res.getValues());
-    checkArrays(tbb_res.getCols(),     openmp_res.getCols());
-    checkArrays(tbb_res.getPointers(), openmp_res.getPointers());
+    end                  = std::chrono::high_resolution_clock::now();
+    elapsed_ms           =
+        std::chrono::duration_cast<std::chrono::milliseconds>(end - begin).count();
+    std::cout << "std::thread time = " << elapsed_ms << "ms\n";
 
     ASSERT_EQ(tbb_res.getSize(),       seq_res.getSize());
     checkArrays(tbb_res.getValues(),   seq_res.getValues());
