@@ -218,9 +218,9 @@ SparseMatrix SparseMatrix::threadMultiplication(const SparseMatrix & a) {
     int start = 0;
 
     auto calc_thread = [&](int row1,
-                           int end,
-                           std::complex<double> cur,
-                           std::vector<int> used) {
+                           int end) {
+        std::vector<int> used(size, tmp);
+        std::complex<double> cur(0, 0);
         for (; row1 < end; ++row1) {
             for (int row2 = 0; row2 < size; ++row2) {
                 cur = {0, 0};
@@ -245,8 +245,7 @@ SparseMatrix SparseMatrix::threadMultiplication(const SparseMatrix & a) {
 
     for (size_t task = 0; task < count; ++task) {
         tasks.emplace_back(
-            std::thread(calc_thread, start, std::min(size, start + parts),
-                        cur, used));
+            std::thread(calc_thread, start, std::min(size, start + parts)));
         start += parts;
     }
     for (auto &thread : tasks) {
