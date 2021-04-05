@@ -80,8 +80,8 @@ std::vector<Point> jarvisAlgorithmSeq(const std::vector<Point>& points) {
 }
 
 class FirstPoint {
-    Point base;
     const Point* points;
+    Point base;
 
  public:
     FirstPoint(const Point* points_, Point base_)
