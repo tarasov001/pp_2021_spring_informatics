@@ -80,15 +80,14 @@ std::vector<Point> jarvisAlgorithmSeq(const std::vector<Point>& points) {
 }
 
 class FirstPoint {
-    const Point* points;
+    const std::vector<Point>& points;
     Point base;
 
  public:
-    FirstPoint(const Point* points_, Point base_)
-        : points(points_), base(base_) {
+    FirstPoint(const std::vector<Point>& points_, Point base_) : points(points_), base(base_) {
     }
 
-    FirstPoint(const FirstPoint& r, tbb::split) : base(r.base), points(r.points) {
+    FirstPoint(const FirstPoint& r, tbb::split) : points(r.points), base(r.base) {
     }
 
     void operator()(const tbb::blocked_range<size_t>& r) {
@@ -111,11 +110,11 @@ class FirstPoint {
 
 class NextPoint {
     Point next;
-    const Point* points;
+    const std::vector<Point>& points;
     Point last_point_hull;
 
  public:
-    NextPoint(const Point* points_, Point next_, Point last_point_hull_)
+    NextPoint(const std::vector<Point>& points_, Point next_, Point last_point_hull_)
         : next(next_), points(points_), last_point_hull(last_point_hull_) {
     }
 
@@ -158,7 +157,7 @@ std::vector<Point> jarvisAlgorithmTbb(const std::vector<Point>& points) {
     if (count_points < 2)
         return points;
 
-    FirstPoint base_point(points.data(), points[0]);
+    FirstPoint base_point(points, points[0]);
     tbb::parallel_reduce(tbb::blocked_range<size_t>(1, count_points), base_point);
     Point base = base_point.getBase();
 
@@ -168,7 +167,7 @@ std::vector<Point> jarvisAlgorithmTbb(const std::vector<Point>& points) {
     Point next;
     do {
         next = current == points[0] ? points[1] : points[0];
-        NextPoint next_point(points.data(), next, current);
+        NextPoint next_point(points, next, current);
         tbb::parallel_reduce(tbb::blocked_range<size_t>(0, count_points), next_point);
         current = next_point.getNext();
         next = current;
