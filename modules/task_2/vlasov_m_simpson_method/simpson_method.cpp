@@ -36,11 +36,12 @@ double SimpsonMethod::sequential(
     }
     std::pair<double, double> sum = std::make_pair(0.0, 0.0);
     std::vector<double> args = seg_begin;
-    for (int i = 0; i < steps_count; i += 2) {
+    for (int i = 0; i < steps_count; i++) {
         sumUp(&args, steps);
-        sum.first += func(args);
-        sumUp(&args, steps);
-        sum.second += func(args);
+        if (i % 2 == 0)
+            sum.first += func(args);
+        else
+            sum.second += func(args);
     }
     double seg_prod = std::accumulate(segments.begin(), segments.end(), 1.0,
                                       [](double p, double s) { return p * s; });
@@ -58,26 +59,46 @@ double SimpsonMethod::parallel(
         throw std::runtime_error("No segments");
     if (seg_begin.size() != seg_end.size())
         throw std::runtime_error("Invalid segments");
-    double sum = 0;
-#pragma omp parallel firstprivate(seg_begin, seg_end)
+    size_t dim = seg_begin.size();
+    std::vector<double> steps(dim), segments(dim);
+    for (size_t i = 0; i < dim; i++) {
+        steps[i] = (seg_end[i] - seg_begin[i]) / steps_count;
+        segments[i] = seg_end[i] - seg_begin[i];
+    }
+    double sum_first = 0, sum_second = 0;
+    std::vector<double> args(dim);
+    int t_count = 0, t_steps = 0;
+#pragma omp parallel firstprivate(args) reduction(+ : sum_first, sum_second)
     {
         int t_id = omp_get_thread_num();
-        int t_count = omp_get_num_threads();
-        size_t dim = seg_begin.size();
-        size_t i_base = 0;
-        for (size_t i = 1; i < dim; i++) {
-            if (seg_end[i] - seg_begin[i] > seg_end[i_base] - seg_begin[i_base])
-                i_base = i;
+        t_count = omp_get_num_threads();
+        t_steps = steps_count / t_count;
+        for (size_t i = 0; i < dim; i++)
+            args[i] = seg_begin[i] + steps[i] * t_id * t_steps;
+        int t_start = t_id * t_steps;
+        int t_end = t_start + t_steps;
+        for (int i = t_start; i < t_end; i++) {
+            sumUp(&args, steps);
+            if (i % 2 == 0)
+                sum_first += func(args);
+            else
+                sum_second += func(args);
         }
-        double step_size = (seg_end[i_base] - seg_begin[i_base]) / t_count;
-        seg_begin[i_base] = seg_begin[i_base] + step_size * t_id;
-        seg_end[i_base] = seg_begin[i_base] + step_size;
-        int t_steps = steps_count / t_count;
-        if (t_steps % 2 != 0)
-            t_steps += 1;
-        double part_sum = sequential(func, seg_begin, seg_end, t_steps);
-#pragma omp critical
-        sum += part_sum;
     }
-    return sum;
+    if (steps_count % t_count != 0) {
+        int passed_steps_count = t_count * t_steps;
+        for (size_t i = 0; i < dim; i++)
+            args[i] = seg_begin[i] + steps[i] * passed_steps_count;
+        for (int i = passed_steps_count; i < steps_count; i++) {
+            sumUp(&args, steps);
+            if (i % 2 == 0)
+                sum_first += func(args);
+            else
+                sum_second += func(args);
+        }
+    }
+    double seg_prod = std::accumulate(segments.begin(), segments.end(), 1.0,
+                                      [](double p, double s) { return p * s; });
+    return (func(seg_begin) + 4 * sum_first + 2 * sum_second - func(seg_end)) *
+           seg_prod / (3.0 * steps_count);
 }
