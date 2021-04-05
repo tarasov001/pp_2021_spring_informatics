@@ -213,8 +213,6 @@ SparseMatrix SparseMatrix::threadMultiplication(const SparseMatrix & a) {
     std::vector<std::vector<std::complex<double>>> parallel_values(size);
     values.emplace_back(0, 0);
     int tmp = static_cast<int>(values.size() - 1);
-    std::complex<double> cur(0, 0);
-    std::vector<int> used(size, tmp);
     int start = 0;
 
     auto calc_thread = [&](int row1,
