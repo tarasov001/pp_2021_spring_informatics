@@ -89,7 +89,7 @@ std::vector<Point> jarvisAlgorithmOmp(const std::vector<Point>& points) {
 #pragma omp parallel
     {
         Point local_base(base);
-#pragma omp for nowait
+#pragma omp for
         for (int i = 1; i < count_points; i++) {
             if (points[i] < local_base)
                 local_base = points[i];
@@ -109,7 +109,7 @@ std::vector<Point> jarvisAlgorithmOmp(const std::vector<Point>& points) {
 #pragma omp parallel
         {
             Point local_next = next;
-#pragma omp for nowait
+#pragma omp for
             for (int i = 0; i < count_points; i++) {
                 int temp = rotate(current, local_next, points[i]);
                 if (temp > 0) {
