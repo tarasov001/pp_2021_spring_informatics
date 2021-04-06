@@ -206,7 +206,8 @@ SparseMatrix SparseMatrix::threadMultiplication(const SparseMatrix & a) {
     auto a_t_values   = a_t.getValues();
     auto a_t_cols     = a_t.getCols();
     auto a_t_pointers = a_t.getPointers();
-    size_t count         = static_cast<size_t>(std::thread::hardware_concurrency());
+    size_t count      =
+        static_cast<size_t>(std::thread::hardware_concurrency());
     int parts         = (size + count - 1) / count;
     std::vector<std::thread> tasks;
     std::vector<std::vector<int>> parallel_columns(size);
