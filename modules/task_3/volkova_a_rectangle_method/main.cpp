@@ -32,9 +32,9 @@ TEST(Integral, Test2_300) {
     std::cout << "parallel integral: " << parallel_integral << std::endl;
 }
 
-TEST(Integral, Test3_1000) {
-    double integral = integralFunction(function3, 0, 1.8, -1.2, 1.1, -1, 2.9, 1000, 1000, 1000);
-    double parallel_integral = ParallelIntegralFunction(function3, 0, 1.8, -1.2, 1.1, -1, 2.9, 1000, 1000, 1000);
+TEST(Integral, Test3_50) {
+    double integral = integralFunction(function3, 0, 1.8, -1.2, 1.1, -1, 2.9, 50, 50, 50);
+    double parallel_integral = ParallelIntegralFunction(function3, 0, 1.8, -1.2, 1.1, -1, 2.9, 50, 50, 50);
     double value = 67.49028;
     ASSERT_LE(std::abs(parallel_integral - value), 1e-3);
     std::cout << "value: " << value << std::endl;
@@ -42,9 +42,9 @@ TEST(Integral, Test3_1000) {
     std::cout << "parallel integral: " << parallel_integral << std::endl;
 }
 
-TEST(Integral, Test4_200) {
-    double integral = integralFunction(function3, 0.5, 1.7, -1, 2, -4, 1.9, 200, 200, 200);
-    double parallel_integral = ParallelIntegralFunction(function3, 0.5, 1.7, -1, 2, -4, 1.9, 200, 200, 200);
+TEST(Integral, Test4_75) {
+    double integral = integralFunction(function3, 0.5, 1.7, -1, 2, -4, 1.9, 75, 75, 75);
+    double parallel_integral = ParallelIntegralFunction(function3, 0.5, 1.7, -1, 2, -4, 1.9, 75, 75, 75);
     double value = -144.963;
     ASSERT_LE(std::abs(parallel_integral - value), 1e-3);
     std::cout << "value: " << value << std::endl;
@@ -52,9 +52,9 @@ TEST(Integral, Test4_200) {
     std::cout << "parallel integral: " << parallel_integral << std::endl;
 }
 
-TEST(Integral, Test5_500) {
-    double integral = integralFunction(function1, 0.1, 1, -1, 2, 4.2, 6, 500, 500, 500);
-    double parallel_integral = ParallelIntegralFunction(function1, 0.1, 1, -1, 2, 4.2, 6, 500, 500, 500);
+TEST(Integral, Test5_90) {
+    double integral = integralFunction(function1, 0.1, 1, -1, 2, 4.2, 6, 90, 90, 90);
+    double parallel_integral = ParallelIntegralFunction(function1, 0.1, 1, -1, 2, 4.2, 6, 90, 90, 90);
     double value = 6.81615;
     ASSERT_LE(std::abs(parallel_integral - value), 1e-3);
     std::cout << "value: " << value << std::endl;
@@ -62,9 +62,9 @@ TEST(Integral, Test5_500) {
     std::cout << "parallel integral: " << parallel_integral << std::endl;
 }
 
-TEST(Integral, Test6_900) {
-    double integral = integralFunction(function1, 0.1, 1, -1.1, 2, -1, 5, 900, 900, 900);
-    double parallel_integral = ParallelIntegralFunction(function1, 0.1, 1, -1.1, 2, -1, 5, 900, 900, 900);
+TEST(Integral, Test6_100) {
+    double integral = integralFunction(function1, 0.1, 1, -1.1, 2, -1, 5, 100, 100, 10);
+    double parallel_integral = ParallelIntegralFunction(function1, 0.1, 1, -1.1, 2, -1, 5, 100, 100, 10);
     double value = 8.2863;
     ASSERT_LE(std::abs(parallel_integral - value), 1e-3);
     std::cout << "value: " << value << std::endl;
