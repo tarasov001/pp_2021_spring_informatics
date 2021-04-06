@@ -47,18 +47,18 @@ void RadixSort(double* vec, size_t len, double* vec2) {
     }
     delete vec1;
 }
-std::vector<double> Vector(int64 n, double a, double b) {
+std::vector<double> Vector(int n, double a, double b) {
     std::mt19937 gen;
     gen.seed(static_cast<unsigned int>(time(0)));
     std::uniform_real_distribution<double> rand(a, b);
     std::vector<double> vec(n);
-    for (int64 i = 0; i < n; i++)
+    for (int i = 0; i < n; i++)
         vec[i] = rand(gen);
     return vec;
 }
-std::vector<double> MergeBatcherPar(std::vector<double> vec, int64 size, int thr) {
-    const int64 len = size / thr;
-    int64* lens = new int64[thr];
+std::vector<double> MergeBatcherPar(std::vector<double> vec, int size, int thr) {
+    const int len = size / thr;
+    int* lens = new int[thr];
     double* vectmp = new double[size];
 #pragma omp parallel for num_threads(thr)
     for (int j = 0; j < size; j++)
@@ -67,7 +67,7 @@ std::vector<double> MergeBatcherPar(std::vector<double> vec, int64 size, int thr
     for (int j = 0; j < thr; j++)
         lens[j] = len;
     lens[thr - 1] += size % thr;
-    int64* offsets = new int64[thr];
+    int* offsets = new int[thr];
     offsets[0] = 0;
     for (int j = 1; j < thr; j++)
         offsets[j] = offsets[j - 1] + lens[j - 1];
@@ -138,16 +138,16 @@ std::vector<double> MergeBatcherPar(std::vector<double> vec, int64 size, int thr
     delete reztmp;
     return vec;
 }
-std::vector<double> MergeBatcherSeq(std::vector<double> vec, int64 size, int thr) {
-    const int64 len = size / thr;
-    int64* lens = new int64[thr];
+std::vector<double> MergeBatcherSeq(std::vector<double> vec, int size, int thr) {
+    const int len = size / thr;
+    int* lens = new int[thr];
     double* vectmp = new double[size];
     for (int j = 0; j < size; j++)
         vectmp[j] = vec[j];
     for (int j = 0; j < thr; j++)
         lens[j] = len;
     lens[thr - 1] += size % thr;
-    int64* offsets = new int64[thr];
+    int* offsets = new int[thr];
     offsets[0] = 0;
     for (int j = 1; j < thr; j++)
         offsets[j] = offsets[j - 1] + lens[j - 1];
