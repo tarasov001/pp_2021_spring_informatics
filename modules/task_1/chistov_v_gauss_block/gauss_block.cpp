@@ -7,6 +7,8 @@
 #include <ctime>
 #include "../../../modules/task_1/chistov_v_gauss_block/gauss_block.h"
 
+// fix3
+
 std::vector<double> Gauss_Sequential(std::vector<double> image,
     int width, int height) {
     std::vector<double> calc((width + 2) * (height + 2));
