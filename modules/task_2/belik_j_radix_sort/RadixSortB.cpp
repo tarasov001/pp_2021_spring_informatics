@@ -155,11 +155,12 @@ std::vector<double> MergeBatcherSeq(std::vector<double> vec, int size, int thr) 
     double* reztmp = new double[size];
     for (int i = 0; i < thr; i++) {
         RadixSort(vectmp + offsets[i], lens[i], reztmp + offsets[i]);
-        if (thr > 1)
+        if (thr > 1) {
             Shuffle(reztmp + offsets[i], lens[i], vectmp + offsets[i]);
-        else
+        } else {
             for (size_t j = 0; j < lens[i]; j++)
                 vectmp[offsets[i] + j] = reztmp[offsets[i] + j];
+        }
     }
     int nt = thr;
     int mergecount = 2, offset = 1;
