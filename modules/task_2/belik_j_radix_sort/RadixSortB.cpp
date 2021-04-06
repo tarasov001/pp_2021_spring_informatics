@@ -45,7 +45,7 @@ void RadixSort(double* vec, size_t len, double* vec2) {
             vec2[offset[bvec[8 * i + 7]]++] = vec1[i];
         }
     }
-    delete vec1;
+    delete[] vec1;
 }
 std::vector<double> Vector(int n, double a, double b) {
     std::mt19937 gen;
@@ -58,7 +58,7 @@ std::vector<double> Vector(int n, double a, double b) {
 }
 std::vector<double> MergeBatcherPar(std::vector<double> vec, int size, int thr) {
     const int len = size / thr;
-    size_t* lens = new int[thr];
+    size_t* lens = new size_t[thr];
     double* vectmp = new double[size];
 #pragma omp parallel for num_threads(thr)
     for (int j = 0; j < size; j++)
@@ -67,7 +67,7 @@ std::vector<double> MergeBatcherPar(std::vector<double> vec, int size, int thr) 
     for (int j = 0; j < thr; j++)
         lens[j] = len;
     lens[thr - 1] += size % thr;
-    size_t* offsets = new int[thr];
+    size_t* offsets = new size_t[thr];
     offsets[0] = 0;
     for (int j = 1; j < thr; j++)
         offsets[j] = offsets[j - 1] + lens[j - 1];
@@ -140,14 +140,14 @@ std::vector<double> MergeBatcherPar(std::vector<double> vec, int size, int thr) 
 }
 std::vector<double> MergeBatcherSeq(std::vector<double> vec, int size, int thr) {
     const int len = size / thr;
-    size_t* lens = new int[thr];
+    size_t* lens = new size_t[thr];
     double* vectmp = new double[size];
     for (int j = 0; j < size; j++)
         vectmp[j] = vec[j];
     for (int j = 0; j < thr; j++)
         lens[j] = len;
     lens[thr - 1] += size % thr;
-    size_t* offsets = new int[thr];
+    size_t* offsets = new size_t[thr];
     offsets[0] = 0;
     for (int j = 1; j < thr; j++)
         offsets[j] = offsets[j - 1] + lens[j - 1];
