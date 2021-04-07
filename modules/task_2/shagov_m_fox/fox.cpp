@@ -74,7 +74,7 @@ Matrix sequentialBlockMatrixMultiplication(std::vector<double> A, std::vector<do
     return result;
 }
 
-Matrix parallelBlockMatrixMultiplication(std::vector<double> A, std::vector<double> B, int Size) {
+Matrix parallelBlockMatrixMultiplication(std::vector<double> A, std::vector<double> B, size_t Size) {
     if (Size <= 0)
         throw "Block size of matrix must be > 0";
     if ((A.size() <= 0) || (B.size() <= 0))
@@ -83,28 +83,30 @@ Matrix parallelBlockMatrixMultiplication(std::vector<double> A, std::vector<doub
         throw "Different size of matrix";
     if ((A.size() != Size) || (B.size() != Size))
         throw "Different param and size";
-    if (static_cast<int>(sqrt(Size)) * static_cast<int>(sqrt(Size)) != Size)
+    if (static_cast<size_t>(sqrt(Size)) * static_cast<size_t>(sqrt(Size)) != Size)
         throw "Size not square";
-    int stage;
+    size_t stage;
     Matrix result(Size, 0);
-    int cols = static_cast<int>(sqrt(Size));
+    size_t cols = static_cast<size_t>(sqrt(Size));
     #pragma omp parallel private(stage) shared(A, B, result)
     {
-        
-        int threads_count = omp_get_num_threads();
-        int blocks_count = sqrt(threads_count);
-        int block_cols_size = cols / blocks_count;
-        int thread_num = omp_get_thread_num();
-        int i1 = thread_num / blocks_count, j1 = thread_num % blocks_count;
+        size_t threads_count = omp_get_num_threads();
+        size_t blocks_count = static_cast<size_t>(sqrt(threads_count));
+        if (cols % blocks_count != 0) {
+            throw "Threads count is incorrect";
+        }
+        size_t block_cols_size = cols / blocks_count;
+        size_t thread_num = omp_get_thread_num();
+        size_t i1 = thread_num / blocks_count, j1 = thread_num % blocks_count;
         double *A1, *B1, *C1;
         for (stage = 0; stage < blocks_count; stage++) {
             A1 = A.data() + (i1 * cols + ((i1 + stage) % blocks_count)) * block_cols_size;
             B1 = B.data() + (((i1 + stage) % blocks_count) * cols + j1) * block_cols_size;
             C1 = result.data() + (i1 * cols + j1) * block_cols_size;
-            for (int i = 0; i < block_cols_size; i++) {
-                for (int j = 0; j < block_cols_size; j++) {
+            for (size_t i = 0; i < block_cols_size; i++) {
+                for (size_t j = 0; j < block_cols_size; j++) {
                     double tmp = 0.0;
-                    for (int k = 0; k < block_cols_size; k++) {
+                    for (size_t k = 0; k < block_cols_size; k++) {
                         tmp += *(A1 + i * cols + k) * *(B1 + k * cols + j);
                     }
                     *(C1 + i * cols + j) += tmp;
