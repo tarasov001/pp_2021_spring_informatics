@@ -94,8 +94,8 @@ double ParallelIntegralFunction(double (*f)(double, double, double),
                             start_x + end_x[thread]));
         start_x += end_x[thread];
     }
-    for (auto &i : THREADS) {
-        i.join();
+    for (int i = 0; i < thread_numb; ++i) {
+        THREADS[i].join();
     }
     SUMMA *= hx * hy * hz;
     auto end = std::chrono::high_resolution_clock::now();
