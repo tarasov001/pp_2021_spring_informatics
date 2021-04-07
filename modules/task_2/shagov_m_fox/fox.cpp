@@ -110,7 +110,7 @@ Matrix parallelBlockMatrixMultiplication(std::vector<double> A, std::vector<doub
                         tmp += *(A1 + i * cols + k) * *(B1 + k * cols + j);
                     }
                     *(C1 + i * cols + j) += tmp;
-                }   
+                }
             }
         }
     }
