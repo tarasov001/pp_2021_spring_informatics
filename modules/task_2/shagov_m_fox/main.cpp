@@ -179,13 +179,13 @@ TEST(Shagov_Maksim_Omp, Test_100_on_100_Random_Matrix_Mult) {
     size_t size = 100;
     Matrix A = createRandomMatrix(size * size);
     Matrix B = createRandomMatrix(size * size);
-    double t1 = omp_get_wtime ();
+    double t1 = omp_get_wtime();
     Matrix C = parallelBlockMatrixMultiplication(A, B, size * size);
-    double t2 = omp_get_wtime ();
+    double t2 = omp_get_wtime();
     std::cout << "Omp: " << t2 - t1 << std::endl;
-    t1 = omp_get_wtime ();
+    t1 = omp_get_wtime();
     Matrix C_block = sequentialBlockMatrixMultiplication(A, B, size * size);
-    t2 = omp_get_wtime ();
+    t2 = omp_get_wtime();
     std::cout << "Seq_block: " << t2 - t1 << std::endl;
     ASSERT_TRUE(isEqualMatrix(C, C_block));
 }
