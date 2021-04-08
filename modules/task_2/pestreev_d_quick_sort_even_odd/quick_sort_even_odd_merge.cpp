@@ -59,7 +59,8 @@ std::vector<int> quickSortV(const std::vector<int>& vec) {
     return tmp;
 }
 
-std::vector<std::vector<int>> div_into_part(const std::vector<int>& vec, int n) {
+std::vector<std::vector<int>> div_into_part(const std::vector<int>& vec,
+    int n) {
     std::vector<std::vector<int>> res;
     int vec_size = vec.size();
     int part_len = vec_size / n;
