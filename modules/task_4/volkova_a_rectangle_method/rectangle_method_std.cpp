@@ -71,7 +71,7 @@ double ParallelIntegralFunction(double (*f)(double, double, double),
         }
     }
     int start_x = 0;
-    
+
     auto calc_function = [&](int start_x, int end_x){
         double sum = 0;
         double X, Y, Z;
@@ -90,7 +90,7 @@ double ParallelIntegralFunction(double (*f)(double, double, double),
 
     for (int thread = 0; thread < thread_numb; ++thread) {
         THREADS.push_back(std::thread(calc_function,
-                            start_x, 
+                            start_x,
                             start_x + end_x[thread]));
         start_x += end_x[thread];
     }
