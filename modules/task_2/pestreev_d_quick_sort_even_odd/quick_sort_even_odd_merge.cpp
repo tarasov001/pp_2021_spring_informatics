@@ -59,7 +59,7 @@ std::vector<int> quickSortV(const std::vector<int>& vec) {
     return tmp;
 }
 
-std::vector<std::vector<int>> div_into_part(const std::vector<int> vec, int n) {
+std::vector<std::vector<int>> div_into_part(const std::vector<int>& vec, int n) {
     std::vector<std::vector<int>> res;
     int vec_size = vec.size();
     int part_len = vec_size / n;
@@ -75,7 +75,7 @@ std::vector<std::vector<int>> div_into_part(const std::vector<int> vec, int n) {
     return res;
 }
 
-std::vector<int> combining_parts(const std::vector<std::vector<int>> mass) {
+std::vector<int> combining_parts(const std::vector<std::vector<int>>& mass) {
     std::vector<int> res;
     int size = mass.size();
     int size_m_s = (mass[0]).size();
@@ -249,6 +249,7 @@ std::vector<int> parallel_sorting(const std::vector<int>& vec,
     }
     }
     std::vector<int> res;
+    const std::vector<std::vector<int>>& lr = loc;
     res = combining_parts(loc);
     if (vecsizechange > 0)
         res.erase(res.begin() + vecsizeG - vecsizechange,

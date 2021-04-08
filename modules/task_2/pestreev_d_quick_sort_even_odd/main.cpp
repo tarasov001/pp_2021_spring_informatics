@@ -53,8 +53,8 @@ TEST(Quick_Sort_Operations, Test_sorted_vector) {
     ASSERT_EQ(vec_V, vec_stan);
 }
 
-TEST(Quick_Sort_Operations, Test_inverted_sorted_vector42211) {
-    std::vector<int> vec = getRandomVector(42211111);
+TEST(Quick_Sort_Operations, Test_inverted_sorted_vector42311111) {
+    std::vector<int> vec = getRandomVector(42311111);
     std::sort(vec.begin(), vec.end(), [](int a, int b){
         return a > b;
     });
