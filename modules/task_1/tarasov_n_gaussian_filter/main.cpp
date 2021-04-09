@@ -27,8 +27,8 @@ TEST(Gaussian_filter, Test4) {
 }
 
 TEST(Gaussian_filter, Test5) {
-    std::vector<double> img = get_random_img(400, 200);
-    ASSERT_NO_THROW(gaussian_filter(img, 400, 200, 1.0));
+    std::vector<double> img = get_random_img(401, 201);
+    ASSERT_NO_THROW(gaussian_filter(img, 401, 201, 1.0));
 }
 
 TEST(Gaussian_filter, Test6) {
