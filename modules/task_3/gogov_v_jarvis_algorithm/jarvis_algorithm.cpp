@@ -48,7 +48,7 @@ bool checkPointsDistances(const Point& current, const Point& next, const Point& 
 std::vector<Point> jarvisAlgorithmSeq(const std::vector<Point>& points) {
     size_t count_points = points.size();
     if (count_points == 0)
-        throw("It is impossible to construct a convefirst hull");
+        throw("It is impossible to construct a convex hull");
     if (count_points < 2)
         return points;
     Point base = searchBottomLeft(points);
