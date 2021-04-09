@@ -2,7 +2,6 @@
 #ifndef MODULES_TASK_3_GOGOV_V_JARVIS_ALGORITHM_JARIVS_ALGORITHM_H_
 #define MODULES_TASK_3_GOGOV_V_JARVIS_ALGORITHM_JARIVS_ALGORITHM_H_
 #include <tbb/tbb.h>
-#include <ostream>
 #include <vector>
 #include <utility>
 
