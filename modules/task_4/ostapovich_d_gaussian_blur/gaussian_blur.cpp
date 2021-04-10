@@ -7,7 +7,6 @@
 #include <random>
 #include "../../../modules/task_4/ostapovich_d_gaussian_blur/gaussian_blur.h"
 #include "../../../3rdparty/unapproved/unapproved.h"
-#include <iostream>
 
 vec filter(const vec& matrix, int width, int coreSize) {
     std::size_t length = matrix.size();

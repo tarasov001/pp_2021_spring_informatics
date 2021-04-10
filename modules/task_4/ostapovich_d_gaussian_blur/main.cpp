@@ -1,7 +1,7 @@
 // Copyright 2021 Denis Ostapovich
 #include <gtest/gtest.h>
 #include <vector>
-#include <chrono>
+// #include <chrono>
 #include "./gaussian_blur.h"
 
 TEST(STD_Gaussian_blur, GetRandomMatrix_Throws_On_Zero_Args) {
