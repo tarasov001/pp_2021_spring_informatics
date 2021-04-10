@@ -68,8 +68,7 @@ double SimpsonMethod::parallel(
         segments[i] = seg_end[i] - seg_begin[i];
     }
     int t_steps = steps_count / num_threads;
-    auto runner = [&func, &t_steps, &dim, &steps_count, &steps,
-                   &seg_begin](int t_id) -> std::pair<double, double> {
+    auto runner = [&func, &t_steps, &dim, &steps, &seg_begin](int t_id) {
         std::vector<double> args(dim);
         for (size_t i = 0; i < dim; i++)
             args[i] = seg_begin[i] + steps[i] * t_id * t_steps;
