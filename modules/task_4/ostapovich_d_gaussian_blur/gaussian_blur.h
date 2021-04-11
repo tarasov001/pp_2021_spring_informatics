@@ -14,7 +14,7 @@ struct Chunk {
 
     Chunk()
         : topLeftCorner(std::pair<int, int>()),
-        bottomRightCorner(std::pair<int, int>()) {};
+        bottomRightCorner(std::pair<int, int>()) {}
 
     Chunk(const Chunk& other)
         : topLeftCorner(std::pair<int, int>(other.topLeftCorner)),
@@ -22,7 +22,7 @@ struct Chunk {
 
     Chunk(const std::pair<int, int>& topLeftCorner, const std::pair<int, int>& bottomRightCorner)
         : topLeftCorner(topLeftCorner),
-        bottomRightCorner(bottomRightCorner) {};
+        bottomRightCorner(bottomRightCorner) {}
 };
 
 std::vector<double> calculateCore(int size, double deviation = 1.0);
