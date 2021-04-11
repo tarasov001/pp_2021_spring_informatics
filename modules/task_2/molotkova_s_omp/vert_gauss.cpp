@@ -80,11 +80,11 @@ std::vector<double> gaussFilter(const std::vector<double>& matrix, int rows, int
 }
 
 std::vector<double> gaussFilter_omp(const std::vector<double>& matrix, int rows, int cols,
-  int radius, int sigma){
+  int radius, int sigma) {
   std::vector<double> resultMatrix(rows * cols);
   const unsigned int size = 2 * radius + 1;
   std::vector<double> kernel = gaussKernel(radius, sigma);
-   #pragma omp parallel
+  #pragma omp parallel
     {
     #pragma omp for collapse(2) schedule(static)
       for (int x = 0; x < rows; x++) {
