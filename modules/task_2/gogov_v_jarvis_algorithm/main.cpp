@@ -47,15 +47,20 @@ TEST(OpenMP_Jarvis_Algorithm, Jarvis_Algorithm_Can_Apply_All_Point_Convex_Hull) 
 TEST(OpenMP_Jarvis_Algorithm, Jarvis_Algorithm_With_Size_102) {
     size_t count_point = 102ull;
     std::vector<Point> points = getRandomPoints(count_point);
-    std::vector<Point> convex_hul_seq = jarvisAlgorithmSeq(points);
-    std::vector<Point> convex_hul_omp = jarvisAlgorithmOmp(points);
-    ASSERT_EQ(convex_hul_seq, convex_hul_omp);
+    std::vector<Point> convex_hull_seq = jarvisAlgorithmSeq(points);
+    std::vector<Point> convex_hull_omp = jarvisAlgorithmOmp(points);
+    ASSERT_EQ(convex_hull_seq, convex_hull_omp);
 }
 
 TEST(OpenMP_Jarvis_Algorithm, Jarvis_Algorithm_With_Size_111) {
     size_t count_point = 111ull;
     std::vector<Point> points = getRandomPoints(count_point);
-    std::vector<Point> convex_hul_seq = jarvisAlgorithmSeq(points);
-    std::vector<Point> convex_hul_omp = jarvisAlgorithmOmp(points);
-    ASSERT_EQ(convex_hul_seq, convex_hul_omp);
+    std::vector<Point> convex_hull_seq = jarvisAlgorithmSeq(points);
+    std::vector<Point> convex_hull_omp = jarvisAlgorithmOmp(points);
+    ASSERT_EQ(convex_hull_seq, convex_hull_omp);
+}
+
+int main(int argc, char** argv) {
+    ::testing::InitGoogleTest(&argc, argv);
+    return RUN_ALL_TESTS();
 }
