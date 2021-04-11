@@ -12,23 +12,23 @@ crs_matrix generate(int size)
 {
     crs_matrix result;
     result.N = size;
-    std::vector<double> vals;
-    std::vector<int> columns, indx;
+    //std::vector<double> vals;
+   // std::vector<int> columns, indx;
     std::mt19937 gen;
     gen.seed(static_cast<unsigned int>(time(0)));
     std::uniform_real_distribution<double> dis(-100, 100);
-    indx.emplace_back(0);
+    result.row_index.emplace_back(0);
     for (int i = 0; i < size; ++i) {
       
-        vals.emplace_back(dis(gen));
-        columns.emplace_back(gen() % size);
-        indx.emplace_back(static_cast<int>(vals.size()));
+        result.values.emplace_back(dis(gen));
+        result.cols.emplace_back(gen() % size);
+        result.row_index.emplace_back(static_cast<int>(result.values.size()));
   
     }
-    result.cols = columns;
-    result.values = vals;
-    result.row_index = indx;
-    for (int i = 0; i < size; ++i) {
+  //  result.cols = columns;
+    //result.values = vals;
+   // result.row_index = indx;
+   /* for (int i = 0; i < size; ++i) {
     
         std::cout <<"val  "<< vals[i] << std::endl;
         std::cout <<"col   "<< columns[i] << std::endl;
@@ -38,26 +38,29 @@ crs_matrix generate(int size)
    for (int i = 0; i < size+1; i++)
    {
        std::cout <<"row ind  "<< indx[i] << std::endl;
-   }
+   }*/
 
     return result;
 }
 
 
-
 crs_matrix create(int size, std::vector<double> matrix) {
     crs_matrix result;
     result.N = size;
+    int tmp = 0;
 
-    result.row_index.push_back(0);
+    result.row_index.push_back(tmp);
     for (int i = 0; i < size; i++) {
+        int count = 0;
         for (int j = 0; j < size; j++) {
-            if (matrix[size * i + j] != 0) {
-                result.values.push_back(matrix[size * i + j]);
+            if (matrix[result.N * i + j] != 0) {
+                count++;
                 result.cols.push_back(j);
+                result.values.push_back(matrix[result.N * i + j]);
             }
         }
-        result.row_index.push_back(result.values.size());
+        count += result.row_index.back();
+        result.row_index.push_back(result.cols.size());
     }
 
     return result;
@@ -69,9 +72,10 @@ crs_matrix transpose(crs_matrix matrix) {
     Tmatrix.row_index = std::vector<int>(static_cast<size_t>(N + 1));
     Tmatrix.values = std::vector<double>(static_cast<size_t>(matrix.values.size()));
     Tmatrix.cols = std::vector<int>(static_cast<size_t>(matrix.cols.size()));
-
-    for (size_t i = 0; i < matrix.values.size(); i++) {
-        Tmatrix.row_index[matrix.cols[i] + 1]++;
+    size_t val = matrix.values.size();
+    for (size_t i = 0; i < val; i++) {
+        int col = matrix.cols[i];
+        Tmatrix.row_index[col + 1]++;
     }
 
     double s = 0;
@@ -82,16 +86,10 @@ crs_matrix transpose(crs_matrix matrix) {
     }
 
     for (int i = 0; i < N; i++) {
-        int j1 = matrix.row_index[i];
-        int j2 = matrix.row_index[i + 1];
-        int col = i;
-        for (int j = j1; j < j2; j++) {
-            double V = matrix.values[j];
-            int r_index = matrix.cols[j];
-            int i_index = Tmatrix.row_index[r_index + 1];
-            Tmatrix.values[i_index] = V;
-            Tmatrix.cols[i_index] = col;
-            Tmatrix.row_index[r_index + 1]++;
+        for (int j = matrix.row_index[i]; j < matrix.row_index[i + 1]; j++) {
+            Tmatrix.values[Tmatrix.row_index[matrix.cols[j] + 1]] = matrix.values[j];
+            Tmatrix.cols[Tmatrix.row_index[matrix.cols[j] + 1]] = i;
+            Tmatrix.row_index[matrix.cols[j] + 1]++;
         }
     }
     return Tmatrix;
@@ -99,12 +97,33 @@ crs_matrix transpose(crs_matrix matrix) {
 
 double scalar_mult(crs_matrix first, crs_matrix second, int i, int j) {
     double summ = 0.0;
-    for (int k = first.row_index[i]; k < first.row_index[i + 1]; k++) {
-        for (int l = second.row_index[j]; l < second.row_index[j + 1]; l++) {
+    int a = first.row_index[i];
+    int a1 = first.row_index[i + 1];
+    int b = second.row_index[j];
+    int b1 = second.row_index[j + 1];
+    for (int k = a; k < a1; k++) {
+        for (int l = b; l < b1; l++) {
             if (first.cols[k] == second.cols[l]) {
-                summ += first.values[k] * second.values[l];
+                int v1 = first.values[k];
+                int v2 = second.values[l];
+                summ = summ + v1 * v2;
                 break;
             }
+        }
+    }
+    return summ;
+}
+double scalar_mult_parallel(crs_matrix first, crs_matrix second, int n, int j, std::vector<int> tmp) {
+    double summ = 0.0;
+    int a = second.row_index[j];
+    int b = second.row_index[j + 1];
+    for (n = a; n < b; n++) {
+        int bcol = second.cols[n];
+        int ind = tmp[bcol];
+        if (ind != -1) {
+            int v1 = first.values[ind];
+            int v2 = second.values[n];
+            summ = summ + v1 * v2;
         }
     }
     return summ;
@@ -124,10 +143,57 @@ crs_matrix mult(crs_matrix first, crs_matrix second) {
             if (summ != 0) {
                 result.values.push_back(summ);
                 result.cols.push_back(j);
-                rowNZ++;
+               // rowNZ++;
             }
         }
-        result.row_index.push_back(result.row_index[i] + rowNZ);
+       // result.row_index.push_back(result.row_index[i] + rowNZ);
+        result.row_index.push_back(static_cast<int>(result.values.size()));
     }
     return result;
+}
+
+crs_matrix parallel_mult(crs_matrix first, crs_matrix second){
+    crs_matrix res;
+    
+    int N = res.N = first.N;
+    std::vector<std::vector<double>> val(N);
+    std::vector<std::vector<int>> col(N);
+    std::vector<int> rind;
+    second = transpose(second);
+    res.row_index.push_back(0);
+    int n, j;
+
+#pragma omp parallel
+    {
+        std::vector<int> tmp(N);
+#pragma omp for private(j, n) 
+        for (int i= 0; i < N; i++) {
+            tmp.assign(N, -1);
+
+            for (j = first.row_index[i]; j < first.row_index[i+1]; j++) {
+                int coln = first.cols[j];
+                tmp[coln] = j;
+            }
+
+            for (j = 0; j <N; j++) {
+               
+                double sum = scalar_mult_parallel(first, second, n, j, tmp);
+
+                if (sum != 0) {
+                    val[i].push_back(sum);
+                    col[i].push_back(j);
+                }
+            }
+        }
+    }
+  
+    for (int i = 0; i < N; ++i) {
+        std::copy(col[i].begin(), col[i].end(), std::back_inserter(res.cols));
+        std::copy(val[i].begin(), val[i].end(), std::back_inserter(res.values));
+        int size = static_cast<int>(col[i].size());
+        res.row_index.push_back(res.row_index.back() + size);
+    }
+   
+    return res;
+    
 }

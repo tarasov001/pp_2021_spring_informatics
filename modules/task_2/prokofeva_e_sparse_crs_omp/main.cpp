@@ -2,15 +2,18 @@
 #include <gtest/gtest.h>
 #include <vector>
 #include <algorithm>
+#include <omp.h>
+#include <iostream>
 #include "../../../modules/task_2/prokofeva_e_sparse_crs_omp/sparse_crs.h"
 
 
 TEST(Sparse_crs_matrix_1, Create) {
-    std::vector<double> f = { 0, 3, 0, 7,
+   std::vector<double> f = { 0, 3, 0, 7,
                               0, 0, 8, 0,
                               0, 0, 0, 0,
                               9, 0, 15, 16 };
     crs_matrix first = create(4, f);
+   
     std::vector<double> value = { 3, 7, 8, 9, 15, 16 };
     std::vector<int> col = { 1, 3, 2, 0, 2, 3 };
     std::vector<int> rowIndex = { 0, 2, 3, 3, 6 };
@@ -87,9 +90,21 @@ TEST(Sparse_crs_matrix_6, Multiplication_zero) {
 }
 
 TEST(Sparse_crs_matrix_7, Random) {
-  
-    crs_matrix first = generate(6);
-   
+    double begin, end;
+    crs_matrix first = generate(500);
+    crs_matrix second = generate(500);
+    begin = omp_get_wtime();
+    crs_matrix res = mult(first, second);
+    end = omp_get_wtime();
+    std::cout << "Seq time = " << end - begin << "\n";
+
+    begin = omp_get_wtime();
+    crs_matrix resp = parallel_mult(first, second);
+    end = omp_get_wtime();
+    std::cout << "OMP time = " << end - begin << "\n";
+    ASSERT_EQ(resp.values, res.values);
+    ASSERT_EQ(resp.cols, res.cols);
+    ASSERT_EQ(resp.row_index, res.row_index);
 }
 
 int main(int argc, char** argv) {
