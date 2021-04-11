@@ -95,6 +95,10 @@ vec filterParallel(const vec& matrix, int width, int coreSize) {
 }
 
 std::vector<std::vector<Chunk>> performScheduling(int width, int height, int coreRadius, int numThreads) {
+    if (width <= 0 || height <= 0 || coreRadius < 1 || numThreads <= 0) {
+        throw std::invalid_argument("Zero or negative argument passed");
+    }
+
     std::vector<std::vector<Chunk>> schedule;
 
     const int rowIterations = height - 2 * coreRadius;

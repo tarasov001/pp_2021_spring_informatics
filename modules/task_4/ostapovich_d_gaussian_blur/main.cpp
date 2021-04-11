@@ -102,7 +102,7 @@ TEST(STD_Gaussian_blur, FilterParallel_Throws_On_Zero_Or_Negative_Width_Value) {
     const int width = 11;
     const int height = 21;
 
-    auto mat = getRandomMatrix(11, 21);
+    auto mat = getRandomMatrix(width, height);
 
     ASSERT_ANY_THROW(filterParallel(mat, 0));
     ASSERT_ANY_THROW(filterParallel(mat, -1));
@@ -149,8 +149,64 @@ TEST(STD_Gaussian_blur, FilterParallel_Result_Equals_To_Filter_Result) {
     ASSERT_EQ(expected, calculated);
 }
 
+TEST(STD_Gaussian_blur, PerformScheduling_Throws_On_Invalid_Width) {
+    const int height = 30;
+    const int coreRadius = 2;
+    const int numThreads = 5;
+
+    ASSERT_ANY_THROW(performScheduling(-7, height, coreRadius, numThreads));
+    ASSERT_ANY_THROW(performScheduling(0, height, coreRadius, numThreads));
+}
+
+TEST(STD_Gaussian_blur, PerformScheduling_Throws_On_Invalid_Height) {
+    const int width = 30;
+    const int coreRadius = 2;
+    const int numThreads = 5;
+
+    ASSERT_ANY_THROW(performScheduling(width, -4, coreRadius, numThreads));
+    ASSERT_ANY_THROW(performScheduling(width, 0, coreRadius, numThreads));
+}
+
+TEST(STD_Gaussian_blur, PerformScheduling_Throws_On_Invalid_CoreRadius) {
+    const int width = 27;
+    const int height = 30;
+    const int numThreads = 5;
+
+    ASSERT_ANY_THROW(performScheduling(width, height, -11, numThreads));
+    ASSERT_ANY_THROW(performScheduling(height, height, 0, numThreads));
+}
+
+TEST(STD_Gaussian_blur, PerformScheduling_Throws_On_Invalid_Number_Of_Threads) {
+    const int width = 27;
+    const int height = 30;
+    const int coreRadius = 2;
+
+    ASSERT_ANY_THROW(performScheduling(width, height, coreRadius, 0));
+    ASSERT_ANY_THROW(performScheduling(width, height, coreRadius, -8));
+}
+
+TEST(STD_Gaussian_blur, PerformScheduling_No_Throw_On_Valid_Args) {
+    const int width = 27;
+    const int height = 30;
+    const int coreRadius = 2;
+    const int numThreads = 5;
+
+    ASSERT_NO_THROW(performScheduling(width, height, coreRadius, numThreads));
+}
+
+TEST(STD_Gaussian_blur, PerformScheduling_Returns_Vector_Of_Valid_Size) {
+    const int width = 42;
+    const int height = 17;
+    const int coreRadius = 4;
+    const int numThreads = 11;
+
+    auto schedule = performScheduling(width, height, coreRadius, numThreads);
+
+    ASSERT_EQ(schedule.size(), schedule.size());
+}
+
 // TEST(STD_Gaussian_blur, FilterParallel_Accelerates) {
-//    int width = 5000, height = 7890;
+//    int width = 20000, height = 20000;
 //    auto mat = getRandomMatrix(width, height);
 //
 //    auto start = std::chrono::high_resolution_clock::now();
