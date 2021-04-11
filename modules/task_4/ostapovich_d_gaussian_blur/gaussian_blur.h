@@ -9,8 +9,20 @@
 using vec = std::vector<uint8_t>;
 
 struct Chunk {
-    std::pair<int, int> topLeftCorner{};
-    std::pair<int, int> bottomRightCorner{};
+    std::pair<int, int> topLeftCorner;
+    std::pair<int, int> bottomRightCorner;
+
+    Chunk()
+        : topLeftCorner(std::pair<int, int>()),
+        bottomRightCorner(std::pair<int, int>()) {};
+
+    Chunk(const Chunk& other)
+        : topLeftCorner(std::pair<int, int>(other.topLeftCorner)),
+        bottomRightCorner(std::pair<int, int>(other.bottomRightCorner)) {}
+
+    Chunk(const std::pair<int, int>& topLeftCorner, const std::pair<int, int>& bottomRightCorner)
+        : topLeftCorner(topLeftCorner),
+        bottomRightCorner(bottomRightCorner) {};
 };
 
 std::vector<double> calculateCore(int size, double deviation = 1.0);

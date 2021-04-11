@@ -62,7 +62,7 @@ vec filterParallel(const vec& matrix, int width, int coreSize) {
     for (int i = 0; i < numThreads; i++) {
         threads[i] = std::thread([&](int index) {
             auto chunks = schedule[index];
-            for (int l = 0; l < chunks.size(); l++) {
+            for (size_t l = 0; l < chunks.size(); l++) {
                 auto chunk = chunks[l];
                 int startRow = chunk.topLeftCorner.first;
                 int startCol = chunk.topLeftCorner.second;
