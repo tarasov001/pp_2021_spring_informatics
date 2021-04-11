@@ -86,7 +86,7 @@ std::vector<Point> jarvisAlgorithmTbb(const std::vector<Point>& points) {
     Point base = tbb::parallel_reduce(
         tbb::blocked_range<size_t>(1, count_points),
         points[0],
-        [&] (tbb::blocked_range<size_t>& r, Point local_base) -> Point {
+        [&points] (tbb::blocked_range<size_t>& r, Point local_base) -> Point {
             auto begin = r.begin(), end = r.end();
             for (auto i = begin; i != end; i++) {
                 if (points[i] < local_base)
@@ -108,7 +108,7 @@ std::vector<Point> jarvisAlgorithmTbb(const std::vector<Point>& points) {
         current = tbb::parallel_reduce(
             tbb::blocked_range<size_t>(0, count_points),
             next,
-            [&] (tbb::blocked_range<size_t>& r, Point local_next) -> Point {
+            [&current, &points] (tbb::blocked_range<size_t>& r, Point local_next) -> Point {
                 auto begin = r.begin(), end = r.end();
                 for (auto i = begin; i != end; i++) {
                     int temp = rotate(current, local_next, points[i]);
@@ -121,7 +121,7 @@ std::vector<Point> jarvisAlgorithmTbb(const std::vector<Point>& points) {
                 }
                 return local_next;
             },
-            [&] (const Point& next, const Point& local_next) -> Point {
+            [&current] (const Point& next, const Point& local_next) -> Point {
                 int temp = rotate(current, next, local_next);
                 if (temp > 0) {
                     return local_next;
