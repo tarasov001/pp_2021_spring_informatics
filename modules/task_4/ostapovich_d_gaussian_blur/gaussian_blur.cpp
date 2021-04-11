@@ -53,7 +53,7 @@ vec filterParallel(const vec& matrix, int width, int coreSize) {
 
     auto schedule = performScheduling(width, height, coreRadius, numThreads);
 
-    if (schedule.size() == 0) {
+    if (schedule.empty()) {
         return filter(matrix, width, coreSize);
     }
 
