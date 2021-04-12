@@ -61,3 +61,8 @@ TEST(TBB_Jarvis_Algorithm, Jarvis_Algorithm_With_Size_111) {
     std::vector<Point> convex_hul_tbb = jarvisAlgorithmTbb(points);
     ASSERT_EQ(convex_hul_seq, convex_hul_tbb);
 }
+
+int main(int argc, char** argv) {
+    ::testing::InitGoogleTest(&argc, argv);
+    return RUN_ALL_TESTS();
+}
