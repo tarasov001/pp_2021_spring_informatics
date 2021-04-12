@@ -250,7 +250,7 @@ std::vector<int> parallel_sorting(const std::vector<int>& vec,
     }
     }
     std::vector<int> res;
-    const std::vector<std::vector<int>>& lr = loc;
+    const std::vector<std::vector<int>> lr = loc;
     res = combining_parts(loc);
     if (vecsizechange > 0)
         res.erase(res.begin() + vecsizeG - vecsizechange,
