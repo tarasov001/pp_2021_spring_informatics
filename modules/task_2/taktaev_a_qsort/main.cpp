@@ -1,9 +1,9 @@
 // Copyright 2021 Taktaev Artem
 #include <gtest/gtest.h>
+#include <omp.h>
+
 #include <vector>
 #include <iostream>
-
-#include <omp.h>
 
 #include "../../../modules/task_2/taktaev_a_qsort/qsort.h"
 
@@ -153,7 +153,7 @@ TEST(QSort_OMP, Test_Index_Overlap_Exception) {
 TEST(QSort_OMP, Test_Time) {
     int n = 1300000;
     double start = 0, finish = 0, time_seq = 0, time_par = 0;
-    int n_thr = 6; // thread num
+    int n_thr = 6;  // thread num
     std::vector<double> vec = createRandomVector(n);
     std::vector<double> vec_copy = vec;
     omp_set_num_threads(n_thr);
