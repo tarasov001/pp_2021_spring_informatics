@@ -59,7 +59,6 @@ TEST(QSort_OMP, Test_Sequential_Sorting_Eq_Elements_Vec) {
 }
 
 TEST(QSort_OMP, Test_Correct_Simple_Merge) {
-    int n = 10;
     std::vector<double> vec = {1, 3, 5, 7, 9, 2, 4, 6, 8, 10};
     std::vector<double> v = vec;
     std::sort(v.begin(), v.end());
