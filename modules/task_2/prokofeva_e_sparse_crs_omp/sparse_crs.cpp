@@ -6,43 +6,21 @@
 #include <vector>
 #include <algorithm>
 #include <iostream>
-#include <random>
 
-crs_matrix generate(int size)
-{
+crs_matrix generate(int size) {
     crs_matrix result;
     result.N = size;
-    //std::vector<double> vals;
-   // std::vector<int> columns, indx;
     std::mt19937 gen;
     gen.seed(static_cast<unsigned int>(time(0)));
     std::uniform_real_distribution<double> dis(-100, 100);
     result.row_index.emplace_back(0);
-    for (int i = 0; i < size; ++i) {
-      
+    for (int i = 0; i < size; i++) {
         result.values.emplace_back(dis(gen));
         result.cols.emplace_back(gen() % size);
         result.row_index.emplace_back(static_cast<int>(result.values.size()));
-  
     }
-  //  result.cols = columns;
-    //result.values = vals;
-   // result.row_index = indx;
-   /* for (int i = 0; i < size; ++i) {
-    
-        std::cout <<"val  "<< vals[i] << std::endl;
-        std::cout <<"col   "<< columns[i] << std::endl;
-        
-       
-    }
-   for (int i = 0; i < size+1; i++)
-   {
-       std::cout <<"row ind  "<< indx[i] << std::endl;
-   }*/
-
     return result;
 }
-
 
 crs_matrix create(int size, std::vector<double> matrix) {
     crs_matrix result;
@@ -62,7 +40,6 @@ crs_matrix create(int size, std::vector<double> matrix) {
         count += result.row_index.back();
         result.row_index.push_back(result.cols.size());
     }
-
     return result;
 }
 
@@ -133,8 +110,6 @@ crs_matrix mult(crs_matrix first, crs_matrix second) {
     crs_matrix result;
     second = transpose(second);
     double summ;
-    int rowNZ = 0;
-
 
     result.row_index.push_back(0);
     for (int i = 0; i < first.N; i++) {
@@ -143,24 +118,21 @@ crs_matrix mult(crs_matrix first, crs_matrix second) {
             if (summ != 0) {
                 result.values.push_back(summ);
                 result.cols.push_back(j);
-               // rowNZ++;
             }
         }
-       // result.row_index.push_back(result.row_index[i] + rowNZ);
         result.row_index.push_back(static_cast<int>(result.values.size()));
     }
     return result;
 }
 
-crs_matrix parallel_mult(crs_matrix first, crs_matrix second){
+crs_matrix parallel_mult(crs_matrix first, crs_matrix second) {
     crs_matrix res;
-    
     int N = res.N = first.N;
     std::vector<std::vector<double>> val(N);
     std::vector<std::vector<int>> col(N);
     std::vector<int> rind;
     second = transpose(second);
-    res.row_index.push_back(0);
+    res.row_index.emplace_back(0);
     int n, j;
 
 #pragma omp parallel
@@ -170,30 +142,26 @@ crs_matrix parallel_mult(crs_matrix first, crs_matrix second){
         for (int i= 0; i < N; i++) {
             tmp.assign(N, -1);
 
-            for (j = first.row_index[i]; j < first.row_index[i+1]; j++) {
+            for (j = first.row_index[i]; j < first.row_index[i + 1]; j++) {
                 int coln = first.cols[j];
                 tmp[coln] = j;
             }
 
-            for (j = 0; j <N; j++) {
-               
+            for (j = 0; j < N; j++) {
                 double sum = scalar_mult_parallel(first, second, n, j, tmp);
-
                 if (sum != 0) {
-                    val[i].push_back(sum);
-                    col[i].push_back(j);
+                    val[i].emplace_back(sum);
+                    col[i].emplace_back(j);
                 }
             }
         }
     }
   
     for (int i = 0; i < N; ++i) {
-        std::copy(col[i].begin(), col[i].end(), std::back_inserter(res.cols));
-        std::copy(val[i].begin(), val[i].end(), std::back_inserter(res.values));
         int size = static_cast<int>(col[i].size());
         res.row_index.push_back(res.row_index.back() + size);
+        res.values.insert(res.values.end(), val[i].begin(), val[i].end());
+        res.cols.insert(res.cols.end(), col[i].begin(), col[i].end());
     }
-   
     return res;
-    
 }
