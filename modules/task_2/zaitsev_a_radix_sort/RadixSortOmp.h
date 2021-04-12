@@ -1,6 +1,6 @@
 // Copyright 2021 Zaitsev Andrey
-#ifndef MODULES_TASK_1_ZAITSEV_A_RADIX_SORT_RADIXSORTOMP_H_
-#define MODULES_TASK_1_ZAITSEV_A_RADIX_SORT_RADIXSORTOMP_H_
+#ifndef MODULES_TASK_2_ZAITSEV_A_RADIX_SORT_RADIXSORTOMP_H_
+#define MODULES_TASK_2_ZAITSEV_A_RADIX_SORT_RADIXSORTOMP_H_
 
 #include <omp.h>
 #include <vector>
@@ -12,4 +12,4 @@ void radixSort(double *vec, double *out, int size);
 double* createVector(double* vec, int size, double a, double b);
 bool check(double* vec, int size);
 
-#endif  // MODULES_TASK_1_ZAITSEV_A_RADIX_SORT_RADIXSORTOMP_H_
+#endif  // MODULES_TASK_2_ZAITSEV_A_RADIX_SORT_RADIXSORTOMP_H_
