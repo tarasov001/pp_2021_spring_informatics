@@ -98,7 +98,6 @@ Matrix parallelBlockMatrixMultiplication(const std::vector<double>& A, const std
         size_t block_cols_size = cols / blocks_count;
         size_t thread_num = omp_get_thread_num();
         size_t i1 = thread_num / blocks_count, j1 = thread_num % blocks_count;
-        //double *A1, *B1, *C1;
         auto A1 = A.data();
         auto B1 = B.data();
         auto C1 = result.data();
