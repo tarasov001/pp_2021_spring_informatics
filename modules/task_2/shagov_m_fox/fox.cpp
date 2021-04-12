@@ -18,7 +18,7 @@ bool isEqualMatrix(const Matrix& A, const Matrix& B) {
     return true;
 }
 
-bool isSizeCorrect(size_t size, int t_count) {
+bool isSizeCorrect(size_t size, size_t t_count) {
     size_t blocks_count = static_cast<size_t>(sqrt(t_count));
     if (size % blocks_count != 0) {
         throw "Size is incorrect";
