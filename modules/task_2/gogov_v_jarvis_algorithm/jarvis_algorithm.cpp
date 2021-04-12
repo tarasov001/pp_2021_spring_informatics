@@ -86,7 +86,7 @@ std::vector<Point> jarvisAlgorithmOmp(const std::vector<Point>& points) {
         return points;
 
     Point base = points[0];
-#pragma omp parallel
+#pragma omp parallel shared(points)
     {
         Point local_base(base);
 #pragma omp for
@@ -106,7 +106,7 @@ std::vector<Point> jarvisAlgorithmOmp(const std::vector<Point>& points) {
     Point next;
     do {
         next = current == points[0] ? points[1] : points[0];
-#pragma omp parallel
+#pragma omp parallel shared(points)
         {
             Point local_next = next;
 #pragma omp for
