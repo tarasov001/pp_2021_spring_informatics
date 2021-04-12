@@ -179,6 +179,10 @@ TEST(Shagov_Maksim_Omp, Test_50_on_50_Random_Matrix_Mult) {
     size_t size = 50;
     Matrix A = createRandomMatrix(size * size);
     Matrix B = createRandomMatrix(size * size);
+    // int t_count = 16;
+    // omp_set_num_threads(t_count);
+    // int t_count = omp_get_num_threads();
+    // ASSERT_NO_THROW(isSizeCorrect(size, t_count));
     double t1 = omp_get_wtime();
     Matrix C = parallelBlockMatrixMultiplication(A, B, size * size);
     double t2 = omp_get_wtime();

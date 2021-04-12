@@ -18,6 +18,17 @@ bool isEqualMatrix(const Matrix& A, const Matrix& B) {
     return true;
 }
 
+bool isSizeCorrect(size_t size, int t_count) {
+    size_t blocks_count = static_cast<size_t>(sqrt(t_count));
+    if (size % blocks_count != 0) {
+        throw "Size is incorrect";
+    }
+    if (blocks_count * blocks_count != t_count) {
+        throw "Threads count is incorrect";
+    }
+    return true;
+}
+
 Matrix createRandomMatrix(size_t size) {
     if (size <= 0)
         throw "Size of matrix must be > 0";
@@ -92,9 +103,6 @@ Matrix parallelBlockMatrixMultiplication(const std::vector<double>& A, const std
     {
         size_t threads_count = omp_get_num_threads();
         size_t blocks_count = static_cast<size_t>(sqrt(threads_count));
-        if (cols % blocks_count != 0) {
-            throw "Threads count is incorrect";
-        }
         size_t block_cols_size = cols / blocks_count;
         size_t thread_num = omp_get_thread_num();
         size_t i1 = thread_num / blocks_count, j1 = thread_num % blocks_count;
