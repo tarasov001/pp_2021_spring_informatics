@@ -76,18 +76,6 @@ std::vector<std::vector<int>> div_into_part(const std::vector<int>& vec,
     return res;
 }
 
-std::vector<int> combining_parts(const std::vector<std::vector<int>>& mass) {
-    std::vector<int> res;
-    int size = mass.size();
-    int size_m_s = (mass[0]).size();
-    for (int i = 0; i < size; i++)
-    for (int j = 0; j < size_m_s; j++) {
-        res.push_back(mass[i][j]);
-    }
-
-    return res;
-}
-
 void recur_merge(const std::vector<int>& left, const std::vector<int>& right) {
     int array_count = left.size() + right.size();
     if (array_count <= 1) {
@@ -250,8 +238,12 @@ std::vector<int> parallel_sorting(const std::vector<int>& vec,
     }
     }
     std::vector<int> res;
-    const std::vector<std::vector<int>> lr = loc;
-    res = combining_parts(lr);
+    int size = thread_size;
+    int size_m_s = vecsizeG / thread_size;
+    for (int i = 0; i < size; i++)
+    for (int j = 0; j < size_m_s; j++) {
+        res.push_back(loc[i][j]);
+    }
     if (vecsizechange > 0)
         res.erase(res.begin() + vecsizeG - vecsizechange,
             res.begin() + vecsizeG);
