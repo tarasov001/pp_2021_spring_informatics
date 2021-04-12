@@ -175,8 +175,8 @@ TEST(Shagov_Maksim_Omp, Test_8_on_8_Random_Matrix_Mult) {
     ASSERT_TRUE(isEqualMatrix(C, C_block));
 }
 
-TEST(Shagov_Maksim_Omp, Test_50_on_50_Random_Matrix_Mult) {
-    size_t size = 50;
+TEST(Shagov_Maksim_Omp, Test_60_on_60_Random_Matrix_Mult) {
+    size_t size = 60;
     Matrix A = createRandomMatrix(size * size);
     Matrix B = createRandomMatrix(size * size);
     // int t_count = 16;
