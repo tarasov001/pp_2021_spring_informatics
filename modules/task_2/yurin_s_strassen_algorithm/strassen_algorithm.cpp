@@ -267,7 +267,7 @@ void matrMulti(std::vector<double>::const_iterator a_it,
     std::vector<double>::iterator m_it,
     int m_rows_num) {
     int full_matr_rows_num = m_rows_num * 2;
-#pragma omp parallel proc_bind(close) num_threads(1)
+#pragma omp parallel proc_bind(close)
 #pragma omp for schedule(static)
     for (int i = 0; i < m_rows_num; i++) {
         for (int j = 0; j < m_rows_num; j++) {
@@ -283,7 +283,7 @@ void matrMulti(const std::vector<double>& p2,
     std::vector<double>::iterator m_it,
     int m_rows_num) {
     int full_matr_rows_num = m_rows_num * 2;
-#pragma omp parallel proc_bind(close) num_threads(1)
+#pragma omp parallel proc_bind(close)
 #pragma omp for schedule(static)
     for (int i = 0; i < m_rows_num; i++) {
         for (int j = 0; j < m_rows_num; j++) {
@@ -298,7 +298,7 @@ void matrMulti(const std::vector<double>& p1,
     const std::vector<double>& p2,
     std::vector<double>::iterator m_it,
     int m_rows_num) {
-#pragma omp parallel proc_bind(close) num_threads(1)
+#pragma omp parallel proc_bind(close)
 #pragma omp for schedule(static)
     for (int i = 0; i < m_rows_num; i++) {
         for (int j = 0; j < m_rows_num; j++) {
