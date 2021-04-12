@@ -12,10 +12,10 @@
 typedef  std::vector<double> Matrix;
 
 bool isEqual(double x, double y);
-bool isEqualMatrix(Matrix A, Matrix B);
+bool isEqualMatrix(const Matrix& A, const Matrix& B);
 
 Matrix createRandomMatrix(size_t size);
-Matrix sequentialMatrixMultiplication(std::vector<double> A, std::vector<double> B, size_t BlockSize);
-Matrix sequentialBlockMatrixMultiplication(std::vector<double> A, std::vector<double> B, size_t Size);
-Matrix parallelBlockMatrixMultiplication(std::vector<double> A, std::vector<double> B, size_t Size);
+Matrix sequentialMatrixMultiplication(const std::vector<double>& A, const std::vector<double>& B, size_t BlockSize);
+Matrix sequentialBlockMatrixMultiplication(const std::vector<double>& A, const std::vector<double>& B, size_t Size);
+Matrix parallelBlockMatrixMultiplication(const std::vector<double>& A, const std::vector<double>& B, size_t Size);
 #endif  // MODULES_TASK_2_SHAGOV_M_FOX_FOX_H_

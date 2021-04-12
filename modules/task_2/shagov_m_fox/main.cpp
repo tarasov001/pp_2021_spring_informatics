@@ -175,8 +175,8 @@ TEST(Shagov_Maksim_Omp, Test_8_on_8_Random_Matrix_Mult) {
     ASSERT_TRUE(isEqualMatrix(C, C_block));
 }
 
-TEST(Shagov_Maksim_Omp, Test_100_on_100_Random_Matrix_Mult) {
-    size_t size = 100;
+TEST(Shagov_Maksim_Omp, Test_50_on_50_Random_Matrix_Mult) {
+    size_t size = 50;
     Matrix A = createRandomMatrix(size * size);
     Matrix B = createRandomMatrix(size * size);
     double t1 = omp_get_wtime();
@@ -184,8 +184,8 @@ TEST(Shagov_Maksim_Omp, Test_100_on_100_Random_Matrix_Mult) {
     double t2 = omp_get_wtime();
     std::cout << "Omp: " << t2 - t1 << std::endl;
     t1 = omp_get_wtime();
-    Matrix C_block = sequentialBlockMatrixMultiplication(A, B, size * size);
+    Matrix C_block = sequentialMatrixMultiplication(A, B, size * size);
     t2 = omp_get_wtime();
-    std::cout << "Seq_block: " << t2 - t1 << std::endl;
+    std::cout << "Seq: " << t2 - t1 << std::endl;
     ASSERT_TRUE(isEqualMatrix(C, C_block));
 }

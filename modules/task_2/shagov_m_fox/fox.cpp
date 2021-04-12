@@ -6,7 +6,7 @@ bool isEqual(double x, double y) {
     return std::fabs(x - y) < 0.001;
 }
 
-bool isEqualMatrix(Matrix A, Matrix B) {
+bool isEqualMatrix(const Matrix& A, const Matrix& B) {
     if ((A.size() <= 0) || (B.size() <= 0))
         throw "Size of matrix must be > 0";
     if (A.size() != B.size())
@@ -31,7 +31,7 @@ Matrix createRandomMatrix(size_t size) {
     return result;
 }
 
-Matrix sequentialMatrixMultiplication(std::vector<double> A, std::vector<double> B, size_t Size) {
+Matrix sequentialMatrixMultiplication(const std::vector<double>& A, const std::vector<double>& B, size_t Size) {
     if (Size <= 0)
         throw "Block size of matrix must be > 0";
     if ((A.size() <= 0) || (B.size() <= 0))
@@ -49,7 +49,7 @@ Matrix sequentialMatrixMultiplication(std::vector<double> A, std::vector<double>
     return result;
 }
 
-Matrix sequentialBlockMatrixMultiplication(std::vector<double> A, std::vector<double> B, size_t Size) {
+Matrix sequentialBlockMatrixMultiplication(const std::vector<double>& A, const std::vector<double>& B, size_t Size) {
     if (Size <= 0)
         throw "Block size of matrix must be > 0";
     if ((A.size() <= 0) || (B.size() <= 0))
@@ -74,7 +74,7 @@ Matrix sequentialBlockMatrixMultiplication(std::vector<double> A, std::vector<do
     return result;
 }
 
-Matrix parallelBlockMatrixMultiplication(std::vector<double> A, std::vector<double> B, size_t Size) {
+Matrix parallelBlockMatrixMultiplication(const std::vector<double>& A, const std::vector<double>& B, size_t Size) {
     if (Size <= 0)
         throw "Block size of matrix must be > 0";
     if ((A.size() <= 0) || (B.size() <= 0))
@@ -98,7 +98,10 @@ Matrix parallelBlockMatrixMultiplication(std::vector<double> A, std::vector<doub
         size_t block_cols_size = cols / blocks_count;
         size_t thread_num = omp_get_thread_num();
         size_t i1 = thread_num / blocks_count, j1 = thread_num % blocks_count;
-        double *A1, *B1, *C1;
+        //double *A1, *B1, *C1;
+        auto A1 = A.data();
+        auto B1 = B.data();
+        auto C1 = result.data();
         for (stage = 0; stage < blocks_count; stage++) {
             A1 = A.data() + (i1 * cols + ((i1 + stage) % blocks_count)) * block_cols_size;
             B1 = B.data() + (((i1 + stage) % blocks_count) * cols + j1) * block_cols_size;
