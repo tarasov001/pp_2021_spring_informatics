@@ -20,8 +20,8 @@ std::vector<Point> getRandomPoints(size_t size) {
     std::mt19937 gen(device());
     std::vector<Point> points(size);
     for (size_t i = 0; i < size; i++) {
-        size_t x = static_cast<size_t>(gen() % 1000ull);
-        size_t y = static_cast<size_t>(gen() % 1000ull);
+        int64_t x = static_cast<int64_t>(gen() % 1000ull);
+        int64_t y = static_cast<int64_t>(gen() % 1000ull);
         points[i] = Point(x, y);
     }
     return points;
@@ -36,9 +36,9 @@ Point searchBottomLeft(const std::vector<Point>& points) {
 }
 
 bool checkPointsDistances(const Point& current, const Point& next, const Point& temp) {
-    size_t dist_nefirstt_current = (next.first - current.first) * (next.first - current.first) +
+    int64_t dist_nefirstt_current = (next.first - current.first) * (next.first - current.first) +
                                    (next.second - current.second) * (next.second - current.second);
-    size_t dist_temp_current = (temp.first - current.first) * (temp.first - current.first) +
+    int64_t dist_temp_current = (temp.first - current.first) * (temp.first - current.first) +
                                (temp.second - current.second) * (temp.second - current.second);
     if (dist_nefirstt_current < dist_temp_current)
         return true;
