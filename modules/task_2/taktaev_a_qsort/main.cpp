@@ -60,10 +60,10 @@ TEST(QSort_OMP, Test_Sequential_Sorting_Eq_Elements_Vec) {
 
 TEST(QSort_OMP, Test_Correct_Simple_Merge) {
     std::vector<double> vec = {1, 3, 5, 7, 9, 2, 4, 6, 8, 10};
-    std::vector<double> v = vec;
-    std::sort(v.begin(), v.end());
+    std::vector<double> vec_copy = vec;
+    std::sort(vec_copy.begin(), vec_copy.end());
     merge(&vec[0], 5, &vec[5], 5);
-    ASSERT_EQ(v, vec);
+    ASSERT_EQ(vec_copy, vec);
 }
 
 TEST(QSort_OMP, Test_Parallel_Sorting_Rand_Even_Vec) {
