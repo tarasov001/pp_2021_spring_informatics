@@ -5,12 +5,27 @@
 
 #include "./radix.h"
 
-TEST(RadixSort, 321) {
-    std::vector<int> p = {10, 12, 7, 7, 7, 10, 1, 6, 1, 8, 6, 10};
+TEST(OpenMP_RadixSort, 321) {
+    std::vector<int> p = {3, 2, 1};
     parallelSort(&p[0], p.size());
-    ASSERT_EQ(p, std::vector<int>({1, 1, 6, 6, 7, 7, 7, 8, 10, 10, 10, 12}));
+    ASSERT_EQ(p, std::vector<int>({1, 2, 3}));
 }
 
+TEST(OpenMP_RadixSort, 1) {
+    std::vector<int> a = {1};
+    parallelSort(&a[0], a.size());
+    ASSERT_EQ(a, std::vector<int>({1}));
+}
+TEST(OpenMP_RadixSort, negative) {
+    std::vector<int> a = {-1, -2, -3};
+    parallelSort(&a[0], a.size());
+    ASSERT_EQ(a, std::vector<int>({-3, -2, -1}));
+}
+TEST(OpenMP_RadixSort, mixed) {
+    std::vector<int> a = {-1, -2, -3, 3, 1, 2, 0};
+    parallelSort(&a[0], a.size());
+    ASSERT_EQ(a, std::vector<int>({-3, -2, -1, 0, 1, 2, 3}));
+}
 TEST(OpenMP_RadixSort, random) {
     std::vector<int> a = getRandomVector(1000000, 1000000000);
     // printVec(a);
