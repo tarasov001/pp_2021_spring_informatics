@@ -36,13 +36,13 @@ Point searchBottomLeft(const std::vector<Point>& points) {
 }
 
 bool checkPointsDistances(const Point& current, const Point& next, const Point& temp) {
-    int64_t dist_nefirstt_current =
+    int64_t dist_next_current =
         (next.first - current.first) * (next.first - current.first) +
         (next.second - current.second) * (next.second - current.second);
     int64_t dist_temp_current =
         (temp.first - current.first) * (temp.first - current.first) +
         (temp.second - current.second) * (temp.second - current.second);
-    if (dist_nefirstt_current < dist_temp_current)
+    if (dist_next_current < dist_temp_current)
         return true;
     return false;
 }
@@ -50,7 +50,7 @@ bool checkPointsDistances(const Point& current, const Point& next, const Point& 
 std::vector<Point> jarvisAlgorithmSeq(const std::vector<Point>& points) {
     size_t count_points = points.size();
     if (count_points == 0)
-        throw("It is impossible to construct a convefirst hull");
+        throw("It is impossible to construct a convex hull");
     if (count_points < 2)
         return points;
     Point base = searchBottomLeft(points);
@@ -81,7 +81,7 @@ std::vector<Point> jarvisAlgorithmSeq(const std::vector<Point>& points) {
 std::vector<Point> jarvisAlgorithmOmp(const std::vector<Point>& points) {
     int count_points = static_cast<int>(points.size());
     if (count_points == 0)
-        throw("It is impossible to construct a convefirst hull");
+        throw("It is impossible to construct a convex hull");
     if (count_points < 2)
         return points;
 
