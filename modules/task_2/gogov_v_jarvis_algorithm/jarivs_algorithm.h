@@ -6,7 +6,7 @@
 #include <vector>
 #include <utility>
 
-using Point = std::pair<size_t, size_t>;
+using Point = std::pair<int64_t, int64_t>;
 
 Point searchBottomLeft(const std::vector<Point>& points);
 int rotate(const Point& A, const Point& B, const Point& C);
