@@ -149,7 +149,7 @@ TEST(QSort_OMP, Test_Index_Overlap_Exception) {
     ASSERT_ANY_THROW(qSortSeq(&vec, n - 1, 0));
 }
 
-TEST(QSort_OMP, Test_Time) {
+/*TEST(QSort_OMP, Test_Time) {
     int n = 1300000;
     double start = 0, finish = 0, time_seq = 0, time_par = 0;
     int n_thr = 6;  // thread num
@@ -169,7 +169,7 @@ TEST(QSort_OMP, Test_Time) {
     std::cout << "Acceleration " << time_seq / time_par << std::endl;
 
     ASSERT_EQ(vec, vec_copy);
-}
+}*/
 
 int main(int argc, char** argv) {
     ::testing::InitGoogleTest(&argc, argv);
