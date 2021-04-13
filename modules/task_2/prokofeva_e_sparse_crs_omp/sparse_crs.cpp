@@ -135,9 +135,10 @@ crs_matrix parallel_mult(crs_matrix first, crs_matrix second) {
     res.row_index.emplace_back(0);
     int n, j;
 
-#pragma omp parallel
+#pragma omp parallel 
     {
         std::vector<int> tmp(N);
+        
 #pragma omp for private(j, n) 
         for (int i= 0; i < N; i++) {
             tmp.assign(N, -1);
@@ -156,7 +157,6 @@ crs_matrix parallel_mult(crs_matrix first, crs_matrix second) {
             }
         }
     }
-  
     for (int i = 0; i < N; ++i) {
         int size = static_cast<int>(col[i].size());
         res.row_index.push_back(res.row_index.back() + size);
