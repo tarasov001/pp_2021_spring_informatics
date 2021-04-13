@@ -35,41 +35,80 @@ TEST(OpenMP_Jarvis_Algorithm, Jarvis_Algorithm_Square_With_Points) {
               Point(0, 40),  Point(10, 2),  Point(40, 40),
               Point(15, 15), Point(40, 0),  Point(5, 5)};
     } catch (const std::bad_alloc& e) {
-        std::cout << "Points" << e.what() << std::endl;
+        std::cout << "Points. " << e.what() << std::endl;
     }
     try {
        convex_hull_seq = jarvisAlgorithmSeq(points);
     } catch (const std::bad_alloc& e) {
-        std::cout << "Seq" << e.what() << std::endl;
+        std::cout << "Seq. " << e.what() << std::endl;
     }
-        try {
+    try {
             convex_hull_omp = jarvisAlgorithmOmp(points);
     } catch (const std::bad_alloc& e) {
-        std::cout << "Omp" << e.what() << std::endl;
+        std::cout << "Omp. " << e.what() << std::endl;
     }
     ASSERT_EQ(convex_hull_seq, convex_hull_omp);
 }
 
 TEST(OpenMP_Jarvis_Algorithm, Jarvis_Algorithm_Can_Apply_All_Point_Convex_Hull) {
-    std::vector<Point> points = {Point(2, 5), Point(50, 10), Point(80, 30), Point(50, 50), Point(7, 25)};
-    std::vector<Point> convex_hull_seq = jarvisAlgorithmSeq(points);
-    std::vector<Point> convex_hull_omp = jarvisAlgorithmOmp(points);
+    std::vector<Point> points, convex_hull_seq, convex_hull_omp;
+    try {
+    points = {Point(2, 5), Point(50, 10), Point(80, 30), Point(50, 50), Point(7, 25)};
+    } catch (const std::bad_alloc& e) {
+        std::cout << "Points. " << e.what() << std::endl;
+    }
+    try {
+       convex_hull_seq = jarvisAlgorithmSeq(points);
+    } catch (const std::bad_alloc& e) {
+        std::cout << "Seq. " << e.what() << std::endl;
+    }
+    try {
+            convex_hull_omp = jarvisAlgorithmOmp(points);
+    } catch (const std::bad_alloc& e) {
+        std::cout << "Omp. " << e.what() << std::endl;
+    }
     ASSERT_EQ(convex_hull_seq, convex_hull_omp);
 }
 
 TEST(OpenMP_Jarvis_Algorithm, Jarvis_Algorithm_With_Size_102) {
     size_t count_point = 102ull;
-    std::vector<Point> points = getRandomPoints(count_point);
-    std::vector<Point> convex_hull_seq = jarvisAlgorithmSeq(points);
-    std::vector<Point> convex_hull_omp = jarvisAlgorithmOmp(points);
+        std::vector<Point> points, convex_hull_seq, convex_hull_omp;
+    try {
+    points = getRandomPoints(count_point);
+    } catch (const std::bad_alloc& e) {
+        std::cout << "Points. " << e.what() << std::endl;
+    }
+    try {
+       convex_hull_seq = jarvisAlgorithmSeq(points);
+    } catch (const std::bad_alloc& e) {
+        std::cout << "Seq. " << e.what() << std::endl;
+    }
+    try {
+            convex_hull_omp = jarvisAlgorithmOmp(points);
+    } catch (const std::bad_alloc& e) {
+        std::cout << "Omp. " << e.what() << std::endl;
+    }
     ASSERT_EQ(convex_hull_seq, convex_hull_omp);
 }
 
 TEST(OpenMP_Jarvis_Algorithm, Jarvis_Algorithm_With_Size_111) {
     size_t count_point = 111ull;
-    std::vector<Point> points = getRandomPoints(count_point);
-    std::vector<Point> convex_hull_seq = jarvisAlgorithmSeq(points);
-    std::vector<Point> convex_hull_omp = jarvisAlgorithmOmp(points);
+        std::vector<Point> points, convex_hull_seq, convex_hull_omp;
+    try {
+    points = getRandomPoints(count_point);
+    } catch (const std::bad_alloc& e) {
+        std::cout << "Points. " << e.what() << std::endl;
+    }
+    try {
+       convex_hull_seq = jarvisAlgorithmSeq(points);
+    } catch (const std::bad_alloc& e) {
+        std::cout << "Seq. " << e.what() << std::endl;
+    }
+        try {
+            convex_hull_omp = jarvisAlgorithmOmp(points);
+    } catch (const std::bad_alloc& e) {
+        std::cout << "Omp. " << e.what() << std::endl;
+    }
     ASSERT_EQ(convex_hull_seq, convex_hull_omp);
 }
 
