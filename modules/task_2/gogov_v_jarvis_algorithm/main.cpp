@@ -34,18 +34,18 @@ TEST(OpenMP_Jarvis_Algorithm, Jarvis_Algorithm_Square_With_Points) {
     points = {Point(0, 0),   Point(25, 25), Point(34, 10),
               Point(0, 40),  Point(10, 2),  Point(40, 40),
               Point(15, 15), Point(40, 0),  Point(5, 5)};
-    } catch (std::bad_alloc e) {
-        std::cout << "Points" << std::endl;
+    } catch (const std::bad_alloc& e) {
+        std::cout << "Points" << e.what() << std::endl;
     }
     try {
        convex_hull_seq = jarvisAlgorithmSeq(points);
-    } catch (std::bad_alloc e) {
-        std::cout << "Seq" << std::endl;
+    } catch (const std::bad_alloc& e) {
+        std::cout << "Seq" << e.what() << std::endl;
     }
         try {
             convex_hull_omp = jarvisAlgorithmOmp(points);
-    } catch (std::bad_alloc e) {
-        std::cout << "Omp" << std::endl;
+    } catch (const std::bad_alloc& e) {
+        std::cout << "Omp" << e.what() << std::endl;
     }
     ASSERT_EQ(convex_hull_seq, convex_hull_omp);
 }
