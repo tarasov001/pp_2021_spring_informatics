@@ -50,12 +50,12 @@ TEST(Q_SORT_OMP_TESTS, Test5) {
     // t1 = clock();
     Hoarsort(&vec, 0, static_cast<int>(vec.size())-1);
     // t2 = clock();
-    double lin = t2 - t1;
+    // double lin = t2 - t1;
     // std::cout << "lin" << lin / CLOCKS_PER_SEC << std::endl;
     // t3 = clock();
     QsortOMP(&vec2);
     // t4 = clock();
-    double par = t4 - t3;
+    // double par = t4 - t3;
     // std::cout << "par" << par / CLOCKS_PER_SEC << std::endl;
     // std::cout << "div" << lin / par << std::endl;
     ASSERT_EQ(vec2, vec);
