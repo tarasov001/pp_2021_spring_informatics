@@ -34,6 +34,7 @@ TEST(Sequential_Gaus_Filter_Test, Test_Matrix_3x3) {
 TEST(Sequential_Gaus_Filter_Test, Test_Matrix_Static_3x3) {
     int rows = 3;
     int cols = 3;
+
     double alpha = 1;
     int radius = 1;
     Matrix imgDef(rows, std::vector<double>(cols));
