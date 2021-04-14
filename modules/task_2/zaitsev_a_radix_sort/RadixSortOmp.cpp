@@ -8,12 +8,13 @@
 #include <stack>
 #include "../../../modules/task_2/zaitsev_a_radix_sort/RadixSortOmp.h"
 
-double* createVector(double* vec, int size, double a, double b) {
+std::vector<double> createVector(int size, double a, double b) {
   std::mt19937 gen;
   gen.seed(static_cast<unsigned int>(time(0)));
   std::uniform_real_distribution<double> distr(a, b);
+  std::vector<double> vec;
   for (int i = 0; i < size; i++) {
-    vec[i] = distr(gen);
+    vec.push_back(distr(gen));
   }
   return vec;
 }
