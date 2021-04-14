@@ -22,7 +22,7 @@ TEST(Histogram_Stretch, Generate_Image_Parallel_1000x1000) {
     SUCCEED();
 }
 
-TEST(Histogram_Stretch, Correct_Make_Histogram_Parallel) {    
+TEST(Histogram_Stretch, Correct_Make_Histogram_Parallel) {
     double time1, time2, time3, time4;
     int w = 500, h = 500;
     time1 = omp_get_wtime();
@@ -41,7 +41,7 @@ TEST(Histogram_Stretch, Correct_Make_Histogram_Parallel) {
     }
 }
 
-TEST(Histogram_Stretch, Correct_Stretch_histogram_Parallel) {    
+TEST(Histogram_Stretch, Correct_Stretch_histogram_Parallel) {
     double time1, time2, time3, time4, time5, time6;
     int min_y, max_y;
     int w = 500, h = 500;
@@ -70,7 +70,7 @@ TEST(Histogram_Stretch, Correct_Stretch_histogram_Parallel) {
                 "3: FIND MIN_Y AND MAX_Y: " << time4 - time3 << std::endl <<
                 "4: INCREASE CONTRAST SEQUENTIAL: " << time5 - time4 << std::endl <<
                 "5: INCREASE CONTRAST PARALLEL: " << time6 - time5 << std::endl;
-                
+
     for (int i = 0; i < h * w; i++) {
         ASSERT_EQ(res_seq[i], res_omp[i]);
     }

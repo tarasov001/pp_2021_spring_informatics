@@ -62,7 +62,7 @@ Matrix make_histogram_parallel(const Matrix& image, int w, int h) {
         Matrix hist_private(256, 0);
 
         #pragma omp for
-        for(int i = 0; i < size; i++) {
+        for (int i = 0; i < size; i++) {
             hist_private[image[i]]++;
         }
 
