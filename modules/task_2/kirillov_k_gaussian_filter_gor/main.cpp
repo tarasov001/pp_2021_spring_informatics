@@ -41,7 +41,6 @@ TEST(Sequential_Gaus_Filter_Test, Test_Matrix_Static_3x3) {
     Matrix gausFilterPar(rows, std::vector<double>(cols));
     Matrix imgControl(rows, std::vector<double>(cols));
     Matrix kernelMat = genMatrixKernel(radius, alpha);
-
     imgDef[0][0] = 187;
     imgDef[0][1] = 234;
     imgDef[0][2] = 59;
