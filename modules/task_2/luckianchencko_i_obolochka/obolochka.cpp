@@ -81,8 +81,8 @@ std::vector<point> Paral_Jarvis_alg(const mat &img, int size) {
     point prev = first;
     prev.y -= 1;
     point cur = first;
+    int num = -1;
     while (1) {
-        int num = -1;
         double min = 2;
         double dist = 0;
 #pragma omp parallel shared(a, num, min , dist)
