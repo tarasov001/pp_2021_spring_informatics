@@ -32,12 +32,10 @@ Result Contrast(const Result& rm) {
 
 Result Contrastomp(const Result& rm) {
     Result outcome(rm.size());
-    int const num_threads = 4;
+    int const num_threads = 5;
     omp_set_num_threads(num_threads);
-    int max_n[num_threads];
-    int min_n[num_threads];
-    int max = 0;
-    int min = 255;
+    int max_n[num_threads], min_n[num_threads];
+    int max = 0, min = 255;
 #pragma omp parallel
     {
        int nT = omp_get_thread_num();
