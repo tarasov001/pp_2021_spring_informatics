@@ -16,7 +16,8 @@ Result RandomM(int l, int k) {
 
 Result Contrast(const Result& rm) {
     Result outcome(rm.size());
-    int max = 0, min = 255;
+    int max = 0;
+    int min = 255;
     for (int i = 0; i < static_cast<int>(rm.size()); i++) {
         if (min > rm[i])
             min = rm[i];
@@ -31,10 +32,12 @@ Result Contrast(const Result& rm) {
 
 Result Contrastomp(const Result& rm) {
     Result outcome(rm.size());
-    int const numThreads = 3;
-    omp_set_num_threads(numThreads);
-    int min_n[numThreads], max_n[numThreads];
-    int max = 0, min = 255;
+    int const num_threads = 4;
+    omp_set_num_threads(num_threads);
+    int max_n[num_threads];
+    int min_n[num_threads];
+    int max = 0;
+    int min = 255;
 #pragma omp parallel
     {
        int nT = omp_get_thread_num();
@@ -48,7 +51,7 @@ Result Contrastomp(const Result& rm) {
                 max_n[nT] = rm[i];
         }
     }
-    for (int i = 0; i < numThreads; i++) {
+    for (int i = 0; i < num_threads; i++) {
         if (min_n[i] < min)
             min = min_n[i];
         if (max_n[i] > max)
