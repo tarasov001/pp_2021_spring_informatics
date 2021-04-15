@@ -23,9 +23,9 @@ TEST(Deikstra_Algorithm, test1) {
 }
 
 TEST(Deikstra_Algorithm, test2) {
-    int size = 220;
-    int start = 60;
-    int end = 205;
+    int size = 100;
+    int start = 20;
+    int end = 60;
     double t1, t2;
     std::vector<int> graph = getGraph(size);
     t1 = omp_get_wtime();
@@ -40,9 +40,9 @@ TEST(Deikstra_Algorithm, test2) {
 }
 
 TEST(Deikstra_Algorithm, test3) {
-    int size = 300;
-    int start = 44;
-    int end = 266;
+    int size = 88;
+    int start = 4;
+    int end = 56;
     double t1, t2;
     std::vector<int> graph = getGraph(size);
     t1 = omp_get_wtime();
@@ -57,9 +57,9 @@ TEST(Deikstra_Algorithm, test3) {
 }
 
 TEST(Deikstra_Algorithm, test4) {
-    int size = 258;
+    int size = 97;
     int start = 12;
-    int end = 257;
+    int end = 77;
     double t1, t2;
     std::vector<int> graph = getGraph(size);
     t1 = omp_get_wtime();
@@ -74,9 +74,9 @@ TEST(Deikstra_Algorithm, test4) {
 }
 
 TEST(Deikstra_Algorithm, test5) {
-    int size = 301;
-    int start = 35;
-    int end = 270;
+    int size = 50;
+    int start = 10;
+    int end = 45;
     double t1, t2;
     std::vector<int> graph = getGraph(size);
     t1 = omp_get_wtime();
