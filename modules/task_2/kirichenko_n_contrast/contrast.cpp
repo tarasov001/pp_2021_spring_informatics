@@ -35,7 +35,7 @@ Result Contrastomp(const Result& rm) {
     omp_set_num_threads(numThreads);
     int min_n[numThreads], max_n[numThreads];
     int max = 0, min = 255;
-#pragma omp parallel 
+#pragma omp parallel
     {
        int nT = omp_get_thread_num();
         min_n[nT] = 255;

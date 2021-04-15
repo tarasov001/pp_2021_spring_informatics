@@ -2,13 +2,14 @@
 #ifndef MODULES_TASK_2_KIRICHENKO_N_CONTRAST_CONTRAST_H_
 #define MODULES_TASK_2_KIRICHENKO_N_CONTRAST_CONTRAST_H_
 
+#include <omp.h>
 #include <iostream>
 #include <vector>
 #include <cassert>
 #include <random>
 #include <ctime>
 #include <algorithm>
-#include <omp.h>
+
 
 using Result = std::vector<int>;
 
