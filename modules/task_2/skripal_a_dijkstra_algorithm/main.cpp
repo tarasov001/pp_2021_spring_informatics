@@ -6,9 +6,9 @@
 #include "../../../modules/task_2/skripal_a_dijkstra_algorithm/dijkstra_algorithm.h"
 
 TEST(Deikstra_Algorithm, test1) {
-    int size = 10000;
+    int size = 5555;
     int start = 1;
-    int end = 9999;
+    int end = 5554;
     double t1, t2;
     std::vector<int> graph = getGraph(size);
     t1 = omp_get_wtime();
@@ -74,9 +74,9 @@ TEST(Deikstra_Algorithm, test4) {
 }
 
 TEST(Deikstra_Algorithm, test5) {
-    int size = 9000;
-    int start = 1;
-    int end = 8500;
+    int size = 6069;
+    int start = 35;
+    int end = 5999;
     double t1, t2;
     std::vector<int> graph = getGraph(size);
     t1 = omp_get_wtime();
