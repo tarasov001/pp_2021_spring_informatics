@@ -3,10 +3,12 @@
 
 #include <omp.h>
 
+#include <cmath>
 #include <ctime>
-#include <iostream>
 #include <random>
 #include <vector>
+
+#define PI 3.14159265
 
 Point::Point() {
   x = 0;
@@ -22,14 +24,11 @@ void Point::setX(double _x) { x = _x; }
 void Point::setY(double _y) { y = _y; }
 
 bool Point::isCloserToA(Point A, Point B) {
-  return (A.x <= x && x <= B.x && A.y <= y && y <= B.y);
+  double sqDistAx = ((A.x - x) * (A.x - x)) + ((A.y - y) * (A.y - y));
+  double sqDistBA = ((B.x - A.x) * (B.x - A.x)) + ((B.y - A.y) * (B.y - A.y));
+  return (sqDistBA > sqDistAx);
 }
-bool operator<(Point A, Point B) {
-  if (A.y < B.y)
-    return true;
-  else
-    return ((A.y == B.y) && (A.x < B.x));
-}
+
 bool operator==(Point A, Point B) { return (A.x == B.x && A.y == B.y); }
 
 std::vector<Point> makePointsArray(int amount) {
@@ -40,15 +39,28 @@ std::vector<Point> makePointsArray(int amount) {
   std::mt19937 gen;
   gen.seed(static_cast<unsigned int>(time(0)));
 
-#pragma omp parallel
-  {
-    std::vector<Point> loc_points;
-#pragma omp for
-    for (int i = 0; i < amount; i++) {
-      loc_points.push_back(Point(gen() % 1000, gen() % 1000));
-    }
-#pragma omp critical
-    points.insert(points.end(), loc_points.begin(), loc_points.end());
+  for (int i = 0; i < amount; i++) {
+    points.push_back(Point(gen() % 1000, gen() % 1000));
+  }
+  return points;
+}
+std::vector<Point> makePointsArrayCircle(int amount) {
+  if (amount <= 0) {
+    throw "Wrong amount of points!";
+  }
+  std::vector<Point> points;
+  std::mt19937 gen;
+  gen.seed(static_cast<unsigned int>(time(0)));
+
+  for (int i = 0; i < amount; i++) {
+    int ro, phi;
+    ro = gen() % 500;
+    phi = gen() % 360;
+
+    double x, y;
+    x = (ro * cos(phi * PI / 180)) + 500;
+    y = (ro * sin(phi * PI / 180)) + 500;
+    points.push_back(Point(x, y));
   }
   return points;
 }
@@ -58,39 +70,15 @@ double rotate(Point A, Point B, Point C) {
          (B.getY() - A.getY()) * (C.getX() - B.getX());
 }
 
-std::vector<int> ParallelJarvis(std::vector<Point> points) {
+std::vector<int> SequentialJarvis(std::vector<Point> points) {
   int N = points.size();
   switch (N) {
     case 0:
-      throw "wrong amount of points!";
+      throw "wrong amount of points";
     case 1:
       return std::vector<int>(2, 0);
   }
 
-  std::cout << "Checked" << std::endl;
-  /*
-    int index = 0;
-    Point startPoint = points[0];
-  #pragma omp parallel
-    {
-      Point loc_startPoint = startPoint;
-      int loc_index = index;
-  #pragma omp for schedule(static)
-      for (int i = 1; i < N; i++) {
-        if (points[i] < loc_startPoint) {
-          loc_startPoint = points[i];
-          loc_index = i;
-        }
-      }
-  #pragma omp critical
-      {
-        if (loc_startPoint < startPoint) {
-          startPoint = loc_startPoint;
-          index = loc_index;
-        }
-      }
-    }
-  */
   int index = 0;
   Point startPoint = points[0];
   for (int i = 1; i < N; i++) {
@@ -105,31 +93,121 @@ std::vector<int> ParallelJarvis(std::vector<Point> points) {
       index = i;
     }
   }
-  std::cout << "Point found" << std::endl;
+
+  // std::cout << "Seqindex = " << index << std::endl;
 
   std::vector<int> hull;
   hull.push_back(index);
   int cur = index;
   do {
-    int next = (cur + 1) % N;
-    // int next = cur == 0 ? 1 : 0;
-    std::cout << "do" << std::endl;
+    int next = cur == 0 ? 1 : 0;
     for (int i = 0; i < N; i++) {
-      std::cout << "for" << std::endl;
+      if (points[next] == points[i]) {
+        if (next > i) next = i;
+        continue;
+      }
       double pos = rotate(points[cur], points[next], points[i]);
-      if (pos < 0) {
+      if (pos < 0.0) {
         next = i;
-      } else if (pos == 0) {
+      } else if (pos == 0.0) {
         if (points[next].isCloserToA(points[cur], points[i])) {
           next = i;
         }
       }
     }
     cur = next;
-    std::cout << "cur=" << cur << std::endl;
-    std::cout << "index=" << index << std::endl;
     hull.push_back(next);
   } while (cur != index);
-  std::cout << "before return" << std::endl;
+
+  return hull;
+}
+
+std::vector<int> ParallelJarvis(std::vector<Point> points) {
+  int N = points.size();
+  switch (N) {
+    case 0:
+      throw "wrong amount of points!";
+    case 1:
+      return std::vector<int>(2, 0);
+  }
+
+  int index = 0;
+  Point startPoint = points[0];
+#pragma omp parallel
+  {
+    Point loc_startPoint = startPoint;
+    int loc_index = index;
+#pragma omp for
+    for (int i = 1; i < N; i++) {
+      if (loc_startPoint == points[i]) {
+        if (loc_index > i) loc_index = i;
+        continue;
+      }
+      if ((points[i].getY() < loc_startPoint.getY()) ||
+          ((loc_startPoint.getY() == points[i].getY()) &&
+           (points[i].getX() < loc_startPoint.getX()))) {
+        loc_startPoint = points[i];
+        loc_index = i;
+      }
+    }
+#pragma omp critical
+    {
+      if (loc_startPoint == startPoint) {
+        if (index > loc_index) index = loc_index;
+      }
+      if ((loc_startPoint.getY() < startPoint.getY()) ||
+          ((startPoint.getY() == loc_startPoint.getY()) &&
+           (loc_startPoint.getX() < startPoint.getX()))) {
+        startPoint = loc_startPoint;
+        index = loc_index;
+      }
+    }
+  }
+
+  // std::cout << "Parindex = " << index << std::endl;
+
+  std::vector<int> hull;
+  hull.push_back(index);
+  int cur = index;
+  do {
+    int next = (cur + 1) % N;
+#pragma omp parallel
+    {
+      int loc_next = next;
+#pragma omp for
+      for (int i = 0; i < N; i++) {
+        if (points[loc_next] == points[i]) {
+          if (loc_next > i) loc_next = i;
+          continue;
+        }
+        double pos = rotate(points[cur], points[loc_next], points[i]);
+        if (pos < 0) {
+          loc_next = i;
+        } else if (pos == 0) {
+          if (points[loc_next].isCloserToA(points[cur], points[i])) {
+            loc_next = i;
+          }
+        }
+      }
+#pragma omp critical
+      {
+        if (points[next] == points[loc_next]) {
+          if (next > loc_next) next = loc_next;
+        } else {
+          double pos = rotate(points[cur], points[next], points[loc_next]);
+          if (pos < 0) {
+            next = loc_next;
+          } else if (pos == 0) {
+            if (points[next].isCloserToA(points[cur], points[loc_next])) {
+              next = loc_next;
+            }
+          }
+        }
+      }
+    }
+    cur = next;
+    hull.push_back(next);
+  } while (cur != index);
+
   return hull;
 }
