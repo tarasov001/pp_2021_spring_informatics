@@ -90,21 +90,6 @@ double scalar_mult(crs_matrix first, crs_matrix second, int i, int j) {
     }
     return summ;
 }
-double scalar_mult_parallel(crs_matrix first, crs_matrix second, int n, int j, std::vector<int> tmp) {
-    double summ = 0.0;
-    int a = second.row_index[j];
-    int b = second.row_index[j + 1];
-    for (n = a; n < b; n++) {
-        int bcol = second.cols[n];
-        int ind = tmp[bcol];
-        if (ind != -1) {
-            int v1 = first.values[ind];
-            int v2 = second.values[n];
-            summ = summ + v1 * v2;
-        }
-    }
-    return summ;
-}
 
 crs_matrix mult(crs_matrix first, crs_matrix second) {
     crs_matrix result;
@@ -147,7 +132,18 @@ crs_matrix parallel_mult(crs_matrix first, crs_matrix second) {
             }
 
             for (j = 0; j < N; j++) {
-                double sum = scalar_mult_parallel(first, second, n, j, tmp);
+                double sum = 0.0;
+                int a = second.row_index[j];
+                int b = second.row_index[j + 1];
+                for (n = a; n < b; n++) {
+                    int bcol = second.cols[n];
+                    int ind = tmp[bcol];
+                    if (ind != -1) {
+                        int v1 = first.values[ind];
+                        int v2 = second.values[n];
+                        sum = sum + v1 * v2;
+                    }
+                }
                 if (sum != 0) {
                     val[i].emplace_back(sum);
                     col[i].emplace_back(j);
