@@ -138,8 +138,7 @@ crs_matrix parallel_mult(crs_matrix first, crs_matrix second) {
 #pragma omp parallel 
     {
         std::vector<int> tmp(N);
-        
-#pragma omp for private(j, n) schedule(static)
+        #pragma omp for private(j, n) schedule(static)
         for (int i= 0; i < N; i++) {
             tmp.assign(N, -1);
 
