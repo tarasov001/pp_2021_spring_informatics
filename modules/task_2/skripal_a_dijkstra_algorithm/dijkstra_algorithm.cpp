@@ -107,14 +107,16 @@ std::vector<int> parallelDijkstras(std::vector<int> graph, int start, int end) {
             }
         }
          visit[min_index2] = true;
-#pragma omp simd
-#pragma omp parallel for
-        for (int k = 0; k < size  ; k++) {
-            if (!visit[k] && dist[min_index2] != max_weight &&
-                graph[min_index2*size + k] &&
-                dist[min_index2] + graph[min_index2*size+ k] < dist[k]) {
-                dist[k] = dist[min_index2] + graph[min_index2*size+ k];
-            }
+#pragma omp parallel
+        {
+#pragma omp for simd
+             for (int k = 0; k < size; k++) {
+                 if (!visit[k] && dist[min_index2] != max_weight &&
+                     graph[min_index2*size + k] &&
+                     dist[min_index2] + graph[min_index2*size + k] < dist[k]) {
+                     dist[k] = dist[min_index2] + graph[min_index2*size + k];
+                 }
+             }
         }
     }
 
