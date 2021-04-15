@@ -9,7 +9,6 @@
 TEST(Sparse_crs_matrix, Test1) {
     crs_matrix first = generate(50);
     crs_matrix second = generate(50);
-    
     crs_matrix res = mult(first, second);
     crs_matrix resp = parallel_mult(first, second);
 
@@ -20,7 +19,6 @@ TEST(Sparse_crs_matrix, Test1) {
 TEST(Sparse_crs_matrix, Test2) {
     crs_matrix first = generate(100);
     crs_matrix second = generate(100);
-    
     crs_matrix res = mult(first, second);
     crs_matrix resp = parallel_mult(first, second);
 
@@ -31,7 +29,6 @@ TEST(Sparse_crs_matrix, Test2) {
 TEST(Sparse_crs_matrix, Test3) {
     crs_matrix first = generate(200);
     crs_matrix second = generate(200);
-    
     crs_matrix res = mult(first, second);
     crs_matrix resp = parallel_mult(first, second);
 
@@ -42,7 +39,6 @@ TEST(Sparse_crs_matrix, Test3) {
 TEST(Sparse_crs_matrix, Test4) {
     crs_matrix first = generate(350);
     crs_matrix second = generate(350);
-    
     crs_matrix res = mult(first, second);
     crs_matrix resp = parallel_mult(first, second);
     
@@ -53,7 +49,6 @@ TEST(Sparse_crs_matrix, Test4) {
 TEST(Sparse_crs_matrix, Test5) {
     crs_matrix first = generate(500);
     crs_matrix second = generate(500);
-
     crs_matrix res = mult(first, second);
     crs_matrix resp = parallel_mult(first, second);
     
