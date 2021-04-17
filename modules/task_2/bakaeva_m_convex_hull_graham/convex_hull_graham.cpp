@@ -140,7 +140,6 @@ grahamScanOmp(std::vector<std::pair<double, double> >::iterator b,
     // 1 - Find the leftmost point (omp)
     size_t leftmostPoint = getLeftmostPointOmp(setOfPoints);
     std::swap(setOfPoints[0], setOfPoints[leftmostPoint]);
-    auto leftmost = setOfPoints[0];
 
     // 2 - Sorting all points to the left relative to the starting point
     auto sortingPoints = sortPoints(setOfPoints);
@@ -200,7 +199,7 @@ std::vector<std::pair<double, double> > grahamScanParallel(
         size_t thread = omp_get_thread_num();
         std::vector<std::pair<double, double> > localHull;
 
-        if (thread == numberOfThreads - 1) {
+        if (static_cast<int>(thread) == numberOfThreads - 1) {
             localHull = grahamScanOmp(b + st * thread, e);
         } else {
             localHull
@@ -209,7 +208,7 @@ std::vector<std::pair<double, double> > grahamScanParallel(
 
 #pragma omp critical
         {
-            for (size_t i = 0; i < static_cast<int>(localHull.size()); i++) {
+            for (size_t i = 0; i < localHull.size(); i++) {
                 lastPoints.push_back(localHull[i]);
             }
         }

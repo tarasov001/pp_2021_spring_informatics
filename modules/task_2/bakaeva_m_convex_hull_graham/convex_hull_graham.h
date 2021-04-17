@@ -1,4 +1,4 @@
-// Copyright 2020 Bakaeva Maria
+// Copyright 2021 Bakaeva Maria
 #ifndef MODULES_TASK_2_BAKAEVA_M_CONVEX_HULL_GRAHAM_CONVEX_HULL_GRAHAM_H_
 #define MODULES_TASK_2_BAKAEVA_M_CONVEX_HULL_GRAHAM_CONVEX_HULL_GRAHAM_H_
 #include <vector>

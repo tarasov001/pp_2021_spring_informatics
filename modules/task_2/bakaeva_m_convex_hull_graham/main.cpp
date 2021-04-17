@@ -1,4 +1,4 @@
-// Copyright 2020 Bakaeva Maria
+// Copyright 2021 Bakaeva Maria
 #include <gtest/gtest.h>
 #include <omp.h>
 #include <vector>
