@@ -3,7 +3,7 @@
 #include <omp.h>
 #include <iostream>
 #include <vector>
-#include "./cannon.h"
+#include "../../../modules/task_2/romanyuk_s_alg_cannon/cannon.h"
 
 TEST(Cannon_Multiplication, TEST_1) {
     std::vector<double> A = genMatrix(16);
