@@ -208,6 +208,4 @@ int ParallelSorting(std::vector<int> *buffer) {
         }
         merge(buffer->data(), part_vec_size * i, buffer->data() + part_vec_size * i, current_size);
     }
-
-
 }
