@@ -1,6 +1,6 @@
 // Copyright 2020 Bakaeva Maria
-#ifndef MODULES_TASK_1_BAKAEVA_M_CONVEX_HULL_GRAHAM_CONVEX_HULL_GRAHAM_H_
-#define MODULES_TASK_1_BAKAEVA_M_CONVEX_HULL_GRAHAM_CONVEX_HULL_GRAHAM_H_
+#ifndef MODULES_TASK_2_BAKAEVA_M_CONVEX_HULL_GRAHAM_CONVEX_HULL_GRAHAM_H_
+#define MODULES_TASK_2_BAKAEVA_M_CONVEX_HULL_GRAHAM_CONVEX_HULL_GRAHAM_H_
 #include <vector>
 #include <utility>
 
@@ -21,4 +21,4 @@ std::vector<std::pair<double, double> > grahamScanParallel(
     std::vector<std::pair<double, double> >::iterator b,
     std::vector<std::pair<double, double> >::iterator e,
     int numberOfThreads);
-#endif  // MODULES_TASK_1_BAKAEVA_M_CONVEX_HULL_GRAHAM_CONVEX_HULL_GRAHAM_H_
+#endif  // MODULES_TASK_2_BAKAEVA_M_CONVEX_HULL_GRAHAM_CONVEX_HULL_GRAHAM_H_

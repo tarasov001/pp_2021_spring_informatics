@@ -8,7 +8,7 @@
 #include <algorithm>
 #include <stack>
 
-#include "../../../modules/task_2/bakaeva_m_convex_hull_graham/convex_hull_graham.hh"
+#include "../../../modules/task_2/bakaeva_m_convex_hull_graham/convex_hull_graham.h"
 
 std::vector<std::pair<double, double>> generateRandomPoints(size_t count) {
     std::mt19937 gen;
@@ -65,10 +65,10 @@ size_t getLeftmostPointOmp
     size_t leftmostPoint = 0;
     size_t commonLeftmostPoint = 0;
 
-#pragma omp parallel
+#pragma omp parallel firstprivate(leftmostPoint)
     {
 #pragma omp for
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < static_cast<int>(n); i++) {
             if (setOfPoints[i] < setOfPoints[leftmostPoint]) {
                 leftmostPoint = i;
             }
@@ -209,7 +209,7 @@ std::vector<std::pair<double, double> > grahamScanParallel(
 
 #pragma omp critical
         {
-            for (size_t i = 0; i < localHull.size(); i++) {
+            for (size_t i = 0; i < static_cast<int>(localHull.size()); i++) {
                 lastPoints.push_back(localHull[i]);
             }
         }

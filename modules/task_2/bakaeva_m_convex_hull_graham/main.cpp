@@ -7,7 +7,7 @@
 #include <numeric>
 #include "./convex_hull_graham.h"
 
-TEST(ConvexHull, timeTest) {
+TEST(ConvexHull, DISABLED_timeTest) {
     size_t size = 100000;
     std::vector<std::pair<double, double> > points(size);
     points = generateRandomPoints(size);
