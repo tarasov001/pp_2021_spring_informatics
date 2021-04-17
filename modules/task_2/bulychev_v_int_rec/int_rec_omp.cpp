@@ -57,7 +57,6 @@ double Calculation_Omp(std::vector<double> a, std::vector<double> b,
 
     double result = 0.0;
     std::vector <double> p(size_a);
-    double t3;
 
 #pragma omp parallel for reduction(+ : result)
     for (int i = 0; i < num; i++) {
