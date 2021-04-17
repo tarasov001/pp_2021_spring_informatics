@@ -70,7 +70,6 @@ TEST(Sparse_Matrix_CCS_1, CreateCCSRandom) {
   int cols = 100;
   int notZero = 2;
   SparseMatrix matrix = getRandomSparseMatrix(rows, cols, notZero);
-  
   ASSERT_EQ(notZero * cols, matrix.value.size());
   ASSERT_EQ(notZero * cols, matrix.row.size());
   ASSERT_EQ(cols + 1, matrix.col_idx.size());
@@ -98,7 +97,6 @@ TEST(Sparse_Matrix_CCS_1, Multiplication_Parallel_2) {
 
   SparseMatrix result_1 = Multiplication(A, B);
   SparseMatrix result_2 = MultiplicationParallel(A, B);
-  
   ASSERT_EQ(result_1.value, result_2.value);
   ASSERT_EQ(result_1.col_idx, result_2.col_idx);
   ASSERT_EQ(result_1.row, result_2.row);

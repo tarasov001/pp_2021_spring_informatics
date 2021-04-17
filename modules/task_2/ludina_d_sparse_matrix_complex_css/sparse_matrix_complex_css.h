@@ -1,5 +1,5 @@
 // Copyright 2021 Ludina Daria
-#ifndef MODULES_TASK_2_LUDINA_D_SPARSE_MATRIX_COMPLEX_CCS_SPARSE_MATRIX_COMPLEX_CCS_H_
+#ifndef MODULES_TASK_2_LUDINA_D_SPARSE_MATRIX_COMPLEX_CSS_SPARSE_MATRIX_COMPLEX_CSS_H_
 #define MODULES_TASK_2_LUDINA_D_SPARSE_MATRIX_COMPLEX_CCS_SPARSE_MATRIX_COMPLEX_CCS_H_
 
 #include <omp.h>
@@ -29,4 +29,4 @@ SparseMatrix Multiplication(SparseMatrix A, SparseMatrix B);
 SparseMatrix getRandomSparseMatrix(int rows, int cols, int notZero);
 SparseMatrix MultiplicationParallel(SparseMatrix A, SparseMatrix B);
 
-#endif  // MODULES_TASK_2_LUDINA_D_SPARSE_MATRIX_COMPLEX_CCS_SPARSE_MATRIX_COMPLEX_CCS_H_
+#endif  // MODULES_TASK_2_LUDINA_D_SPARSE_MATRIX_COMPLEX_CSS_SPARSE_MATRIX_COMPLEX_CSS_H_

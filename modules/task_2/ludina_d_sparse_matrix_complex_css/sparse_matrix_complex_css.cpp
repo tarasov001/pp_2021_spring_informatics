@@ -105,10 +105,10 @@ SparseMatrix MultiplicationParallel(SparseMatrix A, SparseMatrix B) {
   res.col_idx.push_back(0);
   int i, j, k;
 
-#pragma omp parallel 
+#pragma omp parallel
   {
     std::vector<int> tmp(res.cols);
-#pragma omp for private(j, k) schedule(static) 
+#pragma omp for private(j, k) schedule(static)
     for (i = 0; i < res.cols; i++) {
       tmp.assign(res.cols, -1);
       for (j = B.col_idx[i]; j < B.col_idx[i + 1]; j++) {
