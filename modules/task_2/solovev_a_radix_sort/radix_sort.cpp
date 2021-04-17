@@ -199,17 +199,15 @@ int ParallelSorting(std::vector<int> *buffer) {
             RadixSortParallel(buffer, thread_id * part_vec_size, (thread_id + 1) * part_vec_size - 1);
         } else {
             RadixSortParallel(buffer, thread_id * part_vec_size, static_cast<int>(buffer->size()) - 1);
-        }      
+        }
     }
-    for (size_t i = 1; i < n_threads; i++)
-    {
+    for (size_t i = 1; i < n_threads; i++) {
         int current_size = part_vec_size;
-        if(i == n_threads - 1)
-        {
+        if (i == n_threads - 1) {
             current_size = static_cast<int>(buffer->size()) - (n_threads - 1) * part_vec_size;
         }
         merge(buffer->data(), part_vec_size * i, buffer->data() + part_vec_size * i, current_size);
     }
-    
-    
+
+
 }

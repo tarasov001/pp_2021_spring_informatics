@@ -6,8 +6,8 @@
 #include "../../../modules/task_2/solovev_a_radix_sort/radix_sort.h"
 
 
-TEST(Seqvspar, Test_Only_Positive) {
-    const int length = 100;
+TEST(Parallel, Test_Very_Micro_Length) {
+    const int length = 10;
     int statusseq = 0;
     int statuspar = 0;
     std::vector<int> buffer1(length);
@@ -22,8 +22,8 @@ TEST(Seqvspar, Test_Only_Positive) {
 }
 
 
-TEST(Senquential, Test_Only_Negative) {
-    const int length = 10;
+TEST(Parallel, Test_Very_Small_Length) {
+    const int length = 100;
     int statusseq = 0;
     int statuspar = 0;
     std::vector<int> buffer1(length);
@@ -37,8 +37,8 @@ TEST(Senquential, Test_Only_Negative) {
     ASSERT_EQ(statusseq, statuspar);
 }
 
-TEST(Senquential, Test_Small_length) {
-    const int length = 100000;
+TEST(Parallel, Test_Small_length) {
+    const int length = 500;
     int statusseq = 0;
     int statuspar = 0;
     std::vector<int> buffer1(length);
@@ -49,12 +49,12 @@ TEST(Senquential, Test_Small_length) {
     statusseq = SortingCheck(&buffer1);
     statuspar = ParallelSorting(&buffer2);
     statuspar = SortingCheck(&buffer2);
-    
+
     ASSERT_EQ(statusseq, statuspar);
 }
 
-TEST(Senquential, Test_Medium_Length) {
-    const int length = 100000;
+TEST(Parallel, Test_Medium_Length) {
+    const int length = 1000;
     int statusseq = 0;
     int statuspar = 0;
     std::vector<int> buffer1(length);
@@ -66,12 +66,12 @@ TEST(Senquential, Test_Medium_Length) {
     statuspar = ParallelSorting(&buffer2);
     statuspar = SortingCheck(&buffer2);
 
-    
+
     ASSERT_EQ(statusseq, statuspar);
 }
 
 TEST(Senquential, Test_Large_Length) {
-    const int length = 100000;
+    const int length = 1500;
     int statusseq = 0;
     int statuspar = 0;
     std::vector<int> buffer1(length);
@@ -80,16 +80,16 @@ TEST(Senquential, Test_Large_Length) {
 
     statusseq = RadixSort(&buffer1);
     statusseq = SortingCheck(&buffer1);
-    
+
     statuspar = ParallelSorting(&buffer2);
     statuspar = SortingCheck(&buffer2);
-    
-    
+
+
     ASSERT_EQ(statusseq, statuspar);
 }
 
 TEST(Senquential, Test_Very_Large_Length) {
-    const int length = 10000;
+    const int length = 2000;
     int statusseq = 0;
     int statuspar = 0;
     std::vector<int> buffer1(length);
@@ -97,11 +97,11 @@ TEST(Senquential, Test_Very_Large_Length) {
     std::vector<int> buffer2 = buffer1;
     statusseq = RadixSort(&buffer1);
     statusseq = SortingCheck(&buffer1);
-    
+
     statuspar = ParallelSorting(&buffer2);
     statuspar = SortingCheck(&buffer2);
 
-    
+
     ASSERT_EQ(buffer2, buffer1);
 }
 
@@ -125,8 +125,6 @@ TEST(Senquential, Test_Very_Large_Length) {
 //     double time_omp = t2_omp - t1_omp;
 //     std::cout << "Time omp: " << time_omp << std::endl;
 //     std::cout << "Acceleration: " << time_seq / time_omp << std::endl;
-    
-    
 //     ASSERT_EQ(buffer2, buffer1);
 // }
 
