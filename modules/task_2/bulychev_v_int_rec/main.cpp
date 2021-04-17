@@ -22,8 +22,6 @@ TEST(Integrate_rectangle, DISABLED_Test_int_rec_1) {
     a[1] = 21;
     b[1] = 53;
 
-    double ans = 104704;
-
     double t1 = omp_get_wtime();
     double ans1 = Calculation_Seq(a, b, 5000, f1);
     double t2 = omp_get_wtime();
