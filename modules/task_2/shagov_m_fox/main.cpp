@@ -156,13 +156,17 @@ TEST(Shagov_Maksim_Omp, Test_8_on_8_Identity_on_Random_Matrix_Mult) {
     Matrix C = sequentialBlockMatrixMultiplication(A, B, 8 * 8);
     ASSERT_EQ(B, C);
 }
-/*
+
 TEST(Shagov_Maksim_Omp, Test_4_on_4_Random_Matrix_Mult) {
     size_t size = 4;
     Matrix A = createRandomMatrix(size * size);
     Matrix B = createRandomMatrix(size * size);
+    int t_count = 4;
+    omp_set_num_threads(t_count);
     Matrix C = parallelBlockMatrixMultiplication(A, B, size * size);
-    Matrix C_block = sequentialBlockMatrixMultiplication(A, B, size * size);
+    t_count = 1;
+    omp_set_num_threads(t_count);
+    Matrix C_block = parallelBlockMatrixMultiplication(A, B, size * size);
     ASSERT_TRUE(isEqualMatrix(C, C_block));
 }
 
@@ -170,10 +174,14 @@ TEST(Shagov_Maksim_Omp, Test_8_on_8_Random_Matrix_Mult) {
     size_t size = 8;
     Matrix A = createRandomMatrix(size * size);
     Matrix B = createRandomMatrix(size * size);
+    int t_count = 4;
+    omp_set_num_threads(t_count);
     Matrix C = parallelBlockMatrixMultiplication(A, B, size * size);
-    Matrix C_block = sequentialBlockMatrixMultiplication(A, B, size * size);
+    t_count = 1;
+    omp_set_num_threads(t_count);
+    Matrix C_block = parallelBlockMatrixMultiplication(A, B, size * size);
     ASSERT_TRUE(isEqualMatrix(C, C_block));
-}*/
+}
 
 TEST(Shagov_Maksim_Omp, Test_50_on_50_Random_Matrix_Mult) {
     size_t size = 50;
