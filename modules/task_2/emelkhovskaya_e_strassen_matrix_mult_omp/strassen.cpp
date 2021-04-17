@@ -18,72 +18,72 @@ void seqMult(double* a, double* b, double* c, int size) {
 
 void P1(double* a11, double* a22, double* b11,
 double* b22, double* prores1, int size) {
-	double* res1 = new double[size * size * 2];
-	double* res2 = res1 + size * size;
+    double* res1 = new double[size * size * 2];
+    double* res2 = res1 + size * size;
     for (int i = 0; i < size * size; i++) {
         res1[i] = a11[i] + a22[i];
         res2[i] = b11[i] + b22[i];
     }
     StrassenFunc(res1, res2, prores1, size);
-	delete[] res1;
+    delete[] res1;
 }
 void P2(double* a21, double* a22, double* b11,
 double* prores2, int size) {
-	double* res1 = new double[size * size];
+    double* res1 = new double[size * size];
     for (int i = 0; i < size * size; i++) {
         res1[i] = a21[i] + a22[i];
     }
     StrassenFunc(res1, b11, prores2, size);
-	delete[] res1;
+    delete[] res1;
 }
 void P3(double* a11, double* b12, double* b22,
 double* prores3, int size) {
-	double* res1 = new double[size * size];
+    double* res1 = new double[size * size];
     for (int i = 0; i < size * size; i++) {
         res1[i] = b12[i] - b22[i];
     }
     StrassenFunc(a11, res1, prores3, size);
-	delete[] res1;
+    delete[] res1;
 }
 void P4(double* a22, double* b21, double* b11,
 double* prores4, int size) {
-	double* res1 = new double[size * size];
+    double* res1 = new double[size * size];
     for (int i = 0; i < size * size; i++) {
         res1[i] = b21[i] - b11[i];
     }
     StrassenFunc(a22, res1, prores4, size);
-	delete[] res1;
+    delete[] res1;
 }
 void P5(double* a11, double* a12, double* b22,
 double* prores5, int size) {
-	double* res1 = new double[size * size];
+    double* res1 = new double[size * size];
     for (int i = 0; i < size * size; i++) {
         res1[i] = a11[i] + a12[i];
     }
     StrassenFunc(res1, b22, prores5, size);
-	delete[] res1;
+    delete[] res1;
 }
 void P6(double* a21, double* a11, double* b11,
 double* b12, double* prores6, int size) {
-	double* res1 = new double[size * size * 2];
-	double* res2 = res1 + size * size;
+    double* res1 = new double[size * size * 2];
+    double* res2 = res1 + size * size;
     for (int i = 0; i < size * size; i++) {
         res1[i] = a21[i] - a11[i];
         res2[i] = b11[i] + b12[i];
     }
     StrassenFunc(res1, res2, prores6, size);
-	delete[] res1;
+    delete[] res1;
 }
 void P7(double* a12, double* a22, double* b21,
 double* b22, double* prores7, int size) {
-	double* res1 = new double[size * size * 2];
-	double* res2 = res1 + size * size;
+    double* res1 = new double[size * size * 2];
+    double* res2 = res1 + size * size;
     for (int i = 0; i < size * size; i++) {
         res1[i] = a12[i] - a22[i];
         res2[i] = b21[i] + b22[i];
     }
     StrassenFunc(res1, res2, prores7, size);
-	delete[] res1;
+    delete[] res1;
 }
 
 
@@ -149,22 +149,22 @@ void StrassenFunc(double* a, double* b, double* c, int size) {
     }
 
 #pragma omp parallel sections shared(a11, a12, a21, a22, b11, b12, b21, b22)
-	{
-#pragma omp section		
-		{P1(a11, a22, b11, b22, prores1, size / 2); }
-#pragma omp section		
-		{P2(a21, a22, b11, prores2, size / 2); }
-#pragma omp section		
-		{P3(a11, b12, b22, prores3, size / 2); }
-#pragma omp section		
-		{P4(a22, b21, b11, prores4, size / 2); }
-#pragma omp section		
-		{P5(a11, a12, b22, prores5, size / 2); }
-#pragma omp section		
-		{P6(a21, a11, b11, b12, prores6, size / 2); }
-#pragma omp section		
-		{P7(a12, a22, b21, b22, prores7, size / 2); }
-	}
+    {
+#pragma omp section        
+        {P1(a11, a22, b11, b22, prores1, size / 2); }
+#pragma omp section        
+        {P2(a21, a22, b11, prores2, size / 2); }
+#pragma omp section        
+        {P3(a11, b12, b22, prores3, size / 2); }
+#pragma omp section        
+        {P4(a22, b21, b11, prores4, size / 2); }
+#pragma omp section        
+        {P5(a11, a12, b22, prores5, size / 2); }
+#pragma omp section        
+        {P6(a21, a11, b11, b12, prores6, size / 2); }
+#pragma omp section        
+        {P7(a12, a22, b21, b22, prores7, size / 2); }
+    }
     for (int i = 0; i < (size / 2) * (size / 2); i++) {
         c11[i] = prores1[i] + prores4[i] - prores5[i] + prores7[i];
         c12[i] = prores3[i] + prores5[i];
