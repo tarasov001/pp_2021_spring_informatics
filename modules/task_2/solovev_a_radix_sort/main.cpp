@@ -18,7 +18,7 @@ TEST(Parallel, Test_Very_Micro_Length) {
     statuspar = ParallelSorting(&buffer2);
     statuspar = SortingCheck(&buffer2);
 
-    ASSERT_EQ(buffer2, buffer1);
+    ASSERT_EQ(statusseq, statuspar);
 }
 
 
@@ -102,7 +102,7 @@ TEST(Senquential, Test_Very_Large_Length) {
     statuspar = SortingCheck(&buffer2);
 
 
-    ASSERT_EQ(buffer2, buffer1);
+    ASSERT_EQ(statusseq, statuspar);
 }
 
 // TEST(Seqvssspar, Test_Only_Positive) {

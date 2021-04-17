@@ -131,7 +131,6 @@ int RadixSortParallel(std::vector<int> *buffer, int left, int right) {
         return -1;
     int positive_length = 0, negative_length = 0;
     int status = 0;
-    int size = static_cast<int>(buffer->size());
     for (int i = left; i <= right; i++) {
         if (buffer->at(i) >= 0) {
             positive_length+=1;
@@ -187,6 +186,7 @@ void merge(int* a, int size_a, int* b, int size_b) {
         a[i] = c[i];
     }
 }
+
 int ParallelSorting(std::vector<int> *buffer) {
     int part_vec_size = 0;
     int n_threads = 0;
@@ -201,11 +201,12 @@ int ParallelSorting(std::vector<int> *buffer) {
             RadixSortParallel(buffer, thread_id * part_vec_size, static_cast<int>(buffer->size()) - 1);
         }
     }
-    for (size_t i = 1; i < n_threads; i++) {
+    for (int i = 1; i < n_threads; i++) {
         int current_size = part_vec_size;
         if (i == n_threads - 1) {
             current_size = static_cast<int>(buffer->size()) - (n_threads - 1) * part_vec_size;
         }
         merge(buffer->data(), part_vec_size * i, buffer->data() + part_vec_size * i, current_size);
     }
+    return 0;
 }
