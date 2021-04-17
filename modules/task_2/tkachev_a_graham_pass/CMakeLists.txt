@@ -1,7 +1,7 @@
 get_filename_component(ProjectId ${CMAKE_CURRENT_SOURCE_DIR} NAME)
 
-if ( USE_SEQ )
-    set(ProjectId "${ProjectId}_seq")
+if ( USE_OMP )
+    set(ProjectId "${ProjectId}_omp")
     project( ${ProjectId} )
     message( STATUS "-- " ${ProjectId} )
 
@@ -51,7 +51,8 @@ if ( USE_SEQ )
             ${CMAKE_SOURCE_DIR}/scripts/check_count_tests.py
             ${ProjectId}
             ${ARGS_FOR_CHECK_COUNT_TESTS}
-    )
-else( USE_SEQ )
+            )
+else( USE_OMP )
     message( STATUS "-- ${ProjectId} - NOT BUILD!"  )
-endif( USE_SEQ )
+endif( USE_OMP )
+

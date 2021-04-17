@@ -7,7 +7,9 @@
 #include <climits>
 #include <utility>
 #include <omp.h>
-#include "../../../modules/task_1/tkachev_a_graham_pass/graham_pass.h"
+#include <iostream>
+
+#include "../../../modules/task_2/tkachev_a_graham_pass/graham_pass.h"
 
 std::vector<Point> getRandomizedVector(double from,
                         double up_to, uint32_t count) {
@@ -49,13 +51,34 @@ double distanceTwoPoints(Point p1, Point p2) {
                 (p2.y - p1.y) * (p2.y - p1.y));
 }
 
-std::vector<Point> sortedByPolarAngle(std::vector<Point> points, uint64_t count_threads = 1) {
+std::vector<Point> sortedByPolarAngle(std::vector<Point> points, bool multithreading) {
     assert(!points.empty());
-    if (count_threads > 1) {
-        #pragma omp parallel num_threads(count_threads)
-        #pragma omp for
+    if (multithreading) {
+        omp_set_nested(1);
+        #pragma omp parallel 
+        {
+        #pragma omp for collapse(2)
+            for (uint64_t i = 2; i < points.size(); i++) {
+                for (uint64_t j = 2; j < points.size(); j++) {
+                    double current_angle = angleThreePoints(
+                                    points[j-1], points[j], points[0]);
+                    if (current_angle <= 0) {
+                        swapPoints(&points[j-1], &points[j]);
+                    } else {
+                        if (current_angle == 0) {
+                            if (distanceTwoPoints(points[j], points[0]) <
+                                distanceTwoPoints(points[j-1], points[0])) {
+                                    swapPoints(&points[j-1], &points[j]);
+                            }
+                        }
+                    }
+                }
+                    
+            }
+        }
+        omp_set_nested(0);
+    } else {
         for (uint64_t i = 2; i < points.size(); i++) {
-            #pragma omp for
             for (uint64_t j = 2; j < points.size(); j++) {
                 double current_angle = angleThreePoints(
                                     points[j-1], points[j], points[0]);
@@ -72,58 +95,59 @@ std::vector<Point> sortedByPolarAngle(std::vector<Point> points, uint64_t count_
             }
         }
     }
-    for (uint64_t i = 2; i < points.size(); i++) {
-        for (uint64_t j = 2; j < points.size(); j++) {
-            double current_angle = angleThreePoints(
-                                points[j-1], points[j], points[0]);
-            if (current_angle <= 0) {
-                swapPoints(&points[j-1], &points[j]);
-            } else {
-                if (current_angle == 0) {
-                    if (distanceTwoPoints(points[j], points[0]) <
-                        distanceTwoPoints(points[j-1], points[0])) {
-                        swapPoints(&points[j-1], &points[j]);
-                    }
-                }
-            }
-        }
-    }
+    
     return points;
 }
 
-uint32_t getIndexMinLeftDownPoint(std::vector<Point> points, uint64_t count_threads = 1) {
+uint32_t getIndexMinLeftDownPoint(std::vector<Point> points, bool multithreading) {
     assert(!points.empty());
     double min_x = 100000.0, min_y = 100000.0;
 
-    if (count_threads > 1) {
-        std::vector<double> min_xs(count_threads, 0.0);
-        std::vector<double> min_ys(count_threads, 0.0);
-        #pragma omp parallel num_threads(count_threads) firstprivate(min_y, min_x)
+    if (multithreading) {
+        double* min_xs;
+        double* min_ys ;
+
+        #pragma omp parallel firstprivate(points)
         {
+            omp_set_num_threads(omp_get_max_threads());
+            min_xs = new double[omp_get_num_threads()];
+            min_ys = new double[omp_get_num_threads()];
             int current_thread_num = omp_get_thread_num();
-            #pragma for
+            min_xs[current_thread_num] = min_x;
+            min_ys[current_thread_num] = min_y;
+
+            #pragma omp for
             for (uint32_t i = 0; i < points.size(); i++) {
-                if (points[i].y < min_y) {
+                if (points[i].y < min_ys[current_thread_num]) {
                     min_ys[current_thread_num] = points[i].y;
                 }
             }
-            #pragma omp single 
+
+            #pragma omp single
             {
-                min_y = *std::min(min_ys.begin(), min_ys.end());
+                 min_y = *std::min_element(&min_ys[0], &min_ys[omp_get_num_threads()-1]);
             }
-            #pragma for
+        }
+
+        #pragma omp parallel firstprivate(points)
+        { 
+            int current_thread_num = omp_get_thread_num();
+
+            #pragma omp for schedule(static)
             for (uint32_t i = 0; i < points.size(); i++) {
                 if (points[i].y == min_y) {
-                    if (points[i].x < min_x) {
+                    if (points[i].x < min_xs[current_thread_num]) {
                         min_xs[current_thread_num] = points[i].x;
                     }
                 }
             }
-            #pragma omp single 
+            #pragma omp single
             {
-                min_x = *std::min(min_xs.begin(), min_xs.end());
+                min_x = *std::min_element(&min_xs[0], &min_xs[omp_get_num_threads()-1]);
+                delete [] min_xs;
+                delete [] min_ys;
             }
-        }
+        } 
     } else {
         for (uint32_t i = 0; i < points.size(); i++) {
             if (points[i].y < min_y) {
@@ -138,6 +162,7 @@ uint32_t getIndexMinLeftDownPoint(std::vector<Point> points, uint64_t count_thre
             }
         }
     } 
+
     for (uint32_t i = 0; i < points.size(); i++) {
         if (points[i].x == min_x && points[i].y == min_y) {
             return i;
@@ -146,12 +171,10 @@ uint32_t getIndexMinLeftDownPoint(std::vector<Point> points, uint64_t count_thre
     throw;
 }
 
-std::stack<Point> useGrahamAlgorithm(std::vector<Point> points) {
-
-    assert(!points.empty());
-
+std::stack<Point> useGrahamAlgorithm(std::vector<Point> points, bool multithreading) {
+    assert(!points.empty()); 
+    std::stack<Point> points_stack;
     if (points.size() == 3) {
-        std::stack<Point> points_stack;
         for (uint32_t i = 0; i < points.size(); i++) {
             points_stack.push(points[i]);
         }
@@ -159,86 +182,70 @@ std::stack<Point> useGrahamAlgorithm(std::vector<Point> points) {
         return points_stack;
     } else {
         if (points.size() < 3) {
-            std::stack<Point> points_stack;
             for (uint32_t i = 0; i < points.size(); i++) {
                 points_stack.push(points[i]);
             }
             return points_stack;
         }
     }
+    if (multithreading) {  
+        swapPoints(&points[0],
+            &points[getIndexMinLeftDownPoint(points, multithreading)]);
 
-    swapPoints(&points[0],
-        &points[getIndexMinLeftDownPoint(points)]);
+        points = sortedByPolarAngle(points, multithreading);
 
-    points = sortedByPolarAngle(points);
-    points.push_back(points[0]);
+        points.push_back(points[0]);
 
-    std::stack<Point> points_stack;
-    points_stack.push(points[0]);
-    points_stack.push(points[1]);
-    points_stack.push(points[2]);
+        points_stack.push(points[0]);
+        points_stack.push(points[1]);
+        points_stack.push(points[2]);
 
-    for (uint32_t i = 3; i < points.size(); i++) {
-        while (angleThreePoints(
-            nextToTopOfStack(points_stack),
-            points_stack.top(), points[i]) <= 0) {
-            if (!points_stack.empty()) {
-                points_stack.pop();
-            }
-        }
-        points_stack.push(points[i]);
-    }
-
-    return points_stack;
-}
-
-std::stack<Point> useGrahamAlgorithmParallel(std::vector<Point> points) {
-
-    assert(!points.empty());
-
-    const uint64_t THREADS_MEMORY_STEP = 1;
-
-        if (points.size() == 3) {
-            std::stack<Point> points_stack;
-            for (uint32_t i = 0; i < points.size(); i++) {
-                points_stack.push(points[i]);
-            }
-            points_stack.push(points[0]);
-            return points_stack;
-        } else {
-            if (points.size() < 3) {
-                std::stack<Point> points_stack;
-                for (uint32_t i = 0; i < points.size(); i++) {
-                    points_stack.push(points[i]);
+        omp_set_nested(1);
+        // #pragma omp parallel
+        // {
+            // #pragma omp for
+            for (uint32_t i = 3; i < points.size(); i++) {
+                for (;angleThreePoints(
+                        nextToTopOfStack(points_stack),
+                        points_stack.top(),
+                        points[i]) <= 0
+                    ;) {
+                    if (!points_stack.empty()) {
+                        points_stack.pop();
+                    }
                 }
-                return points_stack;
+                points_stack.push(points[i]);
+    
             }
-        }
-
-        #pragma omp parallel shared(points)
-        {
+        // }
+    } else {
             swapPoints(&points[0],
-            &points[getIndexMinLeftDownPoint(points)]);
+                &points[getIndexMinLeftDownPoint(points, multithreading)]);
+            points = sortedByPolarAngle(points, multithreading);
 
-            points = sortedByPolarAngle(points);
             points.push_back(points[0]);
 
-            std::stack<Point> points_stack;
             points_stack.push(points[0]);
             points_stack.push(points[1]);
             points_stack.push(points[2]);
 
             for (uint32_t i = 3; i < points.size(); i++) {
-                while (angleThreePoints(
-                    nextToTopOfStack(points_stack),
-                    points_stack.top(), points[i]) <= 0) {
+                for (; angleThreePoints(
+                        nextToTopOfStack(points_stack),
+                        points_stack.top(),
+                        points[i]) <= 0
+                    ;) {
                     if (!points_stack.empty()) {
                         points_stack.pop();
                     }
                 }
                 points_stack.push(points[i]);
             }
+    }
 
-            return points_stack;
-        }
+    // for (size_t i = 0; i < points_stack.size(); i++) {
+    //     printf("%f %f \n", points_stack.top().x, points_stack.top().y);
+    //     points_stack.pop();
+    // }
+    return points_stack;
 }
