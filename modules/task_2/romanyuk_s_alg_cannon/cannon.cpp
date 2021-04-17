@@ -97,9 +97,7 @@ std::vector<double> parallelCannonMult(const std::vector<double>& A,
     if (A.size() < (unsigned int)(Size * Size)) {
         throw "Block size cannot be larger than size of original matrices";
     }
-    if (Size <= 0) {
-        throw "Block size of matrix must be > 0";
-    }
+
     int stage;
     int size = static_cast<int>(sqrt(A.size()));
     int cols = static_cast<int>(sqrt(Size));
