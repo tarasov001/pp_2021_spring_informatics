@@ -150,19 +150,19 @@ void StrassenFunc(double* a, double* b, double* c, int size) {
 
 #pragma omp parallel sections shared(a11, a12, a21, a22, b11, b12, b21, b22)
     {
-#pragma omp section        
+#pragma omp section
         {P1(a11, a22, b11, b22, prores1, size / 2); }
-#pragma omp section        
+#pragma omp section
         {P2(a21, a22, b11, prores2, size / 2); }
-#pragma omp section        
+#pragma omp section
         {P3(a11, b12, b22, prores3, size / 2); }
-#pragma omp section        
+#pragma omp section
         {P4(a22, b21, b11, prores4, size / 2); }
-#pragma omp section        
+#pragma omp section
         {P5(a11, a12, b22, prores5, size / 2); }
-#pragma omp section        
+#pragma omp section
         {P6(a21, a11, b11, b12, prores6, size / 2); }
-#pragma omp section        
+#pragma omp section
         {P7(a12, a22, b21, b22, prores7, size / 2); }
     }
     for (int i = 0; i < (size / 2) * (size / 2); i++) {
