@@ -65,16 +65,6 @@ TEST(Sparse_Matrix_CCS_1, Multiplication_2) {
   ASSERT_EQ(res, result.value);
 }
 
-TEST(Sparse_Matrix_CCS_1, CreateCCSRandom) {
-  int rows = 100;
-  int cols = 100;
-  int notZero = 2;
-  SparseMatrix matrix = getRandomSparseMatrix(rows, cols, notZero);
-  ASSERT_EQ(notZero * cols, matrix.value.size());
-  ASSERT_EQ(notZero * cols, matrix.row.size());
-  ASSERT_EQ(cols + 1, matrix.col_idx.size());
-}
-
 TEST(Sparse_Matrix_CCS_1, Multiplication_Parallel) {
   std::vector<std::complex<int>> a = {
     {0, 0}, {5, 0}, {0, 0},
