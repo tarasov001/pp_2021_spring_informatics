@@ -5,6 +5,7 @@
 #include <omp.h>
 #include <time.h>
 #include <random>
+#include <vector>
 
 std::vector<double> sorting(std::vector<double> in, std::vector<double> out, const int val);
 std::vector<double> last_sorting(std::vector<double> in);
