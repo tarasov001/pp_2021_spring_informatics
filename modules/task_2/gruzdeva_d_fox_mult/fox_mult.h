@@ -13,5 +13,5 @@ std::vector<double> directMultiplication(std::vector<double> matrixA,
 std::vector<double> sequentialFoxMultiplication(std::vector<double> matrixA,
                     std::vector<double> matrixB, int blockSize);
 std::vector<double> parallelFoxMultiplication(std::vector<double> matrixA,
-                    std::vector<double> matrixB, int blockSize);
+                    std::vector<double> matrixB, int threadCount);
 #endif  // MODULES_TASK_2_GRUZDEVA_D_FOX_MULT_FOX_MULT_H_

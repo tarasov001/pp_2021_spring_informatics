@@ -1,6 +1,6 @@
 // Copyright 2021 Gruzdeva Diana
 
-#include "../../../modules/task_1/gruzdeva_d_fox_mult/fox_mult.h"
+#include "../../../modules/task_2/gruzdeva_d_fox_mult/fox_mult.h"
 #include <omp.h>
 #include <random>
 #include <vector>
@@ -87,39 +87,45 @@ std::vector<double> sequentialFoxMultiplication(std::vector<double> matrixA,
 }
 
 std::vector<double> parallelFoxMultiplication(std::vector<double> matrixA,
-                    std::vector<double> matrixB, int blockSize) {
-  if (blockSize == 0) {
-    throw "Block size cannot be zero";
+                    std::vector<double> matrixB, int threadCount) {
+  if (threadCount == 0) {
+    throw "Number of threads cannot be zero";
   }
 
-  if (blockSize < 0) {
-    throw "Block size cannot be negative";
-  }
-
-  if (matrixA.size() < (unsigned int)(blockSize * blockSize)) {
-    throw "Block size cannot be larger than size of original matrices";
+  if (threadCount < 0) {
+    throw "Number of threads cannot be negative";
   }
 
   if (matrixA.size() != matrixB.size()) {
     throw "Matrice's sizes differ";
   }
 
-  if (static_cast<int>(sqrt(matrixA.size())) % blockSize != 0) {
-    throw "Cannot multiply matrices using this block size";
+  if (matrixA.size() %  static_cast<int>(sqrt(threadCount)) != 0) {
+    throw "Cannot distribute data between threads";
   }
 
   int size = static_cast<int>(sqrt(matrixA.size()));
+  int gridSize = static_cast<int>(sqrt(threadCount));
+  int blockSize = size / gridSize;
   std::vector<double> matrixC(size * size);
-  int blockCount = size / blockSize;
 
-  #pragma omp parallel 
+  #pragma omp parallel
   {
-    int numberOfThreads = omp_get_num_threads();
-    int blockCount = sqrt(numberOfThreads);
-    int blockSize = size / blockCount;
     int threadNumber = omp_get_thread_num();
-    int ii = threadNumber / blockCount;
-    int jj = threadNumber % blockCount;
+    int ii = threadNumber / static_cast<int>(sqrt(threadCount));
+    int jj = threadNumber %  static_cast<int>(sqrt(threadCount));
+
+    for (int step = 0; step < gridSize; step++) {
+      for (int i = ii * blockSize; i < (ii + 1) * blockSize; i++) {
+        for (int j = jj * blockSize; j < (jj + 1) * blockSize; j++) {
+          for (int k = step * blockSize; k < (step + 1) * blockSize; k++) {
+            matrixC[i * size + j] += matrixA[i * size + k] *
+            matrixB[k * size + j];
+          }
+        }
+      }
+    }
   }
+
   return matrixC;
 }
