@@ -1,7 +1,7 @@
 // Copyright 2021 Emelkhovskaya Ekaterina
 
-#ifndef MODULES_TASK_1_EMELKHOVSKAYA_E_STRASSEN_MATRIX_MULT_OMP_STRASSEN_H_
-#define MODULES_TASK_1_EMELKHOVSKAYA_E_STRASSEN_MATRIX_MULT_OMP_STRASSEN_H_
+#ifndef MODULES_TASK_2_EMELKHOVSKAYA_E_STRASSEN_MATRIX_MULT_OMP_STRASSEN_H_
+#define MODULES_TASK_2_EMELKHOVSKAYA_E_STRASSEN_MATRIX_MULT_OMP_STRASSEN_H_
 
 void StrassenFunc(double* a, double* b, double* c, int size);
 void seqMult(double* a, double* b, double* c, int size);
@@ -21,4 +21,4 @@ void P6(double* a21, double* a11,  double* b11, double* b12,
 void P7(double* a12, double* a22,  double* b21, double* b22,
     double* prores7, int size);
 
-#endif  // MODULES_TASK_1_EMELKHOVSKAYA_E_STRASSEN_MATRIX_MULT_OMP_STRASSEN_H_
+#endif  // MODULES_TASK_2_EMELKHOVSKAYA_E_STRASSEN_MATRIX_MULT_OMP_STRASSEN_H_
