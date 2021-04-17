@@ -3,8 +3,8 @@
 #define MODULES_TASK_2_LUDINA_D_SPARSE_MATRIX_COMPLEX_CCS_SPARSE_MATRIX_COMPLEX_CCS_H_
 
 #include <omp.h>
-#include <vector>
 #include <complex>
+#include <vector>
 #include <random>
 #include <ctime>
 #include <iostream>
