@@ -184,7 +184,7 @@ TEST(Shagov_Maksim_Omp, Test_8_on_8_Random_Matrix_Mult) {
 }
 
 TEST(Shagov_Maksim_Omp, Test_50_on_50_Random_Matrix_Mult) {
-    size_t size = 1000;
+    size_t size = 50;
     Matrix A = createRandomMatrix(size * size);
     Matrix B = createRandomMatrix(size * size);
     int t_count = 4;

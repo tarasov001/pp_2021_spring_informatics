@@ -22,7 +22,7 @@ TEST(Shagov_Maksim_Tbb, Test_4_on_4_Random_Matrix_Mult) {
 }
 
 TEST(Shagov_Maksim_Tbb, same_result_as_sequential) {
-    size_t size = 1000;
+    size_t size = 50;
     Matrix A = createRandomMatrix(size * size);
     Matrix B = createRandomMatrix(size * size);
     std::pair<tbb::tick_count, tbb::tick_count> time1, time2;
