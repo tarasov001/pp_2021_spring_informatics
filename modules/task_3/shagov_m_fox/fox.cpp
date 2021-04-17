@@ -85,14 +85,8 @@ Matrix sequentialBlockMatrixMultiplication(const std::vector<double>& A, const s
     return result;
 }
 
-void MatrixMult(const std::vector<double>& A, const std::vector<double>& B, std::vector<double>* result, int begin, int end) {
-    for (size_t i = begin; i < end; i++)
-        for (size_t j = begin; j < end; j++)
-            for (size_t k = begin; k < end; k++)
-                result->at(i * end  + j) += A[i * end + k] * B[k * end + j];
-}
-
-/*Matrix parallelBlockMatrixMultiplication(const std::vector<double>& A, const std::vector<double>& B, size_t Size, int threads_count) {
+Matrix parallelBlockMatrixMultiplication(const std::vector<double>& A, const std::vector<double>& B,
+                                         size_t Size, int threads_count) {
     if (Size <= 0)
         throw "Block size of matrix must be > 0";
     if ((A.size() <= 0) || (B.size() <= 0))
@@ -104,52 +98,7 @@ void MatrixMult(const std::vector<double>& A, const std::vector<double>& B, std:
     if (static_cast<size_t>(sqrt(Size)) * static_cast<size_t>(sqrt(Size)) != Size)
         throw "Size not square";
     Matrix result(Size, 0);
-    tbb::task_group group;
-    for (int i = 0; i < threads_count; i++) {
-        //group.run(MatrixMult(A, B, result, i * blocks_count, blocks_count * (i + 1)));
-        group.run([&A, &B, &result, &i, &Size, &threads_count] () -> void{
-            size_t cols = static_cast<size_t>(sqrt(Size));
-            size_t blocks_count = static_cast<size_t>(sqrt(threads_count));
-            size_t block_cols_size = cols / blocks_count;
-            size_t thread_num = i;
-            size_t i1 = thread_num / blocks_count, j1 = thread_num % blocks_count;
-            auto A1 = A.data();
-            auto B1 = B.data();
-            auto C1 = result.data();
-            for (int stage = 0; stage < blocks_count; stage++) {
-                A1 = A.data() + (i1 * cols + ((i1 + stage) % blocks_count)) * block_cols_size;
-                B1 = B.data() + (((i1 + stage) % blocks_count) * cols + j1) * block_cols_size;
-                C1 = result.data() + (i1 * cols + j1) * block_cols_size;
-                for (size_t i = 0; i < block_cols_size; i++) {
-                    for (size_t j = 0; j < block_cols_size; j++) {
-                        double tmp = 0.0;
-                        for (size_t k = 0; k < block_cols_size; k++) {
-                            tmp += *(A1 + i * cols + k) * *(B1 + k * cols + j);
-                        }
-                        *(C1 + i * cols + j) += tmp;
-                    }
-                }
-            }
-        });
-    }
-    group.wait();
-
-    return result;
-}*/
-
-Matrix parallelBlockMatrixMultiplication(const std::vector<double>& A, const std::vector<double>& B, size_t Size, int threads_count) {
-    if (Size <= 0)
-        throw "Block size of matrix must be > 0";
-    if ((A.size() <= 0) || (B.size() <= 0))
-        throw "Size of matrix must be > 0";
-    if (A.size() != B.size())
-        throw "Different size of matrix";
-    if ((A.size() != Size) || (B.size() != Size))
-        throw "Different param and size";
-    if (static_cast<size_t>(sqrt(Size)) * static_cast<size_t>(sqrt(Size)) != Size)
-        throw "Size not square";
-    Matrix result(Size, 0);
-    tbb::task_scheduler_init init(4);
+    tbb::task_scheduler_init init(threads_count);
     tbb::parallel_for(tbb::blocked_range<int>(0, threads_count, 1), [&A, &B, &result, &threads_count, &Size]
     (tbb::blocked_range<int>& r) -> void{
             size_t cols = static_cast<size_t>(sqrt(Size));
