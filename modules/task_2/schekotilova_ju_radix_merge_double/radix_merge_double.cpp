@@ -29,12 +29,13 @@ std::vector<double> sorting(std::vector<double> in, std::vector<double> out, con
 
 std::vector<double> last_sorting(std::vector<double> in) {
   std::vector<double> out = std::vector<double>(in);
-  int const val = 7, const size = in.size();
+  int const val = 7;
+  int size = in.size();
   int res = 0, counter[256];
   unsigned char* arr = (unsigned char*)in.data();
   for (int i = 0; i < 256; i++) counter[i] = 0;
 
-  for (auto i = 0; i < size; i++) counter[arr[8 * i + val]]++;
+  for (int i = 0; i < size; i++) counter[arr[8 * i + val]]++;
   for (int i = 255; i > 127; i--) {
     counter[i] += res;
     res = counter[i];
