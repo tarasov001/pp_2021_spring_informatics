@@ -1,8 +1,9 @@
 // Copyright 2021 Shagov Maksim
 #include <gtest/gtest.h>
 #include <tbb/tbb.h>
-#include "../../../modules/task_3/shagov_m_fox/fox.h"
 #include <vector>
+#include "../../../modules/task_3/shagov_m_fox/fox.h"
+
 
 TEST(Shagov_Maksim_Tbb, Test_4_on_4_Random_Matrix_Mult) {
      Matrix A = {1, 2, 3, 4,
