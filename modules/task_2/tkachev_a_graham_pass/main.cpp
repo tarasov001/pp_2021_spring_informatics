@@ -14,31 +14,29 @@
 // }
 
 TEST(test_tkachev_a_graham_pass, test_2_size_7_plus_n_minus_int) { 
-    // std::vector<Point> const points = {
-    //     {0, 2}, {1, 5}, {20, 1}, {15, 7},
-    //     {0, 0}, {0, 1}, {0, 2}, {16, 12},
-    //     {12, 16}, {15, 15}, {30, 45}, {0, 4},
-    //     {13, 14}, {15, 16}, {17, 18}
-    // };
+    std::vector<Point> const points = {
+        {2, 3}, {1, -5}, {0, 4}, {-2, 4},
+        {10, 2}, {30, -3}, {-15, 2}
+    };
 
-    std::vector<Point> const points = getRandomizedVector(-100, 100, 10000);
+    // std::vector<Point> const points = getRandomizedVector(-1, 100, 15000);
     double t1 = omp_get_wtime();
-    std::stack<Point> f = useGrahamAlgorithm(points, true);
+    std::stack<Point> f = useGrahamAlgorithm(points, false);
     double t2 = omp_get_wtime();
-    printf("Time parallel: %f\n", t2 - t1);
+    printf("Time NO parallel: %f\n", t2 - t1);
     t1 = omp_get_wtime();
-    std::stack<Point> s = useGrahamAlgorithm(points, false);
+    std::stack<Point> s = useGrahamAlgorithm(points, true);
     t2 = omp_get_wtime();
-     printf("Time NO parallel: %f\n", t2 - t1);
-    // while(!f.empty()) {
-    //     std::cout << f.top().x << "." << f.top().y << " ";
-    //     f.pop();
-    // }
-    // std::cout<<std::endl;
-    //  while(!s.empty()) {
-    //     std::cout << s.top().x << "." << s.top().y << " ";
-    //     s.pop();
-    // }
+     printf("Time  parallel: %f\n", t2 - t1);
+    while(!f.empty()) {
+        std::cout << f.top().x << "|" << f.top().y << " ";
+        f.pop();
+    }
+    std::cout<<std::endl;
+     while(!s.empty()) {
+        std::cout << s.top().x << "|" << s.top().y << " ";
+        s.pop();
+    }
 
 }
 
