@@ -2,6 +2,9 @@
 #include <omp.h>
 #include "../../../modules/task_2/raevskaya_e_mask_image_omp/mask_image.h"
 
+const int dx[4] = {-1, 0, 0, 1};
+const int dy[4] = {0, -1, 1, 0};
+
 std::vector <int> parent;
 std::vector <int> ranks;
 std::vector <char> used;
