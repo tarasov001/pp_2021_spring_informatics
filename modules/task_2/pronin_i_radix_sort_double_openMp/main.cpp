@@ -1,8 +1,8 @@
 // Copyright 2021 Pronin Igor
 #include <gtest/gtest.h>
+#include <omp.h>
 #include <algorithm>
 #include <vector>
-#include <omp.h>
 #include <time.h>
 #include "./pronin_i_radix_sort_double_openMp.h"
 
@@ -22,7 +22,7 @@ TEST(Radix_sort_double, Positive_numbers7) {
     clock_t start = clock();
     SeqSort(vec, vec1, size, threads);
     clock_t end = clock();
-    double result = (double)(end - start) / CLOCKS_PER_SEC;
+    double result = static_cast<double>(end - start) / CLOCKS_PER_SEC;
     std::cout << "SeqTime:" << result;
     double start1 = omp_get_wtime();
     ParSort(vec2, vec3, size, threads);

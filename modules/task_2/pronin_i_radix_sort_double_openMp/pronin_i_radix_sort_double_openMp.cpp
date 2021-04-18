@@ -52,8 +52,7 @@ void Merge(double* mas1, double* mas2, double* mas3, int size1, int size2) {
         if (mas1[m1] < mas2[m2]) {
             mas3[m3] = mas1[m1];
             m1++;
-        }
-        else {
+        } else {
             mas3[m3] = mas2[m2];
             m2++;
         }
