@@ -5,7 +5,7 @@
 #include <vector>
 
 class sMatrix {
-public:
+ public:
   std::vector<double> val;
  private:
   std::vector<int> c_ind, rows;
