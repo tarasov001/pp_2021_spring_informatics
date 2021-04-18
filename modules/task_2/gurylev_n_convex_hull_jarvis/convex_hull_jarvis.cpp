@@ -4,7 +4,7 @@
 #include <ctime>
 #include <utility>
 
-#include "../../../modules/task_1/gurylev_n_convex_hull_jarvis/convex_hull_jarvis.h"
+#include "../../../modules/task_2/gurylev_n_convex_hull_jarvis/convex_hull_jarvis.h"
 
 std::vector<std::pair<int, int>> getRandomPoint(int size) {
     if (size <= 0) {
