@@ -144,7 +144,3 @@ sMatrix sMatrix::pMult(const sMatrix& mat, int threads) {
   return sMatrix(result_val, result_ci, result_rows,
     static_cast<int>(result_rows.size()), size);
 }
-
-int sMatrix::getValSize() {
-  return this->val.size();
-}

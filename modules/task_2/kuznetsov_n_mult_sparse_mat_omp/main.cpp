@@ -84,7 +84,7 @@ TEST(SPARSE_MATRIX, PARALLEL_MULT_MATRIX_COMPARE_SEQ_1000_ELEM) {
   std::cout << "PAR TIME: " << time2 - time1 << std::endl;
 
   bool f = true;
-  for (size_t i = 0; i < result.getValSize(); i++) {
+  for (size_t i = 0; i < result.val.size(); i++) {
     if (fabs(result.val[i] - par_result.val[i]) >=
       std::numeric_limits<double>::epsilon()) {
       f = false;
@@ -110,7 +110,7 @@ TEST(SPARSE_MATRIX, PARALLEL_MULT_MATRIX_COMPARE_SEQ_2000_ELEM) {
   std::cout << "PAR TIME: " << time2 - time1 << std::endl;
 
   bool f = true;
-  for (size_t i = 0; i < result.getValSize(); i++) {
+  for (size_t i = 0; i < result.val.size(); i++) {
     if (fabs(result.val[i] - par_result.val[i]) >=
       std::numeric_limits<double>::epsilon()) {
       f = false;
@@ -136,7 +136,7 @@ TEST(SPARSE_MATRIX, PARALLEL_MULT_MATRIX_COMPARE_SEQ_4000_ELEM) {
   std::cout << "PAR TIME: " << time2 - time1 << std::endl;
 
   bool f = true;
-  for (size_t i = 0; i < result.getValSize(); i++) {
+  for (size_t i = 0; i < result.val.size(); i++) {
     if (fabs(result.val[i] - par_result.val[i]) >=
       std::numeric_limits<double>::epsilon()) {
       f = false;

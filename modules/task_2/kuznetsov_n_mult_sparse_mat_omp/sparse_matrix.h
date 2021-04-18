@@ -18,7 +18,6 @@ public:
   sMatrix operator*(const sMatrix& mat);
   sMatrix transpose();
   sMatrix pMult(const sMatrix& mat, int threads);
-  int getValSize();
 };
 
 #endif  // MODULES_TASK_2_KUZNETSOV_N_MULT_SPARSE_MAT_OMP_SPARSE_MATRIX_H_
