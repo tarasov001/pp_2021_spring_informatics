@@ -31,7 +31,6 @@ TEST(test_tkachev_a_graham_pass, test_m100_100_100) {
 
     std::vector<double> x_parallel(parallel.size()),
                         y_parallel(parallel.size());
-
     for (size_t i = 0; !parallel.empty() &&
                         i < x_parallel.size(); i++) {
         x_parallel[i] = parallel.top().x;
