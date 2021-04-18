@@ -1,9 +1,9 @@
 // Copyright 2021 Pronin Igor
 #include <gtest/gtest.h>
 #include <omp.h>
+#include <time.h>
 #include <algorithm>
 #include <vector>
-#include <time.h>
 #include "./pronin_i_radix_sort_double_openMp.h"
 
 TEST(Radix_sort_double, Positive_numbers7) {
