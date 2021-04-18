@@ -80,7 +80,7 @@ std::vector<Point> sortedByPolarAngle(
                                 #pragma omp ordered
                                 {
                                     swapPoints(&points[j-1], &points[j]);
-                                }           
+                                }
                             }
                         }
                     }

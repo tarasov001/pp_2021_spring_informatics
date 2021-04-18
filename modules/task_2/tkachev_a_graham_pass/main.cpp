@@ -33,7 +33,7 @@ TEST(test_tkachev_a_graham_pass, test_m100_100_100) {
                         y_parallel(parallel.size());
 
     for (size_t i = 0; !parallel.empty() &&
-                        i < x_parallel.size(); i++) {     
+                        i < x_parallel.size(); i++) {
         x_parallel[i] = parallel.top().x;
         y_parallel[i] = parallel.top().y;
         parallel.pop();
