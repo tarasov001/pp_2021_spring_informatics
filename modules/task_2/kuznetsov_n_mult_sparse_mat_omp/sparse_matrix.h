@@ -6,7 +6,7 @@
 
 class sMatrix {
  public:
-  std::vector<double> val;
+  std::vector<double> va;
  private:
   std::vector<int> c_ind, rows;
   int non_zero, size;
