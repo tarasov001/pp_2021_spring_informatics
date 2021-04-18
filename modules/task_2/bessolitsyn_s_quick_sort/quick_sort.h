@@ -2,10 +2,12 @@
 #ifndef MODULES_TASK_2_BESSOLITSYN_S_QUICK_SORT_QUICK_SORT_H_
 #define MODULES_TASK_2_BESSOLITSYN_S_QUICK_SORT_QUICK_SORT_H_
 
+#include <omp.h>
+
 #include <vector>
 #include <random>
 #include <utility>
-#include <omp.h>
+
 
 template<typename T>
 void quick_sort(T arr[], int right) {
@@ -27,7 +29,7 @@ void quick_sort(T arr[], int right) {
 template<typename T>
 void merge(T arr1[], int size1, T arr2[], int size2) {
     T* tmp_arr = new T[size1 + size2];
-    int i = 0, j = 0, k=0;
+    int i = 0, j = 0, k = 0;
     for (; i < size1 && j < size2; ++k) {
         if (arr1[i] < arr2[j])
             tmp_arr[k] = arr1[i++];
@@ -72,7 +74,6 @@ void quick_sort_OMP(T arr[], int size) {
             }
         }
     }
-
 }
 
 

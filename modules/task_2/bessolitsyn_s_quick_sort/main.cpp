@@ -18,8 +18,8 @@ TEST(Quick_Sort_OMP, Test_merge_is_working_if_sizes_are_even) {
     const int size = 1000;
     std::vector<int> vec1, vec2;
     vec1 = vec2 = getRandomVector(size, size);
-    std::sort(vec1.begin(), vec1.begin()+size/2);
-    std::sort(vec1.begin() + size / 2,vec1.end());
+    std::sort(vec1.begin(), vec1.begin() + size / 2);
+    std::sort(vec1.begin() + size / 2, vec1.end());
     std::sort(vec2.begin(), vec2.end());
     ASSERT_NO_THROW(merge(vec1.data(), size / 2, vec1.data() + size / 2, size - size / 2));
     ASSERT_EQ(vec1, vec2);
@@ -37,7 +37,7 @@ TEST(Quick_Sort_OMP, Test_merge_is_working_if_sizes_are_odd) {
 }
 
 TEST(Quick_Sort_OMP, Test_merge_is_working_with_big_sizes_difference) {
-    const int size = 1001, size2=50;
+    const int size = 1001, size2 = 50;
     std::vector<int> vec1, vec2;
     vec1 = vec2 = getRandomVector(size, size);
     std::sort(vec1.begin(), vec1.begin() + size2);
@@ -109,7 +109,7 @@ TEST(Quick_Sort_OMP, Test_DOUBLE_1007_elements_sort) {
     //ASSERT_EQ(vec1, vec2);
 }*/
 
-//TEST(Quick_Sort_OMP, Test_DOUBLE_15321007_elements_sort) {
+// TEST(Quick_Sort_OMP, Test_DOUBLE_15321007_elements_sort) {
 //    const int size = 15321007;
 //    std::vector<double> vec1, vec2;
 //    vec1 = vec2 = getRandomDoubleVector(size, size);
