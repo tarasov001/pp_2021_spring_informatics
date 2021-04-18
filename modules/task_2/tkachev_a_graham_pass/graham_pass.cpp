@@ -128,7 +128,7 @@ uint32_t getIndexMinLeftDownPoint(
         #pragma omp parallel firstprivate(points)
         {
             #pragma omp for schedule(static, chunk)
-            for (size_t i = 0; i < points.size(); i++) {
+            for (int i = 0; i < static_cast<int>(points.size()); i++) {
                 if (min_ys[omp_get_thread_num()] > points[i].y) {
                     min_ys[omp_get_thread_num()] = points[i].y;
                 }
@@ -138,7 +138,7 @@ uint32_t getIndexMinLeftDownPoint(
         #pragma omp parallel firstprivate(points)
         {
             #pragma omp for schedule(static, chunk)
-            for (size_t i = 0; i < points.size(); i++) {
+            for (int i = 0; i < static_cast<int>(points.size()); i++) {
                 if (points[i].y == min_y &&
                         min_xs[omp_get_thread_num()] > points[i].x) {
                     min_xs[omp_get_thread_num()] = points[i].x;
