@@ -19,7 +19,7 @@ std::vector<Point> getRandomizedVector(double from,
     std::uniform_real_distribution<double> real_dist(from, up_to);
     std::vector<Point> randomized_vector(count);
 
-    for (uint32_t i = 0; i < count; i++) {
+    for (size_t i = 0; i < count; i++) {
         randomized_vector[i].x = real_dist(random_generator);
         randomized_vector[i].y = real_dist(random_generator);
     }
@@ -63,9 +63,9 @@ std::vector<Point> sortedByPolarAngle(
             } else {
                 chunk = (points.size() / omp_get_num_threads()) / 10;
             }
-            for (uint64_t repeat = 2; repeat < points.size(); repeat++) {
+            for (size_t repeat = 2; repeat < points.size(); repeat++) {
                 #pragma omp for ordered schedule(static, chunk)
-                for (uint64_t j = 2; j < points.size(); j++) {
+                for (size_t j = 2; j < points.size(); j++) {
                     double current_angle = angleThreePoints(
                                 points[j-1], points[j], points[0]);
                     if (current_angle <= 0) {
@@ -88,8 +88,8 @@ std::vector<Point> sortedByPolarAngle(
             }
         }
     } else {
-        for (uint64_t i = 2; i < points.size(); i++) {
-            for (uint64_t j = 2; j < points.size(); j++) {
+        for (size_t i = 2; i < points.size(); i++) {
+            for (size_t j = 2; j < points.size(); j++) {
                 double current_angle = angleThreePoints(
                                     points[j-1], points[j], points[0]);
                 if (current_angle <= 0) {
@@ -128,7 +128,7 @@ uint32_t getIndexMinLeftDownPoint(
         #pragma omp parallel firstprivate(points)
         {
             #pragma omp for schedule(static, chunk)
-            for (uint32_t i = 0; i < points.size(); i++) {
+            for (size_t i = 0; i < points.size(); i++) {
                 if (min_ys[omp_get_thread_num()] > points[i].y) {
                     min_ys[omp_get_thread_num()] = points[i].y;
                 }
@@ -138,7 +138,7 @@ uint32_t getIndexMinLeftDownPoint(
         #pragma omp parallel firstprivate(points)
         {
             #pragma omp for schedule(static, chunk)
-            for (uint32_t i = 0; i < points.size(); i++) {
+            for (size_t i = 0; i < points.size(); i++) {
                 if (points[i].y == min_y &&
                         min_xs[omp_get_thread_num()] > points[i].x) {
                     min_xs[omp_get_thread_num()] = points[i].x;
@@ -147,12 +147,12 @@ uint32_t getIndexMinLeftDownPoint(
         }
         min_x = *std::min_element(min_xs.begin(), min_xs.end());
     } else {
-        for (uint32_t i = 0; i < points.size(); i++) {
+        for (size_t i = 0; i < points.size(); i++) {
             if (points[i].y < min_y) {
                 min_y = points[i].y;
             }
         }
-        for (uint32_t i = 0; i < points.size(); i++) {
+        for (size_t i = 0; i < points.size(); i++) {
             if (points[i].y == min_y) {
                 if (points[i].x < min_x) {
                     min_x = points[i].x;
@@ -160,7 +160,7 @@ uint32_t getIndexMinLeftDownPoint(
             }
         }
     }
-    for (uint64_t i = 0; i < points.size(); i++) {
+    for (size_t i = 0; i < points.size(); i++) {
         if (points[i].x == min_x && points[i].y == min_y) {
             return i;
         }
@@ -173,7 +173,7 @@ std::stack<Point> useGrahamAlgorithm(
     assert(!points.empty());
     std::stack<Point> points_stack;
     if (points.size() <= 3) {
-        for (uint32_t i = 0; i < points.size(); i++) {
+        for (size_t i = 0; i < points.size(); i++) {
             points_stack.push(points[i]);
         }
         points_stack.push(points[0]);
@@ -190,7 +190,7 @@ std::stack<Point> useGrahamAlgorithm(
     points_stack.push(points[1]);
     points_stack.push(points[2]);
 
-    for (uint32_t i = 3; i < points.size(); i++) {
+    for (size_t i = 3; i < points.size(); i++) {
         while (
             angleThreePoints(
                 nextToTopOfStack(points_stack),
