@@ -83,7 +83,7 @@ std::vector < std::pair<int, int>> JarvisAlg(const std::vector<std::pair<int,
 
 std::vector < std::pair<int, int>> JarvisAlgOmp(const std::vector<std::pair<int,
     int>>&points) {
-    size_t count_points = points.size();
+    int count_points = static_cast<int>(points.size());
     if (count_points == 0)
         throw("Error");
     std::pair<int, int> base = points[0];
