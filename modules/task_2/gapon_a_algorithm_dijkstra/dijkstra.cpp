@@ -1,5 +1,6 @@
 // Copyright 2021 Gapon Andrey
 
+#include "../../../modules/task_2/gapon_a_algorithm_dijkstra/dijkstra.h"
 #include <omp.h>
 #include <vector>
 #include <limits>
@@ -95,7 +96,8 @@ std::vector<int> dijkstra(const std::vector<int>& graph, int start, int end) {
     return path;
 }
 
-std::vector<int> dijkstraParallel(const std::vector<int>& graph, int start, int end) {
+std::vector<int> dijkstraParallel(const std::vector<int>& graph,
+    int start, int end) {
     if (graph.size() == 0) {
         throw "Empty graph";
     }
@@ -186,6 +188,5 @@ std::vector<int> dijkstraParallel(const std::vector<int>& graph, int start, int 
             }
         }
     }
-
     return path;
 }
