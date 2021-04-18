@@ -1,216 +1,314 @@
 // Copyright 2021 Tkachev Alexey
 
 #include <gtest/gtest.h>
-#include <iostream>
 #include <cstdint>
-#include <omp.h>
 
 #include "../../../modules/task_2/tkachev_a_graham_pass/graham_pass.h"
 
-// TEST(test_tkachev_a_graham_pass, test_1_big_size_1000) {
-//     std::vector<Point> const points =
-//         getRandomizedVector(-200.0, 200.0, 1000);
-//     EXPECT_NO_THROW(useGrahamAlgorithm(points));
-// }
+TEST(test_tkachev_a_graham_pass, test_m100_100_100) {
+    const uint64_t SIZE = 100;
+    const int FROM = -100;
+    const int TO = 100;
 
-TEST(test_tkachev_a_graham_pass, test_2_size_7_plus_n_minus_int) { 
-    std::vector<Point> const points = {
-        {2, 3}, {1, -5}, {0, 4}, {-2, 4},
-        {10, 2}, {30, -3}, {-15, 2}
-    };
+    std::vector<Point> const points =
+            getRandomizedVector(FROM, TO, SIZE);
 
-    // std::vector<Point> const points = getRandomizedVector(-1, 100, 15000);
-    double t1 = omp_get_wtime();
-    std::stack<Point> f = useGrahamAlgorithm(points, false);
-    double t2 = omp_get_wtime();
-    printf("Time NO parallel: %f\n", t2 - t1);
-    t1 = omp_get_wtime();
-    std::stack<Point> s = useGrahamAlgorithm(points, true);
-    t2 = omp_get_wtime();
-     printf("Time  parallel: %f\n", t2 - t1);
-    while(!f.empty()) {
-        std::cout << f.top().x << "|" << f.top().y << " ";
-        f.pop();
-    }
-    std::cout<<std::endl;
-     while(!s.empty()) {
-        std::cout << s.top().x << "|" << s.top().y << " ";
-        s.pop();
+    std::stack<Point> not_parallel =
+            useGrahamAlgorithm(points, false);
+
+    std::stack<Point> parallel =
+            useGrahamAlgorithm(points, true);
+
+    std::vector<double> x_no_parallel(not_parallel.size()),
+                        y_no_parallel(not_parallel.size());
+
+    for (size_t i = 0; !not_parallel.empty() &&
+                        i < x_no_parallel.size(); i++) {
+        x_no_parallel[i] = not_parallel.top().x;
+        y_no_parallel[i] = not_parallel.top().y;
+        not_parallel.pop();
     }
 
+    std::vector<double> x_parallel(parallel.size()),
+                        y_parallel(parallel.size());
+
+    for (size_t i = 0; !parallel.empty() &&
+                        i < x_parallel.size(); i++) {     
+        x_parallel[i] = parallel.top().x;
+        y_parallel[i] = parallel.top().y;
+        parallel.pop();
+    }
+
+    ASSERT_EQ(x_parallel, x_no_parallel);
+    ASSERT_EQ(y_parallel, y_no_parallel);
 }
 
-// TEST(test_tkachev_a_graham_pass, test_3_size_15_plus_only_int) {
-//     std::vector<Point> const points = {
-//         {0, 2}, {1, 5}, {20, 1}, {15, 7},
-//         {0, 0}, {0, 1}, {0, 2}, {16, 12},
-//         {12, 16}, {15, 15}, {30, 45}, {0, 4},
-//         {13, 14}, {15, 16}, {17, 18}
-//     };
-//     std::stack<Point> graham = useGrahamAlgorithm(points);
-//     std::vector<double> graham_x(graham.size(), 0.0);
-//     std::vector<double> graham_y(graham.size(), 0.0);
+TEST(test_tkachev_a_graham_pass, test_m1000_1000_1000) {
+    const uint64_t SIZE = 1000;
+    const int FROM = -1000;
+    const int TO = 1000;
 
-//     for (uint32_t i = 0; i < graham_x.size(); i++) {
-//         graham_x[i] = graham.top().x;
-//         graham_y[i] = graham.top().y;
-//         graham.pop();
-//     }
+    std::vector<Point> const points =
+            getRandomizedVector(FROM, TO, SIZE);
 
-//     std::vector<double> true_solution_x =
-//     {0, 0, 30, 20, 0};
+    std::stack<Point> not_parallel =
+            useGrahamAlgorithm(points, false);
 
-//     std::vector<double> true_solution_y =
-//     {0, 4, 45, 1, 0};
+    std::stack<Point> parallel =
+            useGrahamAlgorithm(points, true);
 
-//     ASSERT_EQ(graham_x, true_solution_x);
-//     ASSERT_EQ(graham_y, true_solution_y);
-// }
+    std::vector<double> x_no_parallel(not_parallel.size()),
+                        y_no_parallel(not_parallel.size());
 
-// TEST(test_tkachev_a_graham_pass, test_4_size_8_minus_only_double) {
-//     std::vector<Point> const points = {
-//         {-5.2, -1.1}, {-3.5, -5.9}, {-10.0, -30.5}, {-0.1, -0.9},
-//         {-10.5, -12.3}, {-6.3, -10.2}, {-15.4, -2.2}, {-28.8, -28.8}
-//     };
-//     std::stack<Point> graham = useGrahamAlgorithm(points);
-//     std::vector<double> graham_x(graham.size(), 0.0);
-//     std::vector<double> graham_y(graham.size(), 0.0);
+    for (size_t i = 0; !not_parallel.empty() &&
+                        i < x_no_parallel.size(); i++) {
+        x_no_parallel[i] = not_parallel.top().x;
+        y_no_parallel[i] = not_parallel.top().y;
+        not_parallel.pop();
+    }
 
-//     for (uint32_t i = 0; i < graham_x.size(); i++) {
-//         graham_x[i] = graham.top().x;
-//         graham_y[i] = graham.top().y;
-//         graham.pop();
-//     }
+    std::vector<double> x_parallel(parallel.size()),
+                        y_parallel(parallel.size());
 
-//     std::vector<double> true_solution_x =
-//     {-10, -28.8, -15.4, -5.2, -0.1, -10};
+    for (size_t i = 0; !parallel.empty() &&
+                        i < x_parallel.size(); i++) {
+        x_parallel[i] = parallel.top().x;
+        y_parallel[i] = parallel.top().y;
+        parallel.pop();
+    }
 
-//     std::vector<double> true_solution_y =
-//     {-30.5, -28.8, -2.2, -1.1, -0.9, -30.5};
+    ASSERT_EQ(x_parallel, x_no_parallel);
+    ASSERT_EQ(y_parallel, y_no_parallel);
+}
 
-//     ASSERT_EQ(graham_x, true_solution_x);
-//     ASSERT_EQ(graham_y, true_solution_y);
-// }
+TEST(test_tkachev_a_graham_pass, test_m1_1_1000) {
+    const uint64_t SIZE = 1000;
+    const int FROM = -1;
+    const int TO = 1;
 
-// TEST(test_tkachev_a_graham_pass, test_5_size_3_plus_minus) {
-//     std::vector<Point> const points = {
-//         {0.5, 5.5}, {-10.2, -5.3}, {0.0, 0.0}
-//     };
-//     std::stack<Point> graham = useGrahamAlgorithm(points);
-//     std::vector<double> graham_x(graham.size(), 0.0);
-//     std::vector<double> graham_y(graham.size(), 0.0);
+    std::vector<Point> const points =
+            getRandomizedVector(FROM, TO, SIZE);
 
-//     for (uint32_t i = 0; i < graham_x.size(); i++) {
-//         graham_x[i] = graham.top().x;
-//         graham_y[i] = graham.top().y;
-//         graham.pop();
-//     }
+    std::stack<Point> not_parallel =
+            useGrahamAlgorithm(points, false);
 
-//     std::vector<double> true_solution_x =
-//     {0.5, 0, -10.2, 0.5};
+    std::stack<Point> parallel =
+            useGrahamAlgorithm(points, true);
 
-//     std::vector<double> true_solution_y =
-//     {5.5, 0, -5.3, 5.5};
+    std::vector<double> x_no_parallel(not_parallel.size()),
+                        y_no_parallel(not_parallel.size());
 
-//     ASSERT_EQ(graham_x, true_solution_x);
-//     ASSERT_EQ(graham_y, true_solution_y);
-// }
+    for (size_t i = 0; !not_parallel.empty() &&
+                        i < x_no_parallel.size(); i++) {
+        x_no_parallel[i] = not_parallel.top().x;
+        y_no_parallel[i] = not_parallel.top().y;
+        not_parallel.pop();
+    }
 
-// TEST(test_tkachev_a_graham_pass, test_6_size_3_plus_only) {
-//     std::vector<Point> const points = {
-//         {10.3, 20.5}, {30.1, 40.8}, {20.3, 50.4}
-//     };
-//     std::stack<Point> graham = useGrahamAlgorithm(points);
-//     std::vector<double> graham_x(graham.size(), 0.0);
-//     std::vector<double> graham_y(graham.size(), 0.0);
+    std::vector<double> x_parallel(parallel.size()),
+                        y_parallel(parallel.size());
 
-//     for (uint32_t i = 0; i < graham_x.size(); i++) {
-//         graham_x[i] = graham.top().x;
-//         graham_y[i] = graham.top().y;
-//         graham.pop();
-//     }
+    for (size_t i = 0; !parallel.empty() &&
+                        i < x_parallel.size(); i++) {
+        x_parallel[i] = parallel.top().x;
+        y_parallel[i] = parallel.top().y;
+        parallel.pop();
+    }
 
-//     std::vector<double> true_solution_x =
-//     {10.3, 20.3, 30.1, 10.3};
+    ASSERT_EQ(x_parallel, x_no_parallel);
+    ASSERT_EQ(y_parallel, y_no_parallel);
+}
 
-//     std::vector<double> true_solution_y =
-//     {20.5, 50.4, 40.8, 20.5};
+TEST(test_tkachev_a_graham_pass, test_0_1000_1000) {
+    const uint64_t SIZE = 1000;
+    const int FROM = 0;
+    const int TO = 1000;
 
-//     ASSERT_EQ(graham_x, true_solution_x);
-//     ASSERT_EQ(graham_y, true_solution_y);
-// }
+    std::vector<Point> const points =
+            getRandomizedVector(FROM, TO, SIZE);
 
-// TEST(test_tkachev_a_graham_pass, test_7_size_3_minus_only) {
-//     std::vector<Point> const points = {
-//         {-10.3, -1.2}, {-30.2, -12.3}, {-3.1, -5.4}
-//     };
-//     std::stack<Point> graham = useGrahamAlgorithm(points);
-//     std::vector<double> graham_x(graham.size(), 0.0);
-//     std::vector<double> graham_y(graham.size(), 0.0);
+    std::stack<Point> not_parallel =
+            useGrahamAlgorithm(points, false);
 
-//     for (uint32_t i = 0; i < graham_x.size(); i++) {
-//         graham_x[i] = graham.top().x;
-//         graham_y[i] = graham.top().y;
-//         graham.pop();
-//     }
+    std::stack<Point> parallel =
+            useGrahamAlgorithm(points, true);
 
-//     std::vector<double> true_solution_x =
-//     {-10.3, -3.1, -30.2, -10.3};
+    std::vector<double> x_no_parallel(not_parallel.size()),
+                        y_no_parallel(not_parallel.size());
 
-//     std::vector<double> true_solution_y =
-//     {-1.2, -5.4, -12.3, -1.2};
+    for (size_t i = 0; !not_parallel.empty() &&
+                        i < x_no_parallel.size(); i++) {
+        x_no_parallel[i] = not_parallel.top().x;
+        y_no_parallel[i] = not_parallel.top().y;
+        not_parallel.pop();
+    }
 
-//     ASSERT_EQ(graham_x, true_solution_x);
-//     ASSERT_EQ(graham_y, true_solution_y);
-// }
+    std::vector<double> x_parallel(parallel.size()),
+                        y_parallel(parallel.size());
 
-// TEST(test_tkachev_a_graham_pass, test_8_size_2) {
-//     std::vector<Point> const points = {
-//         {-1.5, 1.5}, {2.5, -2.5}
-//     };
-//     std::stack<Point> graham = useGrahamAlgorithm(points);
-//     std::vector<double> graham_x(graham.size(), 0.0);
-//     std::vector<double> graham_y(graham.size(), 0.0);
+    for (size_t i = 0; !parallel.empty() &&
+                    i < x_parallel.size(); i++) {
+        x_parallel[i] = parallel.top().x;
+        y_parallel[i] = parallel.top().y;
+        parallel.pop();
+    }
 
-//     for (uint32_t i = 0; i < graham_x.size(); i++) {
-//         graham_x[i] = graham.top().x;
-//         graham_y[i] = graham.top().y;
-//         graham.pop();
-//     }
+    ASSERT_EQ(x_parallel, x_no_parallel);
+    ASSERT_EQ(y_parallel, y_no_parallel);
+}
 
-//     std::vector<double> true_solution_x =
-//     {2.5, -1.5};
+TEST(test_tkachev_a_graham_pass, test_0_1_100) {
+    const uint64_t SIZE = 100;
+    const int FROM = 0;
+    const int TO = 1;
 
-//     std::vector<double> true_solution_y =
-//     {-2.5, 1.5};
+    std::vector<Point> const points =
+            getRandomizedVector(FROM, TO, SIZE);
 
-//     ASSERT_EQ(graham_x, true_solution_x);
-//     ASSERT_EQ(graham_y, true_solution_y);
-// }
+    std::stack<Point> not_parallel =
+            useGrahamAlgorithm(points, false);
 
-// TEST(test_tkachev_a_graham_pass, test_9_size_1) {
-//     std::vector<Point> const points = {
-//         {-1.5, 1.5}
-//     };
-//     std::stack<Point> graham = useGrahamAlgorithm(points);
-//     std::vector<double> graham_x(graham.size(), 0.0);
-//     std::vector<double> graham_y(graham.size(), 0.0);
+    std::stack<Point> parallel =
+            useGrahamAlgorithm(points, true);
 
-//     for (uint32_t i = 0; i < graham_x.size(); i++) {
-//         graham_x[i] = graham.top().x;
-//         graham_y[i] = graham.top().y;
-//         graham.pop();
-//     }
+    std::vector<double> x_no_parallel(not_parallel.size()),
+                        y_no_parallel(not_parallel.size());
 
-//     std::vector<double> true_solution_x =
-//     {-1.5};
+    for (size_t i = 0; !not_parallel.empty() &&
+                        i < x_no_parallel.size(); i++) {
+        x_no_parallel[i] = not_parallel.top().x;
+        y_no_parallel[i] = not_parallel.top().y;
+        not_parallel.pop();
+    }
 
-//     std::vector<double> true_solution_y =
-//     {1.5};
+    std::vector<double> x_parallel(parallel.size()),
+                        y_parallel(parallel.size());
 
-//     ASSERT_EQ(graham_x, true_solution_x);
-//     ASSERT_EQ(graham_y, true_solution_y);
-// }
+    for (size_t i = 0; !parallel.empty() &&
+                        i < x_parallel.size(); i++) {
+        x_parallel[i] = parallel.top().x;
+        y_parallel[i] = parallel.top().y;
+        parallel.pop();
+    }
+
+    ASSERT_EQ(x_parallel, x_no_parallel);
+    ASSERT_EQ(y_parallel, y_no_parallel);
+}
+
+TEST(test_tkachev_a_graham_pass, test_size_3) {
+    const uint64_t SIZE = 3;
+    const int FROM = -50;
+    const int TO = 50;
+
+    std::vector<Point> const points =
+            getRandomizedVector(FROM, TO, SIZE);
+
+    std::stack<Point> not_parallel =
+            useGrahamAlgorithm(points, false);
+
+    std::stack<Point> parallel =
+            useGrahamAlgorithm(points, true);
+
+    std::vector<double> x_no_parallel(not_parallel.size()),
+                        y_no_parallel(not_parallel.size());
+
+    for (size_t i = 0; !not_parallel.empty() &&
+                        i < x_no_parallel.size(); i++) {
+        x_no_parallel[i] = not_parallel.top().x;
+        y_no_parallel[i] = not_parallel.top().y;
+        not_parallel.pop();
+    }
+
+    std::vector<double> x_parallel(parallel.size()),
+                        y_parallel(parallel.size());
+
+    for (size_t i = 0; !parallel.empty() &&
+                        i < x_parallel.size(); i++) {
+        x_parallel[i] = parallel.top().x;
+        y_parallel[i] = parallel.top().y;
+        parallel.pop();
+    }
+
+    ASSERT_EQ(x_parallel, x_no_parallel);
+    ASSERT_EQ(y_parallel, y_no_parallel);
+}
+
+TEST(test_tkachev_a_graham_pass, test_size_2) {
+    const uint64_t SIZE = 2;
+    const int FROM = -25;
+    const int TO = 75;
+
+    std::vector<Point> const points =
+            getRandomizedVector(FROM, TO, SIZE);
+
+    std::stack<Point> not_parallel =
+            useGrahamAlgorithm(points, false);
+
+    std::stack<Point> parallel =
+            useGrahamAlgorithm(points, true);
+
+    std::vector<double> x_no_parallel(not_parallel.size()),
+                        y_no_parallel(not_parallel.size());
+
+    for (size_t i = 0; !not_parallel.empty() &&
+                        i < x_no_parallel.size(); i++) {
+        x_no_parallel[i] = not_parallel.top().x;
+        y_no_parallel[i] = not_parallel.top().y;
+        not_parallel.pop();
+    }
+
+    std::vector<double> x_parallel(parallel.size()),
+                        y_parallel(parallel.size());
+
+    for (size_t i = 0; !parallel.empty() &&
+                        i < x_parallel.size(); i++) {
+        x_parallel[i] = parallel.top().x;
+        y_parallel[i] = parallel.top().y;
+        parallel.pop();
+    }
+
+    ASSERT_EQ(x_parallel, x_no_parallel);
+    ASSERT_EQ(y_parallel, y_no_parallel);
+}
+
+TEST(test_tkachev_a_graham_pass, test_size_1) {
+    const uint64_t SIZE = 1;
+    const int FROM = -10;
+    const int TO = 5;
+
+    std::vector<Point> const points =
+            getRandomizedVector(FROM, TO, SIZE);
+
+    std::stack<Point> not_parallel =
+            useGrahamAlgorithm(points, false);
+
+    std::stack<Point> parallel =
+            useGrahamAlgorithm(points, true);
+
+    std::vector<double> x_no_parallel(not_parallel.size()),
+                        y_no_parallel(not_parallel.size());
+
+    for (size_t i = 0; !not_parallel.empty() &&
+                        i < x_no_parallel.size(); i++) {
+        x_no_parallel[i] = not_parallel.top().x;
+        y_no_parallel[i] = not_parallel.top().y;
+        not_parallel.pop();
+    }
+
+    std::vector<double> x_parallel(parallel.size()),
+                        y_parallel(parallel.size());
+
+    for (size_t i = 0; !parallel.empty() &&
+                        i < x_parallel.size(); i++) {
+        x_parallel[i] = parallel.top().x;
+        y_parallel[i] = parallel.top().y;
+        parallel.pop();
+    }
+
+    ASSERT_EQ(x_parallel, x_no_parallel);
+    ASSERT_EQ(y_parallel, y_no_parallel);
+}
+
 
 
 int main(int argc, char **argv) {
