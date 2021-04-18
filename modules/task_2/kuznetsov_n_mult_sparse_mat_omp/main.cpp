@@ -146,3 +146,8 @@ TEST(SPARSE_MATRIX, PARALLEL_MULT_MATRIX_COMPARE_SEQ_4000_ELEM) {
 
   ASSERT_TRUE(f);
 }
+
+int main(int argc, char** argv) {
+  ::testing::InitGoogleTest(&argc, argv);
+  return RUN_ALL_TESTS();
+}
