@@ -65,7 +65,7 @@ std::vector<Point> sortedByPolarAngle(
             }
             for (size_t repeat = 2; repeat < points.size(); repeat++) {
                 #pragma omp for ordered schedule(static, chunk)
-                for (size_t j = 2; j < points.size(); j++) {
+                for (int j = 2; j < static_cast<int>(points.size()); j++) {
                     double current_angle = angleThreePoints(
                                 points[j-1], points[j], points[0]);
                     if (current_angle <= 0) {
