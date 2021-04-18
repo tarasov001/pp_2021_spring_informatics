@@ -40,8 +40,6 @@ TEST(ConvexHull, DISABLED_test2) {
 }
 
 TEST(ConvexHull, test3) {
-    double t1, t2;
-    double seqTime, ompTime;
     std::vector<std::pair<int, int>> points = { std::pair<int, int>(0, 0),
         std::pair<int, int>(3, 3), std::pair<int, int>(6, 6),
         std::pair<int, int>(7, 7), std::pair<int, int>(9, 9) };
@@ -51,8 +49,6 @@ TEST(ConvexHull, test3) {
 }
 
 TEST(ConvexHull, test4) {
-    double t1, t2;
-    double seqTime, ompTime;
     std::vector<std::pair<int, int>> points = { std::pair<int, int>(0, 0),
         std::pair<int, int>(34, 26), std::pair<int, int>(21, 39),
         std::pair<int, int>(0, 50), std::pair<int, int>(4, 15),
