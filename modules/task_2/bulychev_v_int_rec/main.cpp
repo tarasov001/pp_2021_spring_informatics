@@ -23,12 +23,12 @@ TEST(Integrate_rectangle, DISABLED_Test_int_rec_1) {
     b[1] = 53;
 
     double t1 = omp_get_wtime();
-    double ans1 = Calculation_Seq(a, b, 5000, f1);
+    double ans1 = Calculation_Seq(a, b, 1000, f1);
     double t2 = omp_get_wtime();
     std::cout << "1: " << ans1 << std::endl;
     std::cout << "Seq: " << t2 - t1 << std::endl;
     t1 = omp_get_wtime();
-    double ans2 = Calculation_Omp(a, b, 5000, f1);
+    double ans2 = Calculation_Omp(a, b, 1000, f1);
     t2 = omp_get_wtime();
     std::cout << "2: " << ans2 << std::endl;
     std::cout << "Omp: " << t2 - t1 << std::endl;
