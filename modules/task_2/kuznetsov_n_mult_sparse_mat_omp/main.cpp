@@ -1,7 +1,7 @@
 // Copyright 2021 Kuznetsov Nikita
 #include <gtest/gtest.h>
 #include <omp.h>
-#include <limits>
+#include <cmath>
 #include <vector>
 #include "../../../modules/task_2/kuznetsov_n_mult_sparse_mat_omp/sparse_matrix.h"
 
