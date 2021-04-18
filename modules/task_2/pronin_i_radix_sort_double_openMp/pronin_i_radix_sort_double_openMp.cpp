@@ -80,7 +80,6 @@ void SeqSort(double* inp, double* out, int size, int threads) {
     offset[0] = 0;
     for (int i = 1; i < threads; i++)
         offset[i] = offset[i - 1] + len[i - 1];
-    double* part = new double[size];
     for (int i = 0; i < threads; i++)
         SortAll(inp + offset[i], out, len[i]);
     int povtor = threads / 2 + threads % 2;
