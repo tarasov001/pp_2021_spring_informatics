@@ -3,7 +3,7 @@
 #include <random>
 #include <ctime>
 
-#include "../../../modules/task_1/streltsova_y_Shell_sort/Shell_sort.h"
+#include "../../../modules/task_2/streltsova_y_Shell_sort/Shell_sort.h"
 
 std::vector<int> getRandomVectorInt(int size) {
     std::mt19937 gen(time(0));
