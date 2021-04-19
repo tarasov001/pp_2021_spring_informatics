@@ -127,7 +127,7 @@ std::vector<int> ShellSort(const std::vector<int>& a) {
     std::vector<int> res(a);
     int size = static_cast<int>(res.size());
     int k, incr, tmp;
-    int swp = 0, comp = 0; 
+    int swp = 0, comp = 0;
     incr = size / 2;
     while (incr > 0) {
         for (int i = 0; i < incr; i++) {

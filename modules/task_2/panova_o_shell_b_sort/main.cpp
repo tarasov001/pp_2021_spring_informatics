@@ -5,11 +5,11 @@
 TEST(Odd_Even_Shell, Division_Is_Correct) {
     std::vector<int> a = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16};
     std::vector<std::vector<int>> div_a = Division(a, 4);
-    std::vector<std::vector<int>> b = { 
-        {1, 2, 3, 4}, 
-        {5, 6, 7, 8}, 
-        {9, 10, 11, 12}, 
-        {13, 14, 15, 16} 
+    std::vector<std::vector<int>> b = {
+        {1, 2, 3, 4},
+        {5, 6, 7, 8},
+        {9, 10, 11, 12},
+        {13, 14, 15, 16}
     };
     ASSERT_EQ(div_a, b);
 }
