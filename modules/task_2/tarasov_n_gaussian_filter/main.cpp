@@ -58,9 +58,8 @@ TEST(Gaussian_filter, Test7) {
         169.148, 171.763, 146.557, 114.634, 107.1,
         158.767, 170.485, 156.534, 120.616, 98.702
     };
-    img = gaussian_filter(img, 5, 5, 1.0);
 
-    print_img(img, 5, 5);
+    img = gaussian_filter_omp(img, 5, 5, 1.0);
 
     for (int i = 0; i < 25; i++) {
         ASSERT_DOUBLE_EQ(img[i], expectation[i]);

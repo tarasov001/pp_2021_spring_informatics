@@ -1,6 +1,7 @@
 // Copyright 2021 Tarasov Nikita
 #ifndef MODULES_TASK_2_TARASOV_N_GAUSSIAN_FILTER_GAUSSIAN_FILTER_H_
 #define MODULES_TASK_2_TARASOV_N_GAUSSIAN_FILTER_GAUSSIAN_FILTER_H_
+#include <omp.h>
 #include <iostream>
 #include <ctime>
 #include <random>
