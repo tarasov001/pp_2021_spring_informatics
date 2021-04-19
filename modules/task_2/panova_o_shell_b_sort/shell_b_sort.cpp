@@ -57,7 +57,6 @@ std::vector<int> OddMerge(const std::vector<int>& left, const std::vector<int>& 
     std::vector<int> res;
     int left_size = static_cast<int>(left.size());
     int right_size = static_cast<int>(right.size());
-    int tmp = 0;
     int left_iter = 1, right_iter = 1;
     res.reserve(left_size / 2 + right_size / 2);
     while ((left_iter < left_size) && (right_iter < right_size)) {
@@ -78,7 +77,6 @@ std::vector<int> OddMerge(const std::vector<int>& left, const std::vector<int>& 
             res.push_back(right[i]);
         }
     }
-
     return res;
 }
 std::vector<int> BatcherMerge(const std::vector<int>& left, const std::vector<int>& right) {
