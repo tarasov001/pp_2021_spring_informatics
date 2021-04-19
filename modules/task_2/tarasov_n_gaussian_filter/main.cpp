@@ -71,7 +71,7 @@ TEST(Gaussian_filter, Test6) {
     double sigma = 1.0;
     double t1, t2;
     double seq_time, omp_time;
-    
+
     int width = 10000;
     int height = 10000;
 
@@ -79,12 +79,12 @@ TEST(Gaussian_filter, Test6) {
     t1 = omp_get_wtime();
     std::vector<double> seq_result = gaussian_filter(random_matrix, width, height, sigma);
     t2 = omp_get_wtime();
-    cout << "Sequential time: " << t2 - t1 << std::endl;
+    std::cout << "Sequential time: " << t2 - t1 << std::endl;
 
     t1 = omp_get_wtime();
     std::vector<double> omp_result = gaussian_filter_omp(random_matrix, width, height, sigma);
     t2 = omp_get_wtime();
-    cout << "OpenMP time: " << t2 - t1 << std::endl;
+    std::cout << "OpenMP time: " << t2 - t1 << std::endl;
 
     ASSERT_EQ(seq_result, omp_result);
 }
