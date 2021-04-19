@@ -20,3 +20,4 @@ Matrix sequentialBlockMatrixMultiplication(const std::vector<double>& A, const s
 Matrix parallelBlockMatrixMultiplication(const std::vector<double>& A, const std::vector<double>& B,
                                          size_t Size, int threads_count);
 #endif  // MODULES_TASK_3_SHAGOV_M_FOX_FOX_H_
+
