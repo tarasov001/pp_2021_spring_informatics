@@ -4,6 +4,7 @@
 
 #include <omp.h>
 
+#include <utility>
 #include <vector>
 
 std::vector<int> getRandomVectorInt(int  sz);
@@ -11,7 +12,7 @@ std::vector<int> getRandomVectorInt(int  sz);
 std::vector<double> getRandomVectorDouble(int  sz);
 
 template< typename T >
-void shell_sort_sequential(std::vector<T>& vec) {
+void shell_sort_sequential(std::vector<T>* vec) {
     int d = 4;
     while (d > 0) {
         for (int i = 0; i < vec.size(); i++) {
@@ -25,7 +26,7 @@ void shell_sort_sequential(std::vector<T>& vec) {
 }
 
 template< typename T >
-void shell_sort_parallel(std::vector<T>& vec) {
+void shell_sort_parallel(std::vector<T>* vec) {
     if (vec.size() < 1000)
         return shell_sort_sequential(vec);
     int d = 4;
