@@ -1,6 +1,6 @@
 // Copyright 2021 Gogov Vladislav
 #include <gtest/gtest.h>
-//#include <omp.h>
+// #include <omp.h>
 
 #include "./jarivs_algorithm.h"
 
