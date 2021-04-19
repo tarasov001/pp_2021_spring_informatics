@@ -1,5 +1,5 @@
 // Copyright 2021 Kumbrasev Mark
-#include "../../../modules/task_2/kumbrasev_m_conjugate_gradient/conjugate_gradient.h"
+#include "../../../modules/task_2/kumbrasev_m_conjugate_gradient_omp/conjugate_gradient.h"
 
 const double nzero = 1.0e-10;
 
