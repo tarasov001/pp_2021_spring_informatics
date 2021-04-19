@@ -1,10 +1,9 @@
 // Copyright 2021 Gogov Vladislav
-#include "../../../modules/task_4/gogov_v_jarvis_algorithm/jarivs_algorithm.h"
 
-#include <random>
-#include <iostream>
 #include <functional>
+#include <random>
 
+#include "../../../modules/task_4/gogov_v_jarvis_algorithm/jarivs_algorithm.h"
 #include "../../../3rdparty/unapproved/unapproved.h"
 
 int rotate(const Point& A, const Point& B, const Point& C) {
@@ -120,7 +119,7 @@ std::vector<Point> jarvisAlgorithmStd(const std::vector<Point>& points) {
         if (local_base < base)
             base = local_base;
     }
-    
+
     std::vector<Point> convex_hull;
     convex_hull.push_back(base);
     Point current = base;

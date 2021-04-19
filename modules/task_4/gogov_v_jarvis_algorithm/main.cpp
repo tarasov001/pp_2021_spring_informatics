@@ -1,5 +1,7 @@
 // Copyright 2021 Gogov Vladislav
 #include <gtest/gtest.h>
+//#include <omp.h>
+
 #include "./jarivs_algorithm.h"
 
 TEST(Std_Threads_Jarvis_Algorithm, Jarvis_Algorithm_Cannot_Apply_Without_Points) {

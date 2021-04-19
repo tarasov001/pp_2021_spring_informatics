@@ -1,9 +1,6 @@
 // Copyright 2021 Gogov Vladislav
 #ifndef MODULES_TASK_4_GOGOV_V_JARVIS_ALGORITHM_JARIVS_ALGORITHM_H_
 #define MODULES_TASK_4_GOGOV_V_JARVIS_ALGORITHM_JARIVS_ALGORITHM_H_
-#include <omp.h>
-#include <thread>
-#include <ostream>
 #include <vector>
 #include <utility>
 
