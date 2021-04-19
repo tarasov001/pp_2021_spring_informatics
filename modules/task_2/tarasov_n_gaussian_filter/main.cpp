@@ -69,7 +69,6 @@ TEST(Gaussian_filter, Test7) {
 TEST(Gaussian_filter, Test8) {
     double sigma = 1.0;
     double t1, t2;
-    double seq_time, omp_time;
 
     int width = 10000;
     int height = 10000;
