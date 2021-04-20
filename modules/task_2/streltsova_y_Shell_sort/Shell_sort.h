@@ -12,37 +12,41 @@ std::vector<int> getRandomVectorInt(int  sz);
 std::vector<double> getRandomVectorDouble(int  sz);
 
 template< typename T >
-void shell_sort_sequential(std::vector<T>* vec) {
+std::vector<T> shell_sort_sequential(const std::vector<T>& vec) {
+    std::vector<T> result(vec);
     int d = 4;
     while (d > 0) {
-        for (int i = 0; i < vec.size(); i++) {
-            for (int j = i + d; j < vec.size(); j += d) {
-                if (vec[i] > vec[j])
-                    std::swap(vec[i], vec[j]);
+        for (int i = 0; i < result.size(); i++) {
+            for (int j = i + d; j < result.size(); j += d) {
+                if (result[i] > result[j])
+                    std::swap(result[i], result[j]);
             }
         }
         d /= 2;
     }
+    return result;
 }
 
 template< typename T >
-void shell_sort_parallel(std::vector<T>* vec) {
+std::vector<T> shell_sort_parallel(const std::vector<T>& vec) {
     if (vec.size() < 1000)
         return shell_sort_sequential(vec);
+    std::vector<T> result(vec);
     int d = 4;
     while (d > 0) {
         omp_set_num_threads(d);
 #pragma omp parallel
         {
         int tid = omp_get_thread_num();
-        for (int i = tid; i < vec.size(); i += d)
-            for (int j = i + d; j < vec.size(); j += d) {
-                if (vec[i] > vec[j])
-                    std::swap(vec[i], vec[j]);
+        for (int i = tid; i < result.size(); i += d)
+            for (int j = i + d; j < result.size(); j += d) {
+                if (result[i] > result[j])
+                    std::swap(result[i], result[j]);
             }
         }
         d /= 2;
     }
+    return result;
 }
 
 #endif  // MODULES_TASK_2_STRELTSOVA_Y_SHELL_SORT_SHELL_SORT_H_
