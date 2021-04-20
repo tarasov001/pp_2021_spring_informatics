@@ -16,8 +16,8 @@ std::vector<T> shell_sort_sequential(const std::vector<T>& vec) {
     std::vector<T> result(vec);
     int d = 4;
     while (d > 0) {
-        for (int i = 0; i < result.size(); i++) {
-            for (int j = i + d; j < result.size(); j += d) {
+        for (size_t i = 0; i < result.size(); i++) {
+            for (size_t j = i + d; j < result.size(); j += d) {
                 if (result[i] > result[j])
                     std::swap(result[i], result[j]);
             }
@@ -38,8 +38,8 @@ std::vector<T> shell_sort_parallel(const std::vector<T>& vec) {
 #pragma omp parallel
         {
         int tid = omp_get_thread_num();
-        for (int i = tid; i < result.size(); i += d)
-            for (int j = i + d; j < result.size(); j += d) {
+        for (size_t i = tid; i < result.size(); i += d)
+            for (size_t j = i + d; j < result.size(); j += d) {
                 if (result[i] > result[j])
                     std::swap(result[i], result[j]);
             }
