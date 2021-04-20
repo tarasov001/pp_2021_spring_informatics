@@ -1,7 +1,7 @@
 // Copyright 2020 Lyutova Tanya
-#include "../../modules/task_2/lyutova_t_sobel/lyutova_t_sobel.h"
 #include <random>
 #include <vector>
+#include "../../modules/task_2/lyutova_t_sobel/lyutova_t_sobel.h"
 
 inline int clamp(int value, int min, int max) {
   if (value > max)

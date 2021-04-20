@@ -1,8 +1,7 @@
 // Copyright 2020 Lyutova Tanya
-#include "../../modules/task_2/lyutova_t_sobel/lyutova_t_sobel.h"
-#include "gtest/gtest.h"
-#include <iostream>
+#include <gtest/gtest.h>
 #include <omp.h>
+#include "../../modules/task_2/lyutova_t_sobel/lyutova_t_sobel.h"
 
 TEST(OMP_Sobel, RandomImage) {
     Image image = createRandomImage(100, 100);
