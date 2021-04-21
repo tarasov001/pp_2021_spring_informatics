@@ -102,16 +102,15 @@ std::pair<std::vector<int>, std::vector<int> > firstMarkOmp(std::vector<int> arr
     std::vector<int> strbeg(threads);
     int num = (rows - 2) / threads;
     int rem = (rows - 2) % threads;
-    for (int i = 0; i < threads; i++)
-    {
-        strbeg[i] = i * num + 1; 
+    for (int i = 0; i < threads; i++) {
+        strbeg[i] = i * num + 1;
     }
     std::vector<int> kolvo(threads);
-    for (int i = 0; i < threads; i++)
-    {
+    for (int i = 0; i < threads; i++) {
         if (i == threads - 1)
             kolvo[i] = num + rem;
-        else kolvo[i] = num;
+        else
+            kolvo[i] = num;
     }
     for (int i = 0; i < rows * cols; i++)
         sets[i] = i;
@@ -162,19 +161,21 @@ std::pair<std::vector<int>, std::vector<int> > firstMarkOmp(std::vector<int> arr
         int str = strbeg[i];
         for (int j = 0; j < cols; j++) {
             if ((arr[(str - 1) * cols + j] != 0) && (arr[str * cols + j] != 0)) {
-                int first = sets[arr[(str - 1) * cols + j]]; 
+                int first = sets[arr[(str - 1) * cols + j]];
                 int second = sets[arr[str * cols + j]];
                 if (first != second) {
                     int max;
                     if (first > second)
                         max = first;
-                    else max = second;
+                    else
+                        max = second;
                     while (sets[max] != max)
                         max = sets[max];
                     int min;
                     if (first < second)
                         min = first;
-                    else min = second;
+                    else
+                        min = second;
                     while (sets[min] != min)
                         min = sets[min];
                     if (max != min)
