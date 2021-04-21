@@ -1,8 +1,10 @@
 // Copyright 2021 Paranicheva Alyona
+#include <omp.h>
 #include <iostream>
 #include <random>
 #include <ctime>
 #include <vector>
+#include <utility>
 #include "../../../modules/task_2/paranicheva_a_omplabeling/labeling.h"
 
 std::vector<int> getRandomMatrix(int rows, int cols) {
