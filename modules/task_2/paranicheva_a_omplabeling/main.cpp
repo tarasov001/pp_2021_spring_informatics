@@ -5,8 +5,6 @@
 #include <vector>
 #include "./labeling.h"
 
-using namespace std;
-
 TEST(CLabeling, 4x5) {
     int rows = 4;
     int cols = 5;
@@ -54,7 +52,6 @@ TEST(CLabeling, 5x12) {
     std::vector<int> expres = CLabeling(img, rows, cols);
     std::vector<int> res = CLabelingOmp(img, rows, cols);
     ASSERT_EQ(expres, res);
-
 }
 
 TEST(Clabeling_Matrix_gen, Invalid_size) {
