@@ -1,4 +1,4 @@
-// Copylast 2021 Tyurmina Alexandra
+// Copyright 2021 Tyurmina Alexandra
 #include <omp.h>
 #include <vector>
 #include <string>
@@ -12,8 +12,7 @@ std::vector<int> Random(int size) {
     std::mt19937 gen;
     gen.seed(static_cast<unsigned int>(time(0)));
     std::vector<int> vec1(size);
-    for (int i = 0; i < size; i++) 
-    { 
+    for (int i = 0; i < size; i++) {
         vec1[i] = gen() % 100;
     }
     return vec1;
@@ -33,7 +32,7 @@ std::vector<std::vector<int>> Separat(const std::vector<int>& massiv, size_t n )
             finish = finish + integer;
         }
         std::vector<int> hal (massiv.begin() + start, massiv.begin() + finish);
-        result.push_back(hal);
+        result.push_back (hal);
         start = finish;
     }
     return result;
@@ -41,7 +40,7 @@ std::vector<std::vector<int>> Separat(const std::vector<int>& massiv, size_t n )
 
 std::vector<int> ShellSort(const std::vector<int>& massiv, int size) {
     int part;
-    int i; 
+    int i;
     int j;
     int temp;
     std::vector<int>mass(massiv);
@@ -77,7 +76,6 @@ std::vector<int> ShellBetcher(const std::vector<int>& massiv, int size) {
 }
 
 std::vector<int> ShellBetcherOmp(const std::vector<int>& massiv, const int n, int size) {
-   // std::vector<int> result;
     std::vector<std::vector<int>> mass = Separat(massiv, n);
     
 #pragma omp parallel shared(mass)
@@ -87,13 +85,12 @@ std::vector<int> ShellBetcherOmp(const std::vector<int>& massiv, const int n, in
             mass[i] = ShellSort(mass[i], mass[i].size());
         }
     }
-   // result = MergeOmp(mass, n, size);
     return MergeOmp(mass, n, size);
 }
 
 std::vector<int> MergeOmp(const std::vector<std::vector<int>>& massiv, const int n, int size) {
     std::vector<int> result = massiv[0];
-    std::vector<int> od; 
+    std::vector<int> od;
     std::vector<int> ev;
 
     for (int i = 1; i < n; i++) {
