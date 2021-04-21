@@ -31,8 +31,8 @@ std::vector<std::vector<int>> Separat(const std::vector<int>& massiv, size_t n )
         } else {
             finish = finish + integer;
         }
-        std::vector<int> hal (massiv.begin() + start, massiv.begin() + finish);
-        result.push_back (hal);
+        std::vector<int> hal(massiv.begin() + start, massiv.begin() + finish);
+        result.push_back(hal);
         start = finish;
     }
     return result;
@@ -77,7 +77,7 @@ std::vector<int> ShellBetcher(const std::vector<int>& massiv, int size) {
 
 std::vector<int> ShellBetcherOmp(const std::vector<int>& massiv, const int n, int size) {
     std::vector<std::vector<int>> mass = Separat(massiv, n);
-    
+
 #pragma omp parallel shared(mass)
     {
 #pragma omp for
