@@ -97,10 +97,9 @@ std::vector<int> CLabeling(const std::vector<int>& array, int rows, int cols) {
     return res;
 }
 
-std::pair<std::vector<int>, std::vector<int> > firstMarkOmp(std::vector<int> arr1, int rows, int cols)
+std::pair<std::vector<int>, std::vector<int> > firstMarkOmp(std::vector<int> arr, int rows, int cols)
 {
     int threads = 4;
-    std::vector<int> arr = arr1;
     std::vector<int> sets(rows * cols);
     std::vector<int> strbeg(threads);
     int num = (rows - 2) / threads;
