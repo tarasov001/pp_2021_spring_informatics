@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <iostream>
 #include "./csrOMP.h"
+
 TEST(csr_dispersa_test, testeo_de_generacion) {
     int n = 6;
     std::vector<std::complex<double>> matricial = {

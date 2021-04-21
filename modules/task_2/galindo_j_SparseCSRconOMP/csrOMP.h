@@ -4,11 +4,13 @@
 #include <omp.h>
 #include <vector>
 #include <complex>
+
 struct DispersaMatrix {
     int n;
     std::vector<std::complex<double>> valor;
     std::vector<int> columnaN, filaN;
 };
+
 DispersaMatrix transposicion(DispersaMatrix AT);
 DispersaMatrix multiplicacion(DispersaMatrix p, DispersaMatrix q);
 DispersaMatrix multiplicacion_omp(DispersaMatrix p, DispersaMatrix q);
