@@ -94,7 +94,17 @@ std::vector<int> CLabeling(const std::vector<int>& array, int rows, int cols) {
     std::vector<int> arr = firstm.first;
     std::vector<int> sets = firstm.second;
     res = secondMark(arr, rows, cols, sets);
-    return res;
+    //return res;
+    return Transform(res, rows, cols);
+}
+
+std::vector<int> CLabelingOmp(const std::vector<int>& array, int rows, int cols) {
+    std::vector<int> res(rows * cols);
+    std::pair<std::vector<int>, std::vector<int> > firstm = firstMarkOmp(array, rows, cols);
+    std::vector<int> arr = firstm.first;
+    std::vector<int> sets = firstm.second;
+    res = secondMark(arr, rows, cols, sets);
+    return Transform(res, rows, cols);
 }
 
 std::pair<std::vector<int>, std::vector<int> > firstMarkOmp(std::vector<int> arr, int rows, int cols)
@@ -114,26 +124,27 @@ std::pair<std::vector<int>, std::vector<int> > firstMarkOmp(std::vector<int> arr
         else
             kolvo[i] = num;
     }
-    for (int i = 0; i < rows * cols; i++)
+
+    for (int i = 0; i < rows * cols; i++) //заполняем вектор синглетонами
         sets[i] = i;
 
 #pragma omp parallel for shared(sets, arr) num_threads(threads)
     for (int th = 0; th < threads; th++) {
-        for (int i = strbeg[th]; i < strbeg[th] + kolvo[th]; i++)
+        for (int i = strbeg[th]; i < strbeg[th] + kolvo[th]; i++) {
             for (int j = 1; j < cols - 1; j++) {
                 if (arr[i * cols + j] == 0)
                     continue;
-                if ((arr[i * cols + j - 1] == 0) && (arr[(i - 1) * cols + j] == 0)) {
+                if ((arr[i * cols + j - 1] == 0) && ((arr[(i - 1) * cols + j] == 0) || (i == strbeg[th]))) {
                     arr[i * cols + j] = i * cols + j + 1;
-                    continue;
+                        continue;
                 }
-                if ((arr[i * cols + j - 1] != 0) && (arr[(i - 1) * cols + j] == 0)) {
+                if ((arr[i * cols + j - 1] != 0) && ((arr[(i - 1) * cols + j] == 0) || (i == strbeg[th]))) {
                     arr[i * cols + j] = arr[i * cols + j - 1];
-                    continue;
+                        continue;
                 }
                 if ((arr[i * cols + j - 1] == 0) && (arr[(i - 1) * cols + j] != 0)) {
                     arr[i * cols + j] = arr[(i - 1) * cols + j];
-                    continue;
+                        continue;
                 }
                 if ((arr[i * cols + j - 1] != 0) && (arr[(i - 1) * cols + j] != 0)) {
                     int max, min;
@@ -144,8 +155,6 @@ std::pair<std::vector<int>, std::vector<int> > firstMarkOmp(std::vector<int> arr
                         max = arr[i * cols + j - 1];
                         min = arr[(i - 1) * cols + j];
                     }
-#pragma omp critical
-                    {
                     while (sets[max] != max) {
                         max = sets[max];
                     }
@@ -154,11 +163,10 @@ std::pair<std::vector<int>, std::vector<int> > firstMarkOmp(std::vector<int> arr
                     if (min != max)
                         sets[max] = min;
                     arr[i * cols + j] = min;
-                    }
                 }
             }
+        }
     }
-
     for (int i = 1; i < threads; i++) {
         int str = strbeg[i];
         for (int j = 0; j < cols; j++) {
@@ -189,11 +197,27 @@ std::pair<std::vector<int>, std::vector<int> > firstMarkOmp(std::vector<int> arr
     return { arr, sets };
 }
 
-std::vector<int> CLabelingOmp(const std::vector<int>& array, int rows, int cols) {
-    std::vector<int> res(rows * cols);
-    std::pair<std::vector<int>, std::vector<int> > firstm = firstMarkOmp(array, rows, cols);
-    std::vector<int> arr = firstm.first;
-    std::vector<int> sets = firstm.second;
-    res = secondMark(arr, rows, cols, sets);
+std::vector<int> Transform(const std::vector<int>& array, int rows, int cols) {
+    std::vector<int> res(rows * cols, 0);
+    std::vector<int> count;
+    for (int i = 0; i < rows * cols; i++) {
+        if (array[i] != 0) {
+            bool flag = true;
+            for (int j = 0; j < count.size(); j++)
+                if (count[j] == array[i])
+                    flag = false;
+            if (flag)
+                count.push_back(array[i]);
+        }
+    }
+    for (int i = 0; i < rows * cols; i++) {
+        if (array[i] != 0) {
+            int flag = 0;
+            for (int j = 0; j < count.size(); j++)
+                if (count[j] == array[i])
+                    flag = j + 1;
+            res[i] = flag;
+        }
+    }
     return res;
 }
