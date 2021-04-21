@@ -122,3 +122,18 @@ std::vector<double> parallelCannonMult(const std::vector<double>& A,
     }
     return res;
 }
+
+bool Difference(const double &x, const double &y) {
+    return std::fabs(x - y) < 0.001;
+}
+
+bool DifferenceMatrix(const std::vector<double>&A,
+    const std::vector<double>&B) {
+    if (A.size() != B.size())
+        throw "Different size of matrix";
+    int size = A.size();
+    for (int i = 0; i < size; i++)
+        if (!Difference(A[i], B[i]))
+            return false;
+    return true;
+}
