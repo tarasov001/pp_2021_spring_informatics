@@ -94,7 +94,6 @@ std::vector<int> CLabeling(const std::vector<int>& array, int rows, int cols) {
     std::vector<int> arr = firstm.first;
     std::vector<int> sets = firstm.second;
     res = secondMark(arr, rows, cols, sets);
-    //return res;
     return Transform(res, rows, cols);
 }
 
@@ -107,8 +106,7 @@ std::vector<int> CLabelingOmp(const std::vector<int>& array, int rows, int cols)
     return Transform(res, rows, cols);
 }
 
-std::pair<std::vector<int>, std::vector<int> > firstMarkOmp(std::vector<int> arr, int rows, int cols)
-{
+std::pair<std::vector<int>, std::vector<int> > firstMarkOmp(std::vector<int> arr, int rows, int cols) {
     int threads = 4;
     std::vector<int> sets(rows * cols);
     std::vector<int> strbeg(threads);
@@ -124,8 +122,7 @@ std::pair<std::vector<int>, std::vector<int> > firstMarkOmp(std::vector<int> arr
         else
             kolvo[i] = num;
     }
-
-    for (int i = 0; i < rows * cols; i++) //заполняем вектор синглетонами
+    for (int i = 0; i < rows * cols; i++)
         sets[i] = i;
 
 #pragma omp parallel for shared(sets, arr) num_threads(threads)
