@@ -203,7 +203,7 @@ std::vector<int> Transform(const std::vector<int>& array, int rows, int cols) {
     for (int i = 0; i < rows * cols; i++) {
         if (array[i] != 0) {
             bool flag = true;
-            for (int j = 0; j < count.size(); j++)
+            for (uint32_t j = 0; j < count.size(); j++)
                 if (count[j] == array[i])
                     flag = false;
             if (flag)
@@ -213,7 +213,7 @@ std::vector<int> Transform(const std::vector<int>& array, int rows, int cols) {
     for (int i = 0; i < rows * cols; i++) {
         if (array[i] != 0) {
             int flag = 0;
-            for (int j = 0; j < count.size(); j++)
+            for (uint32_t j = 0; j < count.size(); j++)
                 if (count[j] == array[i])
                     flag = j + 1;
             res[i] = flag;
