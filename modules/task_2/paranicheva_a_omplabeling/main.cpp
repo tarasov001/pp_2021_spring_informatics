@@ -5,50 +5,37 @@
 #include <vector>
 #include "./labeling.h"
 
-TEST(CLabeling, 4x5) {
-    int rows = 4;
-    int cols = 5;
-    const std::vector<int> img = {
-        0, 0, 0, 0, 0,
-        0, 0, 0, 1, 0,
-        0, 1, 1, 0, 0,
-        0, 0, 0, 0, 0,
-    };
+TEST(CLabeling_Omp, 7x11) {
+    int rows = 7;
+    int cols = 21;
+    std::vector<int> img = getRandomMatrix(rows, cols);
     std::vector<int> expres = CLabeling(img, rows, cols);
     std::vector<int> res = CLabelingOmp(img, rows, cols);
     ASSERT_EQ(expres, res);
 }
 
-TEST(CLabeling, 4x7) {
-    int rows = 4;
-    int cols = 7;
-    const std::vector<int> img = getRandomMatrix(rows, cols);
+TEST(CLabeling_Omp, 15x17) {
+    int rows = 15;
+    int cols = 17;
+    std::vector<int> img = getRandomMatrix(rows, cols);
     std::vector<int> expres = CLabeling(img, rows, cols);
     std::vector<int> res = CLabelingOmp(img, rows, cols);
     ASSERT_EQ(expres, res);
 }
 
-TEST(CLabeling, 5x16) {
-    int rows = 5;
-    int cols = 16;
-
-    const std::vector<int> img = {
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 1, 1, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1, 0,
-    0, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1, 0, 0,
-    0, 1, 0, 0, 1, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 0,
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-    };
-
+TEST(CLabeling_Omp, 21x8) {
+    int rows = 21;
+    int cols = 8;
+    std::vector<int> img = getRandomMatrix(rows, cols);
     std::vector<int> expres = CLabeling(img, rows, cols);
     std::vector<int> res = CLabelingOmp(img, rows, cols);
     ASSERT_EQ(expres, res);
 }
 
-TEST(CLabeling, 5x12) {
-    int rows = 5;
-    int cols = 12;
-    const std::vector<int> img = getRandomMatrix(rows, cols);
+TEST(CLabeling_Omp, 23x15) {
+    int rows = 21;
+    int cols = 8;
+    std::vector<int> img = getRandomMatrix(rows, cols);
     std::vector<int> expres = CLabeling(img, rows, cols);
     std::vector<int> res = CLabelingOmp(img, rows, cols);
     ASSERT_EQ(expres, res);
