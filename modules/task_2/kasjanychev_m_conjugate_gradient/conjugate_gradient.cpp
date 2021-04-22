@@ -170,7 +170,7 @@ std::vector<std::vector<double> > searchReverseMatrix(std::vector<std::vector<do
     return matrix;
 }
 
-std::vector<double> calculateStandardRes(std::vector<std::vector<double> > _mtx, std::vector<double> _b, int proc) {
+std::vector<double> calculateStandardRes(const std::vector<std::vector<double> >& _mtx, std::vector<double> _b, int proc) {
     omp_set_num_threads(proc);
     std::vector<std::vector<double> > matrix = _mtx;
     std::vector<double> B = _b;
@@ -187,9 +187,8 @@ std::vector<double> calculateStandardRes(std::vector<std::vector<double> > _mtx,
 }
 
 std::vector<double> calculateRes(std::vector<std::vector<double> > mtx, const std::vector<double>& b, int proc) {
-    int n = mtx.size();
-    assert(n > 0);
     int m = mtx[0].size();
+    assert(m > 0);
     std::vector<double> x0;
     std::vector<double> r0;
     std::vector<double> z0 = minusVec(b);

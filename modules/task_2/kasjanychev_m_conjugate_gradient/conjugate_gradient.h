@@ -20,7 +20,7 @@ std::vector<std::vector<double> > transposeMtx(std::vector<std::vector<double> >
 std::vector<std::vector<double> > sumMtx(std::vector<std::vector<double> >, std::vector<std::vector<double> >);
 std::vector<std::vector<double> > multiMtx(std::vector<std::vector<double> >, double);
 std::vector<std::vector<double> > searchReverseMatrix(std::vector<std::vector<double> >);
-std::vector<double> calculateStandardRes(std::vector<std::vector<double> >, std::vector<double>, int);
+std::vector<double> calculateStandardRes(const std::vector<std::vector<double> >&, std::vector<double>, int);
 std::vector<double> calculateRes(std::vector<std::vector<double> >, const std::vector<double>&, int);
 
 #endif  // MODULES_TASK_2_KASJANYCHEV_M_CONJUGATE_GRADIENT_CONJUGATE_GRADIENT_H_
