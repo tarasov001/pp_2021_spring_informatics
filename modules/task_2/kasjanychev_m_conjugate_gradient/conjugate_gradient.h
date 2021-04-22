@@ -2,10 +2,10 @@
 #ifndef MODULES_TASK_2_KASJANYCHEV_M_CONJUGATE_GRADIENT_CONJUGATE_GRADIENT_H_
 #define MODULES_TASK_2_KASJANYCHEV_M_CONJUGATE_GRADIENT_CONJUGATE_GRADIENT_H_
 
+#include <omp.h>
 #include <iostream>
 #include <vector>
 #include <cassert>
-#include <omp.h>
 
 std::vector<std::vector<double> > getRandomMatrix(int);
 std::vector<double> getRandomVector(int);

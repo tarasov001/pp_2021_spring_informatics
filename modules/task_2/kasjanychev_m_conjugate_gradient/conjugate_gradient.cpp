@@ -10,7 +10,6 @@ std::vector<std::vector<double> > getRandomMatrix(int n) {
     }
     res = multiMtx(sumMtx(res, transposeMtx(res)), 0.5);
     return res;
-
 }
 
 std::vector<double> getRandomVector(int n) {
@@ -92,7 +91,8 @@ std::vector<std::vector<double> > transposeMtx(std::vector<std::vector<double> >
     return res;
 }
 
-std::vector<std::vector<double> > sumMtx(std::vector<std::vector<double> > mtx1, std::vector<std::vector<double> > mtx2) {
+std::vector<std::vector<double> > sumMtx(std::vector<std::vector<double> > mtx1,
+    std::vector<std::vector<double> > mtx2) {
     std::vector<std::vector<double> > res = mtx1;
     for (int i = 0; i < mtx1.size(); i++)
         for (int j = 0; j < mtx1.size(); j++) {
@@ -115,7 +115,8 @@ bool searchReverseMatrix(std::vector<std::vector<double> >& matrix) {
     std::vector<std::vector<double> > E(size, std::vector<double>(size));
     for (int i = 0; i < size; i++) {
         for (int j = 0; j < size; j++) {
-            if (i == j) E[i][j] = 1.0;
+            if (i == j) 
+                E[i][j] = 1.0;
             else E[i][j] = 0.0;
         }
     }
@@ -173,7 +174,7 @@ std::vector<double> calculateStandardRes(std::vector<std::vector<double> > _mtx,
     std::vector<std::vector<double> > matrix = _mtx;
     std::vector<double> B = _b;
     int equations_amount = _b.size();
-    if (!searchReverseMatrix(matrix)) {
+    if (!searchReverseMatrix(*&matrix)) {
         throw "Det = 0!";
     }
     std::vector<double> X(equations_amount);
