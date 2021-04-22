@@ -6,6 +6,7 @@
 #include <iostream>
 #include <vector>
 #include <cassert>
+#include <cmath>
 
 std::vector<std::vector<double> > getRandomMatrix(int);
 std::vector<double> getRandomVector(int);
