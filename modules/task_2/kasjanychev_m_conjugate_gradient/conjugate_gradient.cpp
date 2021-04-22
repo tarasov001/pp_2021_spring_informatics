@@ -24,8 +24,9 @@ std::vector<double> multiMtxVec(std::vector<std::vector<double> > mtx, std::vect
     assert(mtx.size() > 0 && x.size() > 0);
     assert(mtx.size() % x.size() == 0);
     std::vector<double> res(x);
+    int n = mtx.size();
 #pragma omp parallel for
-    for (int i = 0; i < mtx.size(); ++i) {
+    for (int i = 0; i < n; ++i) {
         double tmp = 0;
         for (size_t j = 0; j < x.size(); ++j) {
             tmp += mtx[i][j] * x[j];
@@ -60,7 +61,7 @@ std::vector<double> sumVec(std::vector<double> a, std::vector<double> b) {
 double scalarProduct(std::vector<double> a, std::vector<double> b) {
     assert(a.size() == b.size());
     double res = 0;
-    for (int i = 0; i < a.size(); i++) {
+    for (long unsigned int i = 0; i < a.size(); i++) {
         res += a[i] * b[i];
     }
     return res;
@@ -84,8 +85,8 @@ std::vector<double> minusVec(std::vector<double> x) {
 
 std::vector<std::vector<double> > transposeMtx(std::vector<std::vector<double> > mtx) {
     std::vector<std::vector<double> > res = mtx;
-    for (int i = 0; i < mtx.size(); i++)
-        for (int j = 0; j < mtx.size(); j++) {
+    for (long unsigned int i = 0; i < mtx.size(); i++)
+        for (long unsigned int j = 0; j < mtx.size(); j++) {
             res[i][j] = mtx[j][i];
         }
     return res;
@@ -94,8 +95,8 @@ std::vector<std::vector<double> > transposeMtx(std::vector<std::vector<double> >
 std::vector<std::vector<double> > sumMtx(std::vector<std::vector<double> > mtx1,
     std::vector<std::vector<double> > mtx2) {
     std::vector<std::vector<double> > res = mtx1;
-    for (int i = 0; i < mtx1.size(); i++)
-        for (int j = 0; j < mtx1.size(); j++) {
+    for (long unsigned int i = 0; i < mtx1.size(); i++)
+        for (long unsigned int j = 0; j < mtx1.size(); j++) {
             res[i][j] = mtx1[i][j] + mtx2[i][j];
         }
     return res;
@@ -103,8 +104,8 @@ std::vector<std::vector<double> > sumMtx(std::vector<std::vector<double> > mtx1,
 
 std::vector<std::vector<double> > multiMtx(std::vector<std::vector<double> > mtx, double a) {
     std::vector<std::vector<double> > res = mtx;
-    for (int i = 0; i < mtx.size(); i++)
-        for (int j = 0; j < mtx.size(); j++) {
+    for (long unsigned int i = 0; i < mtx.size(); i++)
+        for (long unsigned int j = 0; j < mtx.size(); j++) {
             res[i][j] *= a;
         }
     return res;
@@ -182,7 +183,6 @@ std::vector<double> calculateStandardRes(std::vector<std::vector<double> > _mtx,
 }
 
 std::vector<double> calculateRes(std::vector<std::vector<double> > mtx, const std::vector<double>& b, int proc) {
-    omp_set_num_threads(proc);
     int n = mtx.size();
     assert(n > 0);
     int m = mtx[0].size();
@@ -197,6 +197,7 @@ std::vector<double> calculateRes(std::vector<std::vector<double> > mtx, const st
     r0 = subVec(b, multiMtxVec(mtx, x0));
     z0 = r0;
     int i = 0;
+    omp_set_num_threads(proc);
     do {
         i++;
         double alpha = (scalarProduct(r0, r0) / (scalarProduct(multiMtxVec(mtx, z0), z0)));
