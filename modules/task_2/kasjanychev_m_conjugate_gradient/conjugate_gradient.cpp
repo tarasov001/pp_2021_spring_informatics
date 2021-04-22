@@ -61,7 +61,8 @@ std::vector<double> sumVec(std::vector<double> a, std::vector<double> b) {
 double scalarProduct(std::vector<double> a, std::vector<double> b) {
     assert(a.size() == b.size());
     double res = 0;
-    for (long unsigned int i = 0; i < a.size(); i++) {
+    int n = a.size();
+    for (int i = 0; i < n; i++) {
         res += a[i] * b[i];
     }
     return res;
@@ -85,8 +86,9 @@ std::vector<double> minusVec(std::vector<double> x) {
 
 std::vector<std::vector<double> > transposeMtx(std::vector<std::vector<double> > mtx) {
     std::vector<std::vector<double> > res = mtx;
-    for (long unsigned int i = 0; i < mtx.size(); i++)
-        for (long unsigned int j = 0; j < mtx.size(); j++) {
+    int n = mtx.size();
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j < n; j++) {
             res[i][j] = mtx[j][i];
         }
     return res;
@@ -95,8 +97,9 @@ std::vector<std::vector<double> > transposeMtx(std::vector<std::vector<double> >
 std::vector<std::vector<double> > sumMtx(std::vector<std::vector<double> > mtx1,
     std::vector<std::vector<double> > mtx2) {
     std::vector<std::vector<double> > res = mtx1;
-    for (long unsigned int i = 0; i < mtx1.size(); i++)
-        for (long unsigned int j = 0; j < mtx1.size(); j++) {
+    int n = mtx1.size();
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j < n; j++) {
             res[i][j] = mtx1[i][j] + mtx2[i][j];
         }
     return res;
@@ -104,8 +107,9 @@ std::vector<std::vector<double> > sumMtx(std::vector<std::vector<double> > mtx1,
 
 std::vector<std::vector<double> > multiMtx(std::vector<std::vector<double> > mtx, double a) {
     std::vector<std::vector<double> > res = mtx;
-    for (long unsigned int i = 0; i < mtx.size(); i++)
-        for (long unsigned int j = 0; j < mtx.size(); j++) {
+    int n = mtx.size();
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j < n; j++) {
             res[i][j] *= a;
         }
     return res;
