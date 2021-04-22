@@ -110,31 +110,27 @@ std::vector<std::vector<double> > multiMtx(std::vector<std::vector<double> > mtx
     return res;
 }
 
-bool searchReverseMatrix(std::vector<std::vector<double> >& matrix) {
+std::vector<std::vector<double> > searchReverseMatrix(std::vector<std::vector<double> > matrix) {
     int size = matrix.size();
     std::vector<std::vector<double> > E(size, std::vector<double>(size));
     for (int i = 0; i < size; i++) {
         for (int j = 0; j < size; j++) {
-            if (i == j) 
+            if (i == j) {
                 E[i][j] = 1.0;
-            else E[i][j] = 0.0;
+            } else {
+                E[i][j] = 0.0;
+            }
         }
     }
     for (int k = 0; k < size; k++) {
         if (abs(matrix[k][k]) < 1e-8) {
-            bool changed = false;
-
             for (int i = k + 1; i < size; i++) {
                 if (abs(matrix[i][k]) > 1e-8) {
                     swap(matrix[k], matrix[i]);
                     swap(E[k], E[i]);
-                    changed = true;
                     break;
                 }
             }
-
-            if (!changed)
-                return false;
         }
 
         double div = matrix[k][k];
@@ -166,7 +162,7 @@ bool searchReverseMatrix(std::vector<std::vector<double> >& matrix) {
             }
     }
     matrix = E;
-    return true;
+    return matrix;
 }
 
 std::vector<double> calculateStandardRes(std::vector<std::vector<double> > _mtx, std::vector<double> _b, int proc) {
@@ -174,9 +170,7 @@ std::vector<double> calculateStandardRes(std::vector<std::vector<double> > _mtx,
     std::vector<std::vector<double> > matrix = _mtx;
     std::vector<double> B = _b;
     int equations_amount = _b.size();
-    if (!searchReverseMatrix(*&matrix)) {
-        throw "Det = 0!";
-    }
+    matrix = searchReverseMatrix(matrix);
     std::vector<double> X(equations_amount);
 #pragma omp parallel for
         for (int i = 0; i < equations_amount; i++) {

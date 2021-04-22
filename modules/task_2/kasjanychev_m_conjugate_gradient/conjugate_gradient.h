@@ -18,7 +18,7 @@ std::vector<double> minusVec(std::vector<double>);
 std::vector<std::vector<double> > transposeMtx(std::vector<std::vector<double> >);
 std::vector<std::vector<double> > sumMtx(std::vector<std::vector<double> >, std::vector<std::vector<double> >);
 std::vector<std::vector<double> > multiMtx(std::vector<std::vector<double> >, double);
-bool searchReverseMatrix(std::vector<std::vector<double> >&);
+std::vector<std::vector<double> > searchReverseMatrix(std::vector<std::vector<double> >);
 std::vector<double> calculateStandardRes(std::vector<std::vector<double> >, std::vector<double>, int);
 std::vector<double> calculateRes(std::vector<std::vector<double> >, const std::vector<double>&, int);
 
