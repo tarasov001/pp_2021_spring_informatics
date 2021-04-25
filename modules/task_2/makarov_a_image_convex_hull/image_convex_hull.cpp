@@ -78,51 +78,112 @@ std::vector<std::list <std::pair<int, int> > > get_convex_hulls(
         }
     }
     std::vector<std::list<std::pair<int, int> > > result(comp_count);
-    int counter = 0;
-    for (std::list<std::pair<int, int> > component_list : components) {
-        if (component_list.size() < 3) {
-            result[counter] = component_list;
-        } else {
-            std::pair<int, int> start(w, h);
-            int start_idx = 0;
-            int n = component_list.size();
-            std::vector<std::pair<int, int> > component(n);
-            int counter_1 = 0;
-            for (auto point : component_list) {
-                component[counter_1] = point;
-                if (point.first < start.first) {
-                    start = point;
-                    start_idx = counter_1;
-                }
-                counter_1++;
-            }
-            int curr = start_idx;
-            int next;
-            do {
-                result[counter].push_back(component[curr]);
-                next = (curr + 1) % n;
-				int threads_count = omp_get_max_threads();
-				std::vector<int> next_array(threads_count, next);
-				#pragma omp parallel
-				{
-					int thread_num = omp_get_thread_num();
-					#pragma omp for
-					for (int i = 0; i < n; i++) {
-						int orient = orientation(component[curr], component[next_array[thread_num]], component[i]);
-						if (orient == 1)
-							next_array[thread_num] = i;
+	int condition;
+	int threads_count = omp_get_max_threads();
+	//std::vector<std::vector<std::list<std::pair<int, int> > > > result_array(threads_count, result);
+	if (threads_count < static_cast<int>(components.size()))
+		condition = 1;
+	else
+		condition = 0;
+	#pragma omp parallel if(condition)
+	{
+		int thread_num = omp_get_thread_num();
+		#pragma omp for
+		for (int comp_num = 0; comp_num < static_cast<int>(components.size()); comp_num++) {
+			std::list<std::pair<int, int> > component_list = components[comp_num];
+			if (component_list.size() < 3) {
+				result[comp_num] = component_list;
+			} else {
+				std::pair<int, int> start(w, h);
+				int start_idx = 0;
+				int n = component_list.size();
+				std::vector<std::pair<int, int> > component(n);
+				int counter_1 = 0;
+				for (auto point : component_list) {
+					component[counter_1] = point;
+					if (point.first < start.first) {
+						start = point;
+						start_idx = counter_1;
 					}
+					counter_1++;
 				}
-				next = next_array[0];
-				for (int i = 0; i < static_cast<int>(next_array.size()); i++) {
-					int orient = orientation(component[curr], component[next], component[next_array[i]]);
-					if (orient == 1)
-						next = next_array[i];
-				}
-                curr = next;
-            } while (curr != start_idx);
+				int curr = start_idx;
+				int next;
+				do {
+					result[comp_num].push_back(component[curr]);
+					next = (curr + 1) % n;
+					std::vector<int> next_array(threads_count, next);
+					#pragma omp parallel private(thread_num)
+					{
+						thread_num = omp_get_thread_num();
+						#pragma omp for
+						for (int i = 0; i < n; i++) {
+							int orient = orientation(component[curr], component[next_array[thread_num]], component[i]);
+							if (orient == 1)
+								next_array[thread_num] = i;
+						}
+					}
+					next = next_array[0];
+					for (int i = 0; i < static_cast<int>(next_array.size()); i++) {
+						int orient = orientation(component[curr], component[next], component[next_array[i]]);
+						if (orient == 1)
+							next = next_array[i];
+					}
+					curr = next;
+				} while (curr != start_idx);
+			}
+		}
+	}	
+    return result;
+}
+
+std::vector<std::list <std::pair<int, int> > > get_convex_hulls_seq(
+                          const std::vector<int>& marked_image, int w, int h) {
+    int comp_count = *std::max_element(marked_image.begin(),
+                                       marked_image.end()) - 1;
+    std::vector<std::list<std::pair<int, int> > > components(comp_count);
+    for (int i = 0; i < h; i++) {
+        for (int j = 0; j < w; j++) {
+            if (marked_image[i * w + j] == 1) {
+                continue;
+            } else {
+                std::pair<int, int> point(j, i);
+                components[marked_image[i * w + j] - 2].push_back(point);
+            }
         }
-        counter++;
     }
+    std::vector<std::list<std::pair<int, int> > > result(comp_count);
+	for (int comp_num = 0; comp_num < static_cast<int>(components.size()); comp_num++) {
+		std::list<std::pair<int, int> > component_list = components[comp_num];
+		if (component_list.size() < 3) {
+			result[comp_num] = component_list;
+		} else {
+			std::pair<int, int> start(w, h);
+			int start_idx = 0;
+			int n = component_list.size();
+			std::vector<std::pair<int, int> > component(n);
+			int counter_1 = 0;
+			for (auto point : component_list) {
+				component[counter_1] = point;
+				if (point.first < start.first) {
+					start = point;
+					start_idx = counter_1;
+				}
+				counter_1++;
+			}
+			int curr = start_idx;
+			int next;
+			do {
+				result[comp_num].push_back(component[curr]);
+				next = (curr + 1) % n;
+				for (int i = 0; i < n; i++) {
+					int orient = orientation(component[curr], component[next], component[i]);
+					if (orient == 1)
+						next = i;
+				}
+				curr = next;
+			} while (curr != start_idx);
+		}
+	}
     return result;
 }

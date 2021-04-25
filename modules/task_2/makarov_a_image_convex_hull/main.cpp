@@ -148,92 +148,37 @@ TEST(Components, Test_Triangle) {
     const std::vector<int> image = primitives[1];
     int h = 15, w = 15;
     std::vector<int> marked_image = mark_components(image, w, h);
-    /*for (int i = 0; i < h; i++){
-        for (int j = 0; j < w; j++)
-            std::cout << marked_image[i * w + j] << " ";
-        std::cout << std::endl;
-    }*/
-
     std::vector<std::list <std::pair<int, int> > > convex_hulls = get_convex_hulls(marked_image, w, h);
-    /*for (int i = 0; i < convex_hulls.size(); i++) {
-        std::cout << i + 2 << ": ";
-        for (auto point : convex_hulls[i]) {
-            std::cout << "(" << point.first << ";" << point.second << ") ";
-        }
-        std::cout << std::endl;
-    }*/
 	std::vector<std::list <std::pair<int, int> > > expected_hulls;
 	expected_hulls.push_back(primitives_convex_hulls[1]);
 	ASSERT_EQ(convex_hulls, expected_hulls); 
-    //ASSERT_NO_THROW(result = mark_components(image, w, h));
 }
 
 TEST(Components, Test_Perimeter) {
     const std::vector<int> image = primitives[2];
     int h = 15, w = 15;
     std::vector<int> marked_image = mark_components(image, w, h);
-    /*for (int i = 0; i < h; i++){
-        for (int j = 0; j < w; j++)
-            std::cout << marked_image[i * w + j] << " ";
-        std::cout << std::endl;
-    }*/
-
     std::vector<std::list <std::pair<int, int> > > convex_hulls = get_convex_hulls(marked_image, w, h);
-    /*for (int i = 0; i < convex_hulls.size(); i++) {
-        std::cout << i + 2 << ": ";
-        for (auto point : convex_hulls[i]) {
-            std::cout << "(" << point.first << ";" << point.second << ") ";
-        }
-        std::cout << std::endl;
-    }*/
 	std::vector<std::list <std::pair<int, int> > > expected_hulls;
 	expected_hulls.push_back(primitives_convex_hulls[2]);
 	ASSERT_EQ(convex_hulls, expected_hulls); 
-    //ASSERT_NO_THROW(result = mark_components(image, w, h));
 }
 
 TEST(Components, Test_Sqr_Without_Angles) {
     const std::vector<int> image = primitives[3];
     int h = 15, w = 15;
     std::vector<int> marked_image = mark_components(image, w, h);
-    /*for (int i = 0; i < h; i++){
-        for (int j = 0; j < w; j++)
-            std::cout << marked_image[i * w + j] << " ";
-        std::cout << std::endl;
-    }*/
-
     std::vector<std::list <std::pair<int, int> > > convex_hulls = get_convex_hulls(marked_image, w, h);
-    /*for (int i = 0; i < convex_hulls.size(); i++) {
-        std::cout << i + 2 << ": ";
-        for (auto point : convex_hulls[i]) {
-            std::cout << "(" << point.first << ";" << point.second << ") ";
-        }
-        std::cout << std::endl;
-    }*/
 	std::vector<std::list <std::pair<int, int> > > expected_hulls;
 	expected_hulls.push_back(primitives_convex_hulls[3]);
 	ASSERT_EQ(convex_hulls, expected_hulls); 
-    //ASSERT_NO_THROW(result = mark_components(image, w, h));
 }
 
 TEST(Components, Test_Diag_Cross) {
     const std::vector<int> image = primitives[4];
     int h = 15, w = 15;
     std::vector<int> marked_image = mark_components(image, w, h);
-    /*for (int i = 0; i < h; i++){
-        for (int j = 0; j < w; j++)
-            std::cout << marked_image[i * w + j] << " ";
-        std::cout << std::endl;
-    }*/
-
     std::vector<std::list <std::pair<int, int> > > convex_hulls = get_convex_hulls(marked_image, w, h);
-    /*for (int i = 0; i < convex_hulls.size(); i++) {
-        std::cout << i + 2 << ": ";
-        for (auto point : convex_hulls[i]) {
-            std::cout << "(" << point.first << ";" << point.second << ") ";
-        }
-        std::cout << std::endl;
-    }*/
 	std::vector<std::list <std::pair<int, int> > > expected_hulls;
 	expected_hulls.push_back(primitives_convex_hulls[4]);
 	ASSERT_EQ(convex_hulls, expected_hulls); 
@@ -263,9 +208,8 @@ TEST(Components, Test_100x100_prim_image) {
 	
 	double start_time, end_time, seq_time, par_time;
 	
-	omp_set_num_threads(1);
 	start_time = omp_get_wtime();
-    convex_hulls_seq = get_convex_hulls(marked_image, w * prm_size, h * prm_size);
+    convex_hulls_seq = get_convex_hulls_seq(marked_image, w * prm_size, h * prm_size);
 	end_time = omp_get_wtime();
 	seq_time = end_time - start_time;
 	
@@ -308,9 +252,8 @@ TEST(Components, Test_200x200_prim_image) {
 	
 	double start_time, end_time, seq_time, par_time;
 	
-	omp_set_num_threads(1);
 	start_time = omp_get_wtime();
-    convex_hulls_seq = get_convex_hulls(marked_image, w * prm_size, h * prm_size);
+    convex_hulls_seq = get_convex_hulls_seq(marked_image, w * prm_size, h * prm_size);
 	end_time = omp_get_wtime();
 	seq_time = end_time - start_time;
 	
@@ -345,9 +288,8 @@ TEST(Components, Test_700x700_worst) {
 	
 	double start_time, end_time, seq_time, par_time;
 	
-	omp_set_num_threads(1);
 	start_time = omp_get_wtime();
-    convex_hulls_seq = get_convex_hulls(marked_image, w, h);
+    convex_hulls_seq = get_convex_hulls_seq(marked_image, w, h);
 	end_time = omp_get_wtime();
 	seq_time = end_time - start_time;
 	
