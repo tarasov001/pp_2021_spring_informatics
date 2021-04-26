@@ -128,7 +128,7 @@ std::vector<std::pair<double, double> > grahamScanParallel(
     tbb::spin_mutex mutex;
     tbb::task_group g;
 
-    for (size_t i = 0; i < numberOfThreads - 1; i++) {
+    for (int i = 0; i < numberOfThreads - 1; i++) {
         // Create a task
         g.run([&lastPoints, &mutex, i, b, st] () {
             auto l = b + st * i;

@@ -24,7 +24,7 @@ TEST(ConvexHull, DISABLED_timeTest) {
 
     std::cout << " Parallel time " << (t2 - t1).seconds() << std::endl;
 
-    for (int i = 0; i < resultParallel.size(); i++) {
+    for (size_t i = 0; i < resultParallel.size(); i++) {
         ASSERT_NEAR(resultParallel[i].first, resultSeq[i].first, 0.00001);
         ASSERT_NEAR(resultParallel[i].second, resultSeq[i].second, 0.00001);
     }
@@ -123,7 +123,7 @@ TEST(ConvexHull, getConvexHullGrahamTbb_3) {
   auto resultParallel = grahamScanParallel(points.begin(), points.end(), 4);
   auto resultSeq = grahamScan(points.begin(), points.end());
 
-    for (int i = 0; i < resultParallel.size(); i++) {
+    for (size_t i = 0; i < resultParallel.size(); i++) {
         ASSERT_NEAR(resultParallel[i].first, resultSeq[i].first, 0.00001);
         ASSERT_NEAR(resultParallel[i].second, resultSeq[i].second, 0.00001);
     }
@@ -138,7 +138,7 @@ TEST(ConvexHull, getConvexHullGrahamTbb_4) {
   auto resultParallel = grahamScanParallel(points.begin(), points.end(), 4);
   auto resultSeq = grahamScan(points.begin(), points.end());
 
-    for (int i = 0; i < resultParallel.size(); i++) {
+    for (size_t i = 0; i < resultParallel.size(); i++) {
         ASSERT_NEAR(resultParallel[i].first, resultSeq[i].first, 0.00001);
         ASSERT_NEAR(resultParallel[i].second, resultSeq[i].second, 0.00001);
     }
