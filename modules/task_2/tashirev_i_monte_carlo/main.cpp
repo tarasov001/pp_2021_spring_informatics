@@ -3,7 +3,7 @@
 #include <vector>
 #include <cmath>
 #include <omp.h>
-#include "../../../modules/task_2/tashirev_i_monte_carlo/monte_carlo.h"
+#include "./monte_carlo.h"
 
 double Integral_1(const std::vector<double>& x) {
     return x[0] * x[0];

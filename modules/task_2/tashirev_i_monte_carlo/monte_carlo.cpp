@@ -5,8 +5,7 @@
 #include <algorithm>
 #include <ctime>
 #include <omp.h>
-
-#include "../../modules/task_2/tashirev_i_monte_carlo/monte_carlo.h"
+#include "../../../modules/task_2/tashirev_i_monte_carlo/monte_carlo.h"
 
 double seqMonteCarlo(double(*f)(const std::vector<double>&),
                                 const std::vector<double>& a,
@@ -43,11 +42,8 @@ double ompMonteCarlo(double(*f)(const std::vector<double>&),
     if (steps <= 0)
         throw "integral is negative";
     double res = 0.0;
-    
     int mult = a.size();
-    
     std::vector<std::uniform_real_distribution<double>> r(mult);
-    
     for (int i = 0; i < mult; i++)
         r[i] = std::uniform_real_distribution<double>(a[i], b[i]);
     int num_th;
