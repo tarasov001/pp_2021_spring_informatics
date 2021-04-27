@@ -93,11 +93,11 @@ std::vector<Point> jarvisAlgorithmStd(const std::vector<Point>& points) {
 
     const int num_threads = std::thread::hardware_concurrency();
     int delta = count_points / num_threads;
-    std::vector<int> limits;
+    std::vector<int> limits(num_threads + 1);
     for (int i = 0; i < num_threads; i++) {
-        limits.push_back(i * delta);
+        limits[i] = i * delta;
     }
-    limits.push_back(count_points);
+    limits[num_threads] = count_points;
 
     Point base = points[0];
     auto base_point = [&points, &limits, &base] (int id_thread) -> const Point& {
