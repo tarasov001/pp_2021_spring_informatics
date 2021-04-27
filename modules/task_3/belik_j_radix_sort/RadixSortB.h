@@ -8,8 +8,8 @@
 
 void RadixSort(double* vec, size_t len, double* vec2);
 std::vector<double> Vector(long int n, double a, double b);
-std::vector<double> MergeBatcherPar(std::vector<double> vec, long int size, int thr);
-std::vector<double> MergeBatcherSeq(std::vector<double> vec, long int size, int thr);
+std::vector<double> MergeBatcherPar(std::vector<double> vec, size_t size, int thr);
+std::vector<double> MergeBatcherSeq(std::vector<double> vec, size_t size, int thr);
 void Shuffle(double* vec, size_t len, double* vec2);
 void PMerge(double* start1, double* start2, double* start3, size_t len1, size_t len2);
 
@@ -17,11 +17,11 @@ class tbb_radixsort {
 private:
     double *in;
     double *out;
-    std::vector<int> offsets;
-    std::vector<int> lens;
+    std::vector<size_t> offsets;
+    std::vector<size_t> lens;
 
 public:
-    tbb_radixsort(double *in_, double *out_, const std::vector<int>& offsets_, const std::vector<int>& lens_) {
+    tbb_radixsort(double *in_, double *out_, const std::vector<size_t>& offsets_, const std::vector<size_t>& lens_) {
         in = in_;
         out = out_;
         offsets = offsets_;
@@ -36,14 +36,14 @@ class tbb_pmerge {
 private:
     double *in;
     double *out;
-    std::vector<int> offsets;
-    std::vector<int> lens;
+    std::vector<size_t> offsets;
+    std::vector<size_t> lens;
     int mergecount;
     int offset;
     int thr;
 
 public:
-    tbb_pmerge(double *in_, double *out_, const std::vector<int>& offsets_, const std::vector<int>& lens_, int mergecount_, int offset_, int thr_) {
+    tbb_pmerge(double *in_, double *out_, const std::vector<size_t>& offsets_, const std::vector<size_t>& lens_, int mergecount_, int offset_, int thr_) {
         in = in_;
         out = out_;
         offsets = offsets_;
@@ -71,13 +71,13 @@ class tbb_ppmerge {
 private:
     double *in;
     double *out;
-    std::vector<int> offsets;
-    std::vector<int> lens;
+    std::vector<size_t> offsets;
+    std::vector<size_t> lens;
     int mergecount;
     int offset;
     int thr;
 public:
-    tbb_ppmerge(double *in_, double *out_, const std::vector<int>& offsets_, const std::vector<int>& lens_, int mergecount_, int offset_, int thr_) {
+    tbb_ppmerge(double *in_, double *out_, const std::vector<size_t>& offsets_, const std::vector<size_t>& lens_, int mergecount_, int offset_, int thr_) {
         in = in_;
         out = out_;
         offsets = offsets_;
@@ -99,10 +99,10 @@ class tbb_shuffle {
 private:
     double *in;
     double *out;
-    std::vector<int> offsets;
-    std::vector<int> lens;
+    std::vector<size_t> offsets;
+    std::vector<size_t> lens;
 public:
-    tbb_shuffle(double *in_, double *out_, const std::vector<int>& offsets_, const std::vector<int>& lens_) {
+    tbb_shuffle(double *in_, double *out_, const std::vector<size_t>& offsets_, const std::vector<size_t>& lens_) {
         in = in_;
         out = out_;
         offsets = offsets_;
@@ -119,13 +119,13 @@ class tbb_sshuffle {
 private:
     double *in;
     double *out;
-    std::vector<int> offsets;
-    std::vector<int> lens;
+    std::vector<size_t> offsets;
+    std::vector<size_t> lens;
     int mergecount;
     int offset;
     int thr;
 public:
-    tbb_sshuffle(double *in_, double *out_, const std::vector<int>& offsets_, const std::vector<int>& lens_, int mergecount_, int offset_, int thr_) {
+    tbb_sshuffle(double *in_, double *out_, const std::vector<size_t>& offsets_, const std::vector<size_t>& lens_, int mergecount_, int offset_, int thr_) {
         in = in_;
         out = out_;
         offsets = offsets_;
