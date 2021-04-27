@@ -1,9 +1,9 @@
 // Copyright 2021 Tashirev Ivan
 #include <gtest/gtest.h>
-#include <vector>
-#include <cmath>
 #include <omp.h>
-#include "./monte_carlo.h"
+#include <cmath>
+#include <vector>
+#include "../../../modules/task_2/tashirev_i_monte_carlo/monte_carlo.h"
 
 double Integral_1(const std::vector<double>& x) {
     return x[0] * x[0];
