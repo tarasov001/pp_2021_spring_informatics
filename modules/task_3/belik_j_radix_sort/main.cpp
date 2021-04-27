@@ -3,8 +3,6 @@
 #include <vector>
 #include <numeric>
 #include <algorithm>
-#include <iostream>
-#include <omp.h>
 #include "./RadixSortB.h"
 
 TEST(Radix_Sort_Merge_Batcher, Test_Sort) {

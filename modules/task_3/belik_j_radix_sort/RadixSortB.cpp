@@ -41,8 +41,7 @@ void RadixSort(double* vec, size_t len, double* vec2) {
     for (size_t i = 0; i < len; i++) {
         if (bvec[8 * i + 7] >= 128) {
             vec2[offset[bvec[8 * i + 7]]--] = vec1[i];
-        }
-        else {
+        } else {
             vec2[offset[bvec[8 * i + 7]]++] = vec1[i];
         }
     }
@@ -144,7 +143,7 @@ std::vector<double> MergeBatcherSeq(std::vector<double> vec, size_t size, int th
     for (int j = 0; j < thr; j++)
         lens[j] = len;
     lens[thr - 1] += size % thr;
-    long int* offsets = new long int[thr];
+    size_t* offsets = new size_t[thr];
     offsets[0] = 0;
     for (int j = 1; j < thr; j++)
         offsets[j] = offsets[j - 1] + lens[j - 1];
@@ -152,11 +151,12 @@ std::vector<double> MergeBatcherSeq(std::vector<double> vec, size_t size, int th
     double* reztmp = new double[size];
     for (int i = 0; i < thr; i++) {
         RadixSort(vectmp + offsets[i], lens[i], reztmp + offsets[i]);
-        if (thr > 1)
+        if (thr > 1) {
             Shuffle(reztmp + offsets[i], lens[i], vectmp + offsets[i]);
-        else
+        } else {
             for (size_t j = 0; j < lens[i]; j++)
                 vectmp[offsets[i] + j] = reztmp[offsets[i] + j];
+        }
     }
     int nt = thr;
     int mergecount = 2, offset = 1;
@@ -173,7 +173,8 @@ std::vector<double> MergeBatcherSeq(std::vector<double> vec, size_t size, int th
                 PMerge(vectmp + offsets[i], vectmp + offsets[i + offset], reztmp + offsets[i], len1, len2);
             }
             if ((i - offset >= 0) && ((i - offset) % mergecount == 0)) {
-                size_t start3 = offsets[i - offset] + lens[i - offset] / 2 + lens[i - offset] % 2 + lens[i] / 2 + lens[i] % 2;
+                size_t start3 = offsets[i - offset] + lens[i - offset] / 2 + lens[i - offset] % 2
+                    + lens[i] / 2 + lens[i] % 2;
                 size_t start1 = offsets[i - offset] + lens[i - offset] / 2 + lens[i - offset] % 2;
                 size_t start2 = offsets[i] + lens[i] / 2 + lens[i] % 2;
                 PMerge(vectmp + start1, vectmp + start2, reztmp + start3, lens[i - offset] / 2, lens[i] / 2);
@@ -192,7 +193,7 @@ std::vector<double> MergeBatcherSeq(std::vector<double> vec, size_t size, int th
             }
         }
         if (h != nummerge - 1) {
-            for (int j = 0; j < size; j++)
+            for (size_t j = 0; j < size; j++)
                 vectmp[j] = reztmp[j];
         }
         nt /= 2;

@@ -43,7 +43,8 @@ private:
     int thr;
 
 public:
-    tbb_pmerge(double *in_, double *out_, const std::vector<size_t>& offsets_, const std::vector<size_t>& lens_, int mergecount_, int offset_, int thr_) {
+    tbb_pmerge(double *in_, double *out_, const std::vector<size_t>& offsets_, const std::vector<size_t>& lens_,
+        int mergecount_, int offset_, int thr_) {
         in = in_;
         out = out_;
         offsets = offsets_;
@@ -56,11 +57,14 @@ public:
         if ((range.begin() % mergecount == 0) && (range.begin() + offset < thr)) {
             size_t len1 = lens[range.begin()] / 2 + lens[range.begin()] % 2;
             size_t len2 = lens[range.begin() + offset] / 2 + lens[range.begin() + offset] % 2;
-            PMerge(in + offsets[range.begin()], in + offsets[range.begin() + offset], out + offsets[range.begin()], len1, len2);
+            PMerge(in + offsets[range.begin()], in + offsets[range.begin() + offset],
+                out + offsets[range.begin()], len1, len2);
         }
         if ((range.begin() - offset >= 0) && ((range.begin() - offset) % mergecount == 0)) {
-            size_t start3 = offsets[range.begin() - offset] + lens[range.begin() - offset] / 2 + lens[range.begin() - offset] % 2 + lens[range.begin()] / 2 + lens[range.begin()] % 2;
-            size_t start1 = offsets[range.begin() - offset] + lens[range.begin() - offset] / 2 + lens[range.begin() - offset] % 2;
+            size_t start3 = offsets[range.begin() - offset] + lens[range.begin() - offset] / 2
+                + lens[range.begin() - offset] % 2 + lens[range.begin()] / 2 + lens[range.begin()] % 2;
+            size_t start1 = offsets[range.begin() - offset] + lens[range.begin() - offset] / 2
+                + lens[range.begin() - offset] % 2;
             size_t start2 = offsets[range.begin()] + lens[range.begin()] / 2 + lens[range.begin()] % 2;
             PMerge(in + start1, in + start2, out + start3, lens[range.begin() - offset] / 2, lens[range.begin()] / 2);
         }
@@ -76,8 +80,10 @@ private:
     int mergecount;
     int offset;
     int thr;
+
 public:
-    tbb_ppmerge(double *in_, double *out_, const std::vector<size_t>& offsets_, const std::vector<size_t>& lens_, int mergecount_, int offset_, int thr_) {
+    tbb_ppmerge(double *in_, double *out_, const std::vector<size_t>& offsets_, const std::vector<size_t>& lens_,
+        int mergecount_, int offset_, int thr_) {
         in = in_;
         out = out_;
         offsets = offsets_;
@@ -88,9 +94,11 @@ public:
     }
     void operator() (const tbb::blocked_range<int> &range) const {
         if ((range.begin() % mergecount == 0) && (range.begin() + offset < thr)) {
-            size_t evencount = lens[range.begin()] / 2 + lens[range.begin() + offset] / 2 + lens[range.begin()] % 2 + lens[range.begin() + offset] % 2;
+            size_t evencount = lens[range.begin()] / 2 + lens[range.begin() + offset] / 2 + lens[range.begin()] % 2
+                + lens[range.begin() + offset] % 2;
             size_t oddcount = lens[range.begin()] / 2 + lens[range.begin() + offset] / 2;
-            PMerge(in + offsets[range.begin()], in + offsets[range.begin()] + evencount, out + offsets[range.begin()], evencount, oddcount);
+            PMerge(in + offsets[range.begin()], in + offsets[range.begin()] + evencount, out + offsets[range.begin()],
+                evencount, oddcount);
         }
     }
 };
@@ -101,6 +109,7 @@ private:
     double *out;
     std::vector<size_t> offsets;
     std::vector<size_t> lens;
+
 public:
     tbb_shuffle(double *in_, double *out_, const std::vector<size_t>& offsets_, const std::vector<size_t>& lens_) {
         in = in_;
@@ -124,8 +133,10 @@ private:
     int mergecount;
     int offset;
     int thr;
+
 public:
-    tbb_sshuffle(double *in_, double *out_, const std::vector<size_t>& offsets_, const std::vector<size_t>& lens_, int mergecount_, int offset_, int thr_) {
+    tbb_sshuffle(double *in_, double *out_, const std::vector<size_t>& offsets_, const std::vector<size_t>& lens_,
+        int mergecount_, int offset_, int thr_) {
         in = in_;
         out = out_;
         offsets = offsets_;
