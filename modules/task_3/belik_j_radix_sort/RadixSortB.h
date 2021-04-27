@@ -2,9 +2,10 @@
 #ifndef MODULES_TASK_3_BELIK_J_RADIX_SORT_RADIXSORTB_H_
 #define MODULES_TASK_3_BELIK_J_RADIX_SORT_RADIXSORTB_H_
 
-#include <tbb/tbb.h>
 #include <vector>
 #include <iostream>
+#include "tbb/tbb.h"
+#include "tbb/parallel_for.h"
 
 void RadixSort(double* vec, size_t len, double* vec2);
 std::vector<double> Vector(size_t n, double a, double b);
