@@ -37,16 +37,9 @@ class tbb_pmerge {
     int offset;
     int thr;
  public:
-    tbb_pmerge(double *in_, double *out_, const std::vector<size_t>& offsets_, const std::vector<size_t>& lens_,
-        int mergecount_, int offset_, int thr_) {
-        in = in_;
-        out = out_;
-        offsets = offsets_;
-        lens = lens_;
-        mergecount = mergecount_;
-        offset = offset_;
-        thr = thr_;
-    }
+     tbb_pmerge(double *in_, double *out_, const std::vector<size_t>& offsets_, const std::vector<size_t>& lens_,
+         int mergecount_, int offset_, int thr_) : in(in_), out(out_), offsets(offsets_), lens(lens_),
+         mergecount(mergecount_), offset(offset_), thr(thr_) {}
     void operator() (const tbb::blocked_range<int> &range) const {
         if ((range.begin() % mergecount == 0) && (range.begin() + offset < thr)) {
             size_t len1 = lens[range.begin()] / 2 + lens[range.begin()] % 2;
@@ -75,16 +68,9 @@ class tbb_ppmerge {
     int offset;
     int thr;
  public:
-    tbb_ppmerge(double *in_, double *out_, const std::vector<size_t>& offsets_, const std::vector<size_t>& lens_,
-        int mergecount_, int offset_, int thr_) {
-        in = in_;
-        out = out_;
-        offsets = offsets_;
-        lens = lens_;
-        mergecount = mergecount_;
-        offset = offset_;
-        thr = thr_;
-    }
+     tbb_ppmerge(double *in_, double *out_, const std::vector<size_t>& offsets_, const std::vector<size_t>& lens_,
+         int mergecount_, int offset_, int thr_) : in(in_), out(out_), offsets(offsets_), lens(lens_),
+         mergecount(mergecount_), offset(offset_), thr(thr_) {}
     void operator() (const tbb::blocked_range<int> &range) const {
         if ((range.begin() % mergecount == 0) && (range.begin() + offset < thr)) {
             size_t evencount = lens[range.begin()] / 2 + lens[range.begin() + offset] / 2 + lens[range.begin()] % 2
@@ -103,12 +89,8 @@ class tbb_shuffle {
     std::vector<size_t> offsets;
     std::vector<size_t> lens;
  public:
-    tbb_shuffle(double *in_, double *out_, const std::vector<size_t>& offsets_, const std::vector<size_t>& lens_) {
-        in = in_;
-        out = out_;
-        offsets = offsets_;
-        lens = lens_;
-    }
+    tbb_shuffle(double *in_, double *out_, const std::vector<size_t>& offsets_, const std::vector<size_t>& lens_)
+        : in(in_), out(out_), offsets(offsets_), lens(lens_) {}
     void operator() (const tbb::blocked_range<int> &range) const {
         if (lens[range.begin()] != 0) {
             Shuffle(in + offsets[range.begin()], lens[range.begin()], out + offsets[range.begin()]);
@@ -127,15 +109,8 @@ class tbb_sshuffle {
     int thr;
  public:
     tbb_sshuffle(double *in_, double *out_, const std::vector<size_t>& offsets_, const std::vector<size_t>& lens_,
-        int mergecount_, int offset_, int thr_) {
-        in = in_;
-        out = out_;
-        offsets = offsets_;
-        lens = lens_;
-        mergecount = mergecount_;
-        offset = offset_;
-        thr = thr_;
-    }
+        int mergecount_, int offset_, int thr_) : in(in_), out(out_), offsets(offsets_), lens(lens_),
+        mergecount(mergecount_), offset(offset_), thr(thr_) {}
     void operator() (const tbb::blocked_range<int> &range) const {
         if ((range.begin() % mergecount == 0) && (range.begin() + offset < thr)) {
             Shuffle(in + offsets[range.begin()], lens[range.begin()], out + offsets[range.begin()]);
