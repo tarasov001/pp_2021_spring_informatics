@@ -57,17 +57,17 @@ std::vector<double> Vector(long int n, double a, double b) {
         vec[i] = rand(gen);
     return vec;
 }
-std::vector<double> MergeBatcherPar(std::vector<double> vec, long int size, int thr) {
+std::vector<double> MergeBatcherPar(std::vector<double> vec, size_t size, int thr) {
     tbb::task_scheduler_init init(thr);
-    const long int len = size / thr;
-    std::vector<int> lens(thr);
+    const size_t len = size / thr;
+    std::vector<size_t> lens(thr);
     double* vectmp = new double[size];
     for (int j = 0; j < size; j++)
         vectmp[j] = vec[j];
     for (int j = 0; j < thr; j++)
         lens[j] = len;
     lens[thr - 1] += size % thr;
-    std::vector<int> offsets(thr);
+    std::vector<size_t> offsets(thr);
     offsets[0] = 0;
     for (int j = 1; j < thr; j++)
         offsets[j] = offsets[j - 1] + lens[j - 1];
@@ -114,8 +114,8 @@ std::vector<double> MergeBatcherPar(std::vector<double> vec, long int size, int 
     }
     for (int j = 0; j < size; j++)
         rez[j] = vectmp[j];
-    delete vectmp;
-    delete reztmp;
+    delete[] vectmp;
+    delete[] reztmp;
     return rez;
 }
 void Shuffle(double* vec, size_t len, double* vec2) {
@@ -135,9 +135,9 @@ void PMerge(double* start1, double* start2, double* start3, size_t len1, size_t 
     while (j < len2)
         start3[k++] = start2[j++];
 }
-std::vector<double> MergeBatcherSeq(std::vector<double> vec, long int size, int thr) {
-    const long int len = size / thr;
-    long int* lens = new long int[thr];
+std::vector<double> MergeBatcherSeq(std::vector<double> vec, size_t size, int thr) {
+    const size_t len = size / thr;
+    size_t* lens = new size_t[thr];
     double* vectmp = new double[size];
     for (int j = 0; j < size; j++)
         vectmp[j] = vec[j];
@@ -201,11 +201,11 @@ std::vector<double> MergeBatcherSeq(std::vector<double> vec, long int size, int 
         for (int j = 1; j < thr; j++)
             offsets[j] = offsets[j - 1] + lens[j - 1];
     }
-    delete lens;
-    delete offsets;
+    delete[] lens;
+    delete[] offsets;
     for (int j = 0; j < size; j++)
         vec[j] = vectmp[j];
-    delete vectmp;
-    delete reztmp;
+    delete[] vectmp;
+    delete[] reztmp;
     return vec;
 }
