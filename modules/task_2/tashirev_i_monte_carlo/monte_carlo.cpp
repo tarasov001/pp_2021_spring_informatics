@@ -47,7 +47,7 @@ double ompMonteCarlo(double(*f)(const std::vector<double>&),
     for (int i = 0; i < mult; i++)
         r[i] = std::uniform_real_distribution<double>(a[i], b[i]);
     int num_th;
-    #pragma omp parallel shared(r) reduction(+ : res) 
+    #pragma omp parallel shared(r) reduction(+ : res)
     {
         std::mt19937 gen;
         gen.seed(static_cast<unsigned int>(time(0)));
