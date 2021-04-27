@@ -14,13 +14,12 @@ void Shuffle(double* vec, size_t len, double* vec2);
 void PMerge(double* start1, double* start2, double* start3, size_t len1, size_t len2);
 
 class tbb_radixsort {
-private:
+ private:
     double *in;
     double *out;
     std::vector<size_t> offsets;
     std::vector<size_t> lens;
-
-public:
+ public:
     tbb_radixsort(double *in_, double *out_, const std::vector<size_t>& offsets_, const std::vector<size_t>& lens_) {
         in = in_;
         out = out_;
@@ -33,7 +32,7 @@ public:
 };
 
 class tbb_pmerge {
-private:
+ private:
     double *in;
     double *out;
     std::vector<size_t> offsets;
@@ -41,8 +40,7 @@ private:
     int mergecount;
     int offset;
     int thr;
-
-public:
+ public:
     tbb_pmerge(double *in_, double *out_, const std::vector<size_t>& offsets_, const std::vector<size_t>& lens_,
         int mergecount_, int offset_, int thr_) {
         in = in_;
@@ -72,7 +70,7 @@ public:
 };
 
 class tbb_ppmerge {
-private:
+ private:
     double *in;
     double *out;
     std::vector<size_t> offsets;
@@ -80,8 +78,7 @@ private:
     int mergecount;
     int offset;
     int thr;
-
-public:
+ public:
     tbb_ppmerge(double *in_, double *out_, const std::vector<size_t>& offsets_, const std::vector<size_t>& lens_,
         int mergecount_, int offset_, int thr_) {
         in = in_;
@@ -104,13 +101,12 @@ public:
 };
 
 class tbb_shuffle {
-private:
+ private:
     double *in;
     double *out;
     std::vector<size_t> offsets;
     std::vector<size_t> lens;
-
-public:
+ public:
     tbb_shuffle(double *in_, double *out_, const std::vector<size_t>& offsets_, const std::vector<size_t>& lens_) {
         in = in_;
         out = out_;
@@ -125,7 +121,7 @@ public:
 };
 
 class tbb_sshuffle {
-private:
+ private:
     double *in;
     double *out;
     std::vector<size_t> offsets;
@@ -133,8 +129,7 @@ private:
     int mergecount;
     int offset;
     int thr;
-
-public:
+ public:
     tbb_sshuffle(double *in_, double *out_, const std::vector<size_t>& offsets_, const std::vector<size_t>& lens_,
         int mergecount_, int offset_, int thr_) {
         in = in_;
