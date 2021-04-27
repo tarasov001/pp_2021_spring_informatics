@@ -37,6 +37,7 @@ class tbb_pmerge {
     int mergecount;
     int offset;
     int thr;
+
  public:
      tbb_pmerge(double *in_, double *out_, const std::vector<size_t>& offsets_, const std::vector<size_t>& lens_,
          int mergecount_, int offset_, int thr_) : in(in_), out(out_), offsets(offsets_), lens(lens_),
