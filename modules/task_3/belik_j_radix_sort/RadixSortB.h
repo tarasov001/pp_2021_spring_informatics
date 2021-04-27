@@ -20,12 +20,8 @@ class tbb_radixsort {
     std::vector<size_t> offsets;
     std::vector<size_t> lens;
  public:
-    tbb_radixsort(double *in_, double *out_, const std::vector<size_t>& offsets_, const std::vector<size_t>& lens_) {
-        in = in_;
-        out = out_;
-        offsets = offsets_;
-        lens = lens_;
-    }
+     tbb_radixsort(double *in_, double *out_, const std::vector<size_t>& offsets_,
+         const std::vector<size_t>& lens_) : in(in_), out(out_), offsets(offsets_), lens(lens_) {}
     void operator() (const tbb::blocked_range<int> &range) const {
         RadixSort(in + offsets[range.begin()], lens[range.begin()], out + offsets[range.begin()]);
     }
