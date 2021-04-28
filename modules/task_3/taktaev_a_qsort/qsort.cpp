@@ -72,8 +72,10 @@ void merge(double* a, int size_a, double* b, int size_b) {
 
 void qSortTbb(std::vector<double> *arr) {
     int size = static_cast<int>(arr->size());
-    int one_perc_arr_size = size / 100;
-    int grain_size = one_perc_arr_size > 4 ? one_perc_arr_size : 4;
+    int min_grain_size = 10;  // the less possible grain size
+    int divider = 3;  // the part of arr that can be a grain size
+    int part_arr_size = size / divider;
+    int grain_size = part_arr_size > min_grain_size ? part_arr_size : min_grain_size;
     tbb::parallel_for(tbb::blocked_range<int>(0, size, grain_size), [&arr](const tbb::blocked_range<int>& r) {
         qSortSeq(arr, r.begin(), r.end() - 1);
     });

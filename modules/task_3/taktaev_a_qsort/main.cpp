@@ -150,21 +150,19 @@ TEST(QSort_TBB, Test_Index_Overlap_Exception) {
 }
 
 /*TEST(QSort_TBB, Test_Time) {
-    int n = 1300000;
+    int n = 3000000;
     double start = 0, finish = 0, time_seq = 0, time_par = 0;
-    int n_thr = 6;  // thread num
     std::vector<double> vec = createRandomVector(n);
     std::vector<double> vec_copy = vec;
-    omp_set_num_threads(n_thr);
-    start = omp_get_wtime();
+    tbb::tick_count t1_seq = tbb::tick_count::now();
     qSortSeq(&vec, 0, n - 1);
-    finish = omp_get_wtime();
-    time_seq = finish - start;
+    tbb::tick_count t2_seq = tbb::tick_count::now();
+    time_seq = (t2_seq - t1_seq).seconds();
     std::cout << "Time sequential: " << time_seq << std::endl;
-    start = omp_get_wtime();
-    qSortOmp(&vec_copy);
-    finish = omp_get_wtime();
-    time_par = finish - start;
+    tbb::tick_count t1_par = tbb::tick_count::now();
+    qSortTbb(&vec_copy);
+    tbb::tick_count t2_par = tbb::tick_count::now();
+    time_par = (t2_par - t1_par).seconds();
     std::cout << "Time parallel: " << time_par << std::endl;
     std::cout << "Acceleration " << time_seq / time_par << std::endl;
 
