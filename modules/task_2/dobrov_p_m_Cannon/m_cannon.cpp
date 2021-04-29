@@ -55,8 +55,7 @@ std::vector<double> parMulti(const std::vector<double> &A, const std::vector<dou
     int q = static_cast<int>(std::sqrt(omp_get_max_threads()));
     int blockSize = n / q + n % q;
 
-    #pragma omp parallel {	
-
+#pragma omp parallel {	
     int threadNum = omp_get_thread_num();
     int jStart = (threadNum / q) * blockSize;
     int jEnd = std::min(jStart + blockSize, n);
@@ -73,6 +72,5 @@ std::vector<double> parMulti(const std::vector<double> &A, const std::vector<dou
     }
 
     }
-
     return C;
 }
