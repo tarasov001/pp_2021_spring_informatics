@@ -55,22 +55,23 @@ std::vector<double> parMulti(const std::vector<double> &A, const std::vector<dou
     int q = static_cast<int>(std::sqrt(omp_get_max_threads()));
     int blockSize = n / q + n % q;
 
-#pragma omp parallel {
-    int threadNum = omp_get_thread_num();
-    int jStart = (threadNum / q) * blockSize;
-    int jEnd = std::min(jStart + blockSize, n);
+#pragma omp parallel 
+    {
+        int threadNum = omp_get_thread_num();
+        int jStart = (threadNum / q) * blockSize;
+        int jEnd = std::min(jStart + blockSize, n);
 
-    int iStart = (threadNum % q) * blockSize;
-    int iEnd = std::min(iStart + blockSize, n);
+        int iStart = (threadNum % q) * blockSize;
+        int iEnd = std::min(iStart + blockSize, n);
 
-    for (int j = jStart; j < jEnd; j++) {
-        for (int i = iStart; i < iEnd; i++) {
-            for (int k = 0; k < n; k++) {
-                C[j * n + i] += A[j * n + k] * B[k * n + i];
+        for (int j = jStart; j < jEnd; j++) {
+            for (int i = iStart; i < iEnd; i++) {
+                for (int k = 0; k < n; k++) {
+                    C[j * n + i] += A[j * n + k] * B[k * n + i];
+                }
             }
         }
     }
-}
 
     return C;
 }
