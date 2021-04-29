@@ -2,28 +2,43 @@
 #include <tbb/tick_count.h>
 #include "../../../modules/task_3/pronkin_d_gaussian_filter/gaussian_filter.h"
 
-TEST(TBB, JustTest) {
-    std::vector<double> image = getRandomImage(12000, 12000);
-    tbb::tick_count start, end;
-    std::vector<double> test;
-    std::vector<double> res;
-    start = tbb::tick_count::now();
-    //for (int i = 0; i < 5; i++)
-        test = seqGaussianFilter(image, 12000, 12000, 1.0);
-    end = tbb::tick_count::now();
-    std::cout << "Seq time: " << (end - start).seconds() << "\n";
-    start = tbb::tick_count::now();
-    //for (int i = 0; i < 5; i++)
-        res = parGaussianFilter(image, 12000, 12000, 1.0);
-    end = tbb::tick_count::now();
-    std::cout << "Par time: " << (end - start).seconds() << "\n";
-    ASSERT_EQ(test, res);
+TEST(GaussianFilter, Image_256_256) {
+    int height = 256, width = 256;
+    std::vector<double> image = getRandomImage(height, width);
+    std::vector<double> test = seqGaussianFilter(image, height, width, 1.0);
+    std::vector<double> img = parGaussianFilter(image, height, width, 1.0);
+    ASSERT_EQ(test, img);
 }
 
-TEST(TBB, DISABLED_Just) {
-    std::vector<double> image = getRandomImage(1000, 1000);
-    std::vector<double> test = seqGaussianFilter(image, 1000, 1000, 1.0);
-    std::vector<double> img = parGaussianFilter(image, 1000, 1000, 1.0);
+TEST(GaussianFilter, Image_113_113) {
+    int height = 113, width = 113;
+    std::vector<double> image = getRandomImage(height, width);
+    std::vector<double> test = seqGaussianFilter(image, height, width, 1.0);
+    std::vector<double> img = parGaussianFilter(image, height, width, 1.0);
+    ASSERT_EQ(test, img);
+}
+
+TEST(GaussianFilter, Image_257_1) {
+    int height = 257, width = 1;
+    std::vector<double> image = getRandomImage(height, width);
+    std::vector<double> test = seqGaussianFilter(image, height, width, 1.0);
+    std::vector<double> img = parGaussianFilter(image, height, width, 1.0);
+    ASSERT_EQ(test, img);
+}
+
+TEST(GaussianFilter, Image_1_257) {
+    int height = 1, width = 257;
+    std::vector<double> image = getRandomImage(height, width);
+    std::vector<double> test = seqGaussianFilter(image, height, width, 1.0);
+    std::vector<double> img = parGaussianFilter(image, height, width, 1.0);
+    ASSERT_EQ(test, img);
+}
+
+TEST(GaussianFilter, Image_1080_1920) {
+    int height = 1080, width = 1920;
+    std::vector<double> image = getRandomImage(height, width);
+    std::vector<double> test = seqGaussianFilter(image, height, width, 1.0);
+    std::vector<double> img = parGaussianFilter(image, height, width, 1.0);
     ASSERT_EQ(test, img);
 }
 

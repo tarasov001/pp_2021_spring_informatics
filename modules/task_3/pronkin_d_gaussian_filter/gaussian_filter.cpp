@@ -45,13 +45,11 @@ std::vector<double> seqGaussianFilter(const std::vector<double>& image, int heig
     std::vector<double> result(height * width);
     for (int y = 1; y < height - 1; y++) {
         for (int x = 1; x < width - 1; x++) {
-            double pixel = 0.0;
             for (int j = -1; j <= 1; j++) {
                 for (int i = -1; i <= 1; i++) {
-                    pixel += image[(y + j) * width + (x + i)] * KERNEL[(j + 1) * 3 + (i + 1)];
+                    result[y * width + x] += image[(y + j) * width + (x + i)] * KERNEL[(j + 1) * 3 + (i + 1)];
                 }
             }
-            result[y * width + x] = pixel;
         }
     }
     return result;
