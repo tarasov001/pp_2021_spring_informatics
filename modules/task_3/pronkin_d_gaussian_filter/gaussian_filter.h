@@ -6,7 +6,6 @@
 
 #include <tbb/parallel_for.h>
 #include <tbb/blocked_range2d.h>
-#include <tbb/task_scheduler_init.h>
 #include <limits.h>
 #include <vector>
 #include <stdexcept>

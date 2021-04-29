@@ -1,3 +1,4 @@
+// Copyright 2021 Pronkin Dmitry
 #include <gtest/gtest.h>
 #include <tbb/tick_count.h>
 #include "../../../modules/task_3/pronkin_d_gaussian_filter/gaussian_filter.h"

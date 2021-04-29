@@ -1,6 +1,5 @@
 // Copyright 2021 Pronkin Dmitry
 #include "../../../modules/task_3/pronkin_d_gaussian_filter/gaussian_filter.h"
-#include <tbb/tbb_thread.h>
 
 std::vector<double> getRandomImage(int height, int width) {
     if (height <= 0 || width <= 0) {
@@ -81,7 +80,6 @@ std::vector<double> parGaussianFilter(const std::vector<double>& image, int heig
                     result[y * width + x] = pixel;
                 }
             }
-        }
-    );
+        });
     return result;
 }
